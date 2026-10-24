@@ -138,6 +138,13 @@
         </h1>
       </header>
 
+      <!-- Indikator Tema Carousel -->
+      <div id="themeIndicator" class="text-center font-mono text-[11px] sm:text-xs text-navy-dark/80 font-medium tracking-wide mb-3 flex items-center justify-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full bg-white/70 border border-slate-200/80 shadow-xs">
+          <span id="themeIndexText">1/3</span> <span id="themeNameText" class="font-semibold text-navy-dark">Classic White</span>
+        </span>
+      </div>
+
       <!-- Carousel Area: Panah Kiri - Struk - Panah Kanan -->
       <div class="w-full flex items-center justify-center gap-2 sm:gap-3.5 mb-6 sm:mb-7">
         <!-- Panah Kiri -->
@@ -153,43 +160,49 @@
         </button>
 
         <!-- Preview Struk Belanja -->
-        <div class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3.5 px-3 flex flex-col items-center text-navy-dark">
+        <div id="previewReceiptCard" class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3.5 px-3 flex flex-col items-center text-navy-dark transition-all duration-200">
           <div class="text-center mb-2">
-            <h2 class="font-serif italic leading-none text-navy-dark">
+            <h2 class="font-serif italic leading-none receipt-header-title">
               <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
               <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
             </h2>
           </div>
 
-          <div class="w-full font-mono text-[7px] sm:text-[8px] text-slate-400 space-y-0.5 mb-2.5 leading-tight tracking-tight uppercase">
+          <div class="w-full font-mono text-[7px] sm:text-[8px] receipt-items space-y-0.5 mb-2 leading-tight tracking-tight uppercase">
             <div class="flex justify-between"><span>FRENCH FRIES</span><span>22.000</span></div>
             <div class="flex justify-between"><span>MATCHA LATTE</span><span>17.000</span></div>
             <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
           </div>
 
-          <!-- Grid 2x2 Placeholder Biru Frame -->
-          <div class="w-full grid grid-cols-2 gap-1.5 mb-2.5">
-            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
-              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">1</span>
-              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+          <!-- Garis Pembatas Putus-putus Atas -->
+          <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+
+          <!-- Grid 2x2 Placeholder Frame -->
+          <div class="w-full grid grid-cols-2 gap-1.5 my-1.5">
+            <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm transition-colors duration-200">
+              <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">1</span>
+              <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
             </div>
-            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
-              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">2</span>
-              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm transition-colors duration-200">
+              <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">2</span>
+              <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
             </div>
-            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
-              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">3</span>
-              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm transition-colors duration-200">
+              <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">3</span>
+              <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
             </div>
-            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
-              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">4</span>
-              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm transition-colors duration-200">
+              <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">4</span>
+              <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
             </div>
           </div>
 
-          <div class="text-center font-mono text-[6px] sm:text-[7px] text-slate-400 tracking-wider uppercase leading-tight pt-0.5">
-            <p>- WE'RE HOPING TO SEE YOU AGAIN -</p>
-            <p class="font-bold tracking-widest mt-0.5">~OUR RECEIPT~</p>
+          <!-- Garis Pembatas Putus-putus Bawah -->
+          <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+
+          <div class="text-center font-mono text-[6px] sm:text-[7px] receipt-footer tracking-wider uppercase leading-tight pt-0.5">
+            <p class="receipt-footer-sub text-slate-400">- WE'RE HOPING TO SEE YOU AGAIN -</p>
+            <p class="font-bold tracking-widest mt-0.5 receipt-footer-main">~OUR RECEIPT~</p>
           </div>
         </div>
 
@@ -331,54 +344,60 @@
       </header>
 
       <!-- 2. Area Tinjau Foto (Struk Belanja dengan 4 Foto Nyata) -->
-      <div id="receiptCard" class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2.5 sm:px-3 flex flex-col items-center text-navy-dark mb-4">
+      <div id="receiptCard" class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2.5 sm:px-3 flex flex-col items-center text-navy-dark mb-4 transition-all duration-200">
         
         <!-- Header Struk -->
         <div class="text-center mb-1.5">
-          <h2 class="font-serif italic leading-none text-navy-dark">
+          <h2 class="font-serif italic leading-none receipt-header-title">
             <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
             <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
           </h2>
         </div>
 
         <!-- Rincian Teks Kecil Struk -->
-        <div class="w-full font-mono text-[7px] sm:text-[8px] text-slate-400 space-y-0.5 mb-2 leading-tight tracking-tight uppercase">
+        <div class="w-full font-mono text-[7px] sm:text-[8px] receipt-items space-y-0.5 mb-1.5 leading-tight tracking-tight uppercase">
           <div class="flex justify-between"><span>FRENCH FRIES</span><span>22.000</span></div>
           <div class="flex justify-between"><span>MATCHA LATTE</span><span>17.000</span></div>
           <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
         </div>
 
+        <!-- Garis Pembatas Putus-putus Atas -->
+        <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+
         <!-- 2x2 Grid Foto Hasil Jepretan Nyata -->
-        <div class="w-full grid grid-cols-2 gap-1.5 mb-2">
+        <div class="w-full grid grid-cols-2 gap-1.5 my-1">
           <!-- Foto 1 -->
           <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
             <img id="resultImg0" src="" alt="Pose 1" class="w-full h-full object-cover">
-            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">1</span>
+            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">1</span>
           </div>
 
           <!-- Foto 2 -->
           <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
             <img id="resultImg1" src="" alt="Pose 2" class="w-full h-full object-cover">
-            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">2</span>
+            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">2</span>
           </div>
 
           <!-- Foto 3 -->
           <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
             <img id="resultImg2" src="" alt="Pose 3" class="w-full h-full object-cover">
-            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">3</span>
+            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">3</span>
           </div>
 
           <!-- Foto 4 -->
           <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
             <img id="resultImg3" src="" alt="Pose 4" class="w-full h-full object-cover">
-            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">4</span>
+            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">4</span>
           </div>
         </div>
 
+        <!-- Garis Pembatas Putus-putus Bawah -->
+        <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+
         <!-- Footer Struk -->
-        <div class="text-center font-mono text-[6px] sm:text-[7px] text-slate-400 tracking-wider uppercase leading-tight pt-0.5">
-          <p>- WE'RE HOPING TO SEE YOU AGAIN -</p>
-          <p class="font-bold tracking-widest mt-0.5">~OUR RECEIPT~</p>
+        <div class="text-center font-mono text-[6px] sm:text-[7px] receipt-footer tracking-wider uppercase leading-tight pt-0.5">
+          <p class="receipt-footer-sub text-slate-400">- WE'RE HOPING TO SEE YOU AGAIN -</p>
+          <p class="font-bold tracking-widest mt-0.5 receipt-footer-main">~OUR RECEIPT~</p>
         </div>
       </div>
 
@@ -416,6 +435,59 @@
   <!-- JAVASCRIPT LOGIC (Client-Side Vanilla JS)                  -->
   <!-- ========================================================= -->
   <script>
+    // =========================================================
+    // FITUR 2: PRESET TEMA FRAME & STATE
+    // =========================================================
+    const FRAME_THEMES = [
+      {
+        id: 'classic_white',
+        name: 'Classic White Receipt',
+        shortName: 'Classic White',
+        bg: '#FFFFFF',
+        border: '#E2E8F0',
+        textPrimary: '#0F172A',
+        textSecondary: '#64748B',
+        accent: '#2563EB',
+        dashedLine: '#CBD5E1',
+        numberCircleBg: 'rgba(255, 255, 255, 0.92)',
+        numberCircleText: '#0F172A',
+        pillBg: 'rgba(255, 255, 255, 0.95)',
+        pillText: '#2563EB'
+      },
+      {
+        id: 'midnight_dark',
+        name: 'Midnight Dark Receipt',
+        shortName: 'Midnight Dark',
+        bg: '#0F172A',
+        border: '#334155',
+        textPrimary: '#F8FAFC',
+        textSecondary: '#94A3B8',
+        accent: '#F472B6',
+        dashedLine: '#475569',
+        numberCircleBg: 'rgba(30, 41, 59, 0.92)',
+        numberCircleText: '#F8FAFC',
+        pillBg: 'rgba(30, 41, 59, 0.95)',
+        pillText: '#F472B6'
+      },
+      {
+        id: 'sweet_pink',
+        name: 'Sweet Pink Tartan',
+        shortName: 'Sweet Pink',
+        bg: '#FDF2F8',
+        border: '#FBCFE8',
+        textPrimary: '#831843',
+        textSecondary: '#BE185D',
+        accent: '#EC4899',
+        dashedLine: '#F9A8D4',
+        numberCircleBg: 'rgba(253, 242, 248, 0.92)',
+        numberCircleText: '#831843',
+        pillBg: 'rgba(253, 242, 248, 0.95)',
+        pillText: '#EC4899'
+      }
+    ];
+
+    let selectedThemeIndex = 0;
+
     // State Aplikasi
     let mediaStream = null;
     let capturedPhotos = [];
@@ -434,6 +506,13 @@
     const btnShutter = document.getElementById('btnShutter');
     const btnRetake = document.getElementById('btnRetake');
     const btnDownload = document.getElementById('btnDownload');
+    const btnPrevFrame = document.getElementById('btnPrevFrame');
+    const btnNextFrame = document.getElementById('btnNextFrame');
+
+    const previewReceiptCard = document.getElementById('previewReceiptCard');
+    const receiptCard = document.getElementById('receiptCard');
+    const themeIndexText = document.getElementById('themeIndexText');
+    const themeNameText = document.getElementById('themeNameText');
 
     const video = document.getElementById('webcamVideo');
     const hiddenCanvas = document.getElementById('hiddenCanvas');
@@ -442,6 +521,165 @@
     const flashOverlay = document.getElementById('flashOverlay');
     const frameCounter = document.getElementById('frameCounter');
     const takePhotoHeader = document.getElementById('takePhotoHeader');
+
+    // =========================================================
+    // FITUR 1: SISTEM AUDIO WEBCAM (Web Audio API)
+    // =========================================================
+    let audioCtx = null;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // 1. Beep countdown (880Hz detik 3 & 2, 1760Hz detik 1)
+    function playCountdownBeep(isFinal = false) {
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(isFinal ? 1760 : 880, now);
+
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.12);
+      } catch (e) {
+        console.warn('Audio beep error:', e);
+      }
+    }
+
+    // 2. Suara klik/shutter kamera mekanik (Noise burst + click drop)
+    function playShutterSound() {
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+
+        // Part A: Noise burst singkat (~40ms) gesekan mekanis
+        const bufferSize = Math.floor(audioCtx.sampleRate * 0.045);
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+
+        const noiseFilter = audioCtx.createBiquadFilter();
+        noiseFilter.type = 'bandpass';
+        noiseFilter.frequency.setValueAtTime(1800, now);
+        noiseFilter.Q.setValueAtTime(2.5, now);
+
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.4, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.045);
+
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
+        noise.start(now);
+
+        // Part B: Low-frequency click drop (impact cermin & shutter)
+        const osc = audioCtx.createOscillator();
+        const oscGain = audioCtx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(320, now);
+        osc.frequency.exponentialRampToValueAtTime(35, now + 0.06);
+
+        oscGain.gain.setValueAtTime(0.45, now);
+        oscGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+
+        osc.connect(oscGain);
+        oscGain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.06);
+
+        // Part C: Secondary closing click (~40ms setelahnya)
+        const osc2 = audioCtx.createOscillator();
+        const oscGain2 = audioCtx.createGain();
+
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(240, now + 0.04);
+        osc2.frequency.exponentialRampToValueAtTime(45, now + 0.085);
+
+        oscGain2.gain.setValueAtTime(0, now);
+        oscGain2.gain.setValueAtTime(0.3, now + 0.04);
+        oscGain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
+
+        osc2.connect(oscGain2);
+        oscGain2.connect(audioCtx.destination);
+        osc2.start(now + 0.04);
+        osc2.stop(now + 0.085);
+      } catch (e) {
+        console.warn('Audio shutter error:', e);
+      }
+    }
+
+    // =========================================================
+    // FITUR 2 & 3: TEMA STRUK & CAROUSEL HELPER
+    // =========================================================
+    function applyThemeToReceipt(theme, cardElement) {
+      if (!cardElement) return;
+
+      cardElement.style.backgroundColor = theme.bg;
+      cardElement.style.borderColor = theme.border;
+      cardElement.style.color = theme.textPrimary;
+
+      const headers = cardElement.querySelectorAll('.receipt-header-title');
+      headers.forEach(h => h.style.color = theme.textPrimary);
+
+      const items = cardElement.querySelectorAll('.receipt-items');
+      items.forEach(it => it.style.color = theme.textSecondary);
+
+      const dividers = cardElement.querySelectorAll('.receipt-divider');
+      dividers.forEach(div => div.style.borderColor = theme.dashedLine);
+
+      const placeholders = cardElement.querySelectorAll('.receipt-placeholder');
+      placeholders.forEach(p => p.style.backgroundColor = theme.accent);
+
+      const numBadges = cardElement.querySelectorAll('.receipt-num-badge');
+      numBadges.forEach(badge => {
+        badge.style.backgroundColor = theme.numberCircleBg;
+        badge.style.color = theme.numberCircleText;
+      });
+
+      const pillBadges = cardElement.querySelectorAll('.receipt-pill-badge');
+      pillBadges.forEach(pill => {
+        pill.style.backgroundColor = theme.pillBg;
+        pill.style.color = theme.pillText;
+      });
+
+      const footerSubs = cardElement.querySelectorAll('.receipt-footer-sub');
+      footerSubs.forEach(fs => fs.style.color = theme.textSecondary);
+
+      const footerMains = cardElement.querySelectorAll('.receipt-footer-main');
+      footerMains.forEach(fm => fm.style.color = theme.textPrimary);
+    }
+
+    function updateThemeCarousel() {
+      const theme = FRAME_THEMES[selectedThemeIndex];
+      if (themeIndexText) themeIndexText.textContent = `${selectedThemeIndex + 1}/${FRAME_THEMES.length}`;
+      if (themeNameText) themeNameText.textContent = theme.shortName;
+      applyThemeToReceipt(theme, previewReceiptCard);
+    }
 
     // 1. Fungsi Navigasi Layar
     function showScreen(name) {
@@ -518,6 +756,7 @@
 
     // Jepret Foto Tunggal ke Canvas dengan Cropping Presisi 3:4 Sesuai Viewfinder
     function snapPhoto() {
+      playShutterSound();
       triggerFlash();
 
       const vw = video.videoWidth || 640;
@@ -595,6 +834,9 @@
         let current = seconds;
         countdownText.textContent = current;
 
+        // Beep untuk detik pertama
+        playCountdownBeep(current === 1);
+
         // Picu animasi
         countdownText.classList.remove('animate-count-pop');
         void countdownText.offsetWidth;
@@ -604,6 +846,9 @@
           current--;
           if (current > 0) {
             countdownText.textContent = current;
+            // Beep untuk detik 2 (880Hz) dan detik 1 (1760Hz - isFinal)
+            playCountdownBeep(current === 1);
+
             countdownText.classList.remove('animate-count-pop');
             void countdownText.offsetWidth;
             countdownText.classList.add('animate-count-pop');
@@ -659,6 +904,8 @@
           img.src = capturedPhotos[i];
         }
       }
+      // Terapkan tema yang dipilih ke struk hasil
+      applyThemeToReceipt(FRAME_THEMES[selectedThemeIndex], receiptCard);
     }
 
     // Helper untuk menjaga aspek rasio cover pada canvas
@@ -680,7 +927,7 @@
       ctx.drawImage(img, cx, cy, cw, ch, x, y, w, h);
     }
 
-    // 4. Rendering Hasil & Unduhan (Download Gambar Resolusi Tinggi 1200 x 2000 px)
+    // 4. Rendering Hasil & Unduhan (Download Gambar Resolusi Tinggi 1200 x 2000 px dengan Tema Terpilih)
     async function downloadReceiptImage() {
       if (capturedPhotos.length < 4) return;
 
@@ -698,17 +945,20 @@
       canvas.width = w;
       canvas.height = h;
 
-      // Background Putih
-      ctx.fillStyle = '#FFFFFF';
+      // Ambil tema aktif terpilih
+      const theme = FRAME_THEMES[selectedThemeIndex] || FRAME_THEMES[0];
+
+      // Background Struk (Sesuai Tema)
+      ctx.fillStyle = theme.bg;
       ctx.fillRect(0, 0, w, h);
 
-      // Border Struk
-      ctx.strokeStyle = '#E2E8F0';
+      // Border Struk (Sesuai Tema)
+      ctx.strokeStyle = theme.border;
       ctx.lineWidth = 8;
       ctx.strokeRect(20, 20, w - 40, h - 40);
 
-      // Header "receipt photobooth"
-      ctx.fillStyle = '#0F172A';
+      // Header "receipt photobooth" (Sesuai Tema)
+      ctx.fillStyle = theme.textPrimary;
       ctx.textAlign = 'center';
 
       ctx.font = 'italic 52px "Playfair Display", serif';
@@ -717,9 +967,9 @@
       ctx.font = 'italic bold 72px "Playfair Display", serif';
       ctx.fillText('photobooth', w / 2, 210);
 
-      // Rincian Item Struk
+      // Rincian Item Struk (Sesuai Tema)
       ctx.font = '28px "Space Mono", monospace';
-      ctx.fillStyle = '#64748B';
+      ctx.fillStyle = theme.textSecondary;
 
       ctx.textAlign = 'left';
       ctx.fillText('FRENCH FRIES', 100, 300);
@@ -731,8 +981,8 @@
       ctx.fillText('17.000', w - 100, 344);
       ctx.fillText('15.000', w - 100, 388);
 
-      // Garis Pembatas Putus-putus Atas
-      ctx.strokeStyle = '#CBD5E1';
+      // Garis Pembatas Putus-putus Atas (Sesuai Tema)
+      ctx.strokeStyle = theme.dashedLine;
       ctx.lineWidth = 4;
       ctx.setLineDash([12, 12]);
       ctx.beginPath();
@@ -772,40 +1022,40 @@
         ctx.save();
         drawImageCover(ctx, img, pos.x, pos.y, photoW, photoH);
 
-        // Lingkaran Nomor Sudut Kiri Atas
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
+        // Lingkaran Nomor Sudut Kiri Atas (Sesuai Tema)
+        ctx.fillStyle = theme.numberCircleBg;
         ctx.beginPath();
         ctx.arc(pos.x + 44, pos.y + 44, 28, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = '#0F172A';
+        ctx.fillStyle = theme.numberCircleText;
         ctx.font = 'bold 26px "Plus Jakarta Sans", sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText((idx + 1).toString(), pos.x + 44, pos.y + 44);
 
-        // Ornamen Pil Bawah Tengah
+        // Ornamen Pil Bawah Tengah (Sesuai Tema)
         const pillW = 84;
         const pillH = 28;
         const pillX = pos.x + (photoW - pillW) / 2;
         const pillY = pos.y + photoH - 44;
 
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillStyle = theme.pillBg;
         ctx.beginPath();
         ctx.roundRect(pillX, pillY, pillW, pillH, 14);
         ctx.fill();
 
-        ctx.fillStyle = '#2563EB';
+        ctx.fillStyle = theme.pillText;
         ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
         ctx.fillText('frame', pillX + pillW / 2, pillY + pillH / 2);
 
         ctx.restore();
       });
 
-      // Footer Struk
+      // Footer Struk (Sesuai Tema)
       const footerY = gridY + (photoH * 2) + gap + 70;
 
-      ctx.strokeStyle = '#CBD5E1';
+      ctx.strokeStyle = theme.dashedLine;
       ctx.lineWidth = 4;
       ctx.setLineDash([12, 12]);
       ctx.beginPath();
@@ -814,12 +1064,13 @@
       ctx.stroke();
       ctx.setLineDash([]);
 
-      ctx.fillStyle = '#94A3B8';
+      ctx.fillStyle = theme.textSecondary;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'alphabetic';
       ctx.font = '24px "Space Mono", monospace';
       ctx.fillText("- WE'RE HOPING TO SEE YOU AGAIN -", w / 2, footerY + 20);
 
+      ctx.fillStyle = theme.textPrimary;
       ctx.font = 'bold 26px "Space Mono", monospace';
       ctx.fillText('~OUR RECEIPT~', w / 2, footerY + 64);
 
@@ -827,7 +1078,7 @@
       const imageURL = canvas.toDataURL('image/png');
       const downloadAnchor = document.createElement('a');
       downloadAnchor.href = imageURL;
-      downloadAnchor.download = 'ubi-photobox-result.png';
+      downloadAnchor.download = `ubi-photobox-${theme.id}.png`;
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       document.body.removeChild(downloadAnchor);
@@ -835,20 +1086,40 @@
 
     // 5. Event Listeners & Reset Alur
     btnStart.addEventListener('click', () => {
+      initAudioContext();
       showScreen('chooseFrame');
     });
 
     btnLanjut.addEventListener('click', async () => {
+      initAudioContext();
       showScreen('takePhoto');
       resetPhotoIndicators();
       await startCamera();
     });
 
+    if (btnPrevFrame) {
+      btnPrevFrame.addEventListener('click', () => {
+        initAudioContext();
+        selectedThemeIndex = (selectedThemeIndex - 1 + FRAME_THEMES.length) % FRAME_THEMES.length;
+        updateThemeCarousel();
+      });
+    }
+
+    if (btnNextFrame) {
+      btnNextFrame.addEventListener('click', () => {
+        initAudioContext();
+        selectedThemeIndex = (selectedThemeIndex + 1) % FRAME_THEMES.length;
+        updateThemeCarousel();
+      });
+    }
+
     btnShutter.addEventListener('click', () => {
+      initAudioContext();
       startCaptureSequence();
     });
 
     btnRetake.addEventListener('click', async () => {
+      initAudioContext();
       capturedPhotos = [];
       showScreen('takePhoto');
       resetPhotoIndicators();
@@ -856,8 +1127,12 @@
     });
 
     btnDownload.addEventListener('click', () => {
+      initAudioContext();
       downloadReceiptImage();
     });
+
+    // Inisialisasi Tema Carousel Awal
+    updateThemeCarousel();
   </script>
 
 </body>
