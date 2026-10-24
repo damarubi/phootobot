@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ubi photobox</title>
+
+  <!-- Google Fonts: Playfair Display (Serif), Plus Jakarta Sans (Sans-serif), Space Mono (Monospace) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            'pink-bg': '#FDF2F8',
+            'pink-grid': '#FBCFE8',
+            'navy-dark': '#0F172A',
+            'camera-slate': '#1E293B',
+            'pink-shutter': '#F472B6',
+            'frame-blue': '#2563EB',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Latar Belakang Kotak-kotak (Plaid/Tartan) Soft Pink */
+    .bg-plaid-tartan {
+      background-color: #FDF2F8;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 32px,
+          rgba(251, 207, 232, 0.55) 32px,
+          rgba(251, 207, 232, 0.55) 34px,
+          transparent 34px,
+          transparent 68px,
+          rgba(244, 114, 182, 0.16) 68px,
+          rgba(244, 114, 182, 0.16) 78px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 32px,
+          rgba(251, 207, 232, 0.55) 32px,
+          rgba(251, 207, 232, 0.55) 34px,
+          transparent 34px,
+          transparent 68px,
+          rgba(244, 114, 182, 0.16) 68px,
+          rgba(244, 114, 182, 0.16) 78px
+        );
+    }
+
+    /* Pinggiran Bergerigi Prangko (Stamp-Edge) CSS Murni */
+    .stamp-edge-card {
+      --radius: 8px;
+      --spacing: 24px;
+      background-color: #FFFFFF;
+      -webkit-mask:
+        radial-gradient(circle var(--radius) at 50% 0, #0000 98%, #000) 50% 0/var(--spacing) 100%,
+        radial-gradient(circle var(--radius) at 50% 100%, #0000 98%, #000) 50% 100%/var(--spacing) 100%,
+        radial-gradient(circle var(--radius) at 0 50%, #0000 98%, #000) 0 50%/100% var(--spacing),
+        radial-gradient(circle var(--radius) at 100% 50%, #0000 98%, #000) 100% 50%/100% var(--spacing);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+    }
+
+    /* Animasi Pop Angka Hitung Mundur */
+    @keyframes count-pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      50% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.95; }
+    }
+    .animate-count-pop {
+      animation: count-pop 0.35s ease-out forwards;
+    }
+
+    /* Mirror webcam agar selfie natural */
+    .mirror-video {
+      transform: scaleX(-1);
+    }
+  </style>
+</head>
+<body class="bg-plaid-tartan min-h-screen w-full flex items-center justify-center p-3 sm:p-6 font-sans text-navy-dark select-none antialiased">
+
+  <!-- ========================================================= -->
+  <!-- 1. SCREEN 1: WELCOME SCREEN                               -->
+  <!-- ========================================================= -->
+  <div id="welcome_screen" class="screen-view w-full max-w-[340px] sm:max-w-[380px] mx-auto filter drop-shadow-[0_16px_36px_rgba(244,114,182,0.22)] drop-shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+    <main class="stamp-edge-card w-full py-16 sm:py-20 px-8 sm:px-10 flex flex-col items-center justify-center text-center">
+      <!-- Judul -->
+      <h1 class="font-serif italic font-normal text-navy-dark leading-[1.1] mb-6">
+        <span class="block text-3xl sm:text-4xl">ubi</span>
+        <span class="block text-4xl sm:text-5xl mt-1">photobox</span>
+      </h1>
+
+      <!-- Paragraf Deskripsi -->
+      <p class="text-[11px] sm:text-xs text-slate-500 font-light leading-relaxed max-w-[240px] sm:max-w-[260px] mx-auto mb-8">
+        Personality-led content focussed on creating content is authentically you content that is relatable and connect.
+      </p>
+
+      <!-- Tombol Aksi Start -->
+      <div>
+        <button
+          id="btnStart"
+          type="button"
+          class="inline-flex items-center justify-center px-7 py-2 rounded-full border border-navy-dark/70 text-navy-dark text-xs sm:text-sm font-normal tracking-wide transition-all duration-200 hover:bg-navy-dark hover:text-white hover:border-navy-dark active:scale-95 focus:outline-none focus:ring-2 focus:ring-navy-dark/30 cursor-pointer shadow-sm"
+        >
+          Start
+        </button>
+      </div>
+    </main>
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- 2. SCREEN 2: PILIH FRAME SCREEN                           -->
+  <!-- ========================================================= -->
+  <div id="choose_frame_screen" class="screen-view hidden w-full max-w-[360px] sm:max-w-md mx-auto filter drop-shadow-[0_16px_36px_rgba(244,114,182,0.22)] drop-shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+    <main class="stamp-edge-card w-full py-8 px-4 sm:py-10 sm:px-6 flex flex-col items-center">
+      
+      <!-- Judul -->
+      <header class="text-center mb-5 sm:mb-6">
+        <h1 class="font-serif italic font-normal text-3xl sm:text-4xl text-navy-dark tracking-wide">
+          Pilih Frame
+        </h1>
+      </header>
+
+      <!-- Carousel Area: Panah Kiri - Struk - Panah Kanan -->
+      <div class="w-full flex items-center justify-center gap-2 sm:gap-3.5 mb-6 sm:mb-7">
+        <!-- Panah Kiri -->
+        <button
+          type="button"
+          id="btnPrevFrame"
+          aria-label="Frame Sebelumnya"
+          class="flex items-center justify-center w-8 h-5 sm:w-9 sm:h-6 rounded-full border border-navy-dark/60 text-navy-dark hover:bg-navy-dark hover:text-white transition-all duration-200 active:scale-90 focus:outline-none focus:ring-1 focus:ring-navy-dark/30 cursor-pointer flex-shrink-0"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+        </button>
+
+        <!-- Preview Struk Belanja -->
+        <div class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3.5 px-3 flex flex-col items-center text-navy-dark">
+          <div class="text-center mb-2">
+            <h2 class="font-serif italic leading-none text-navy-dark">
+              <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
+              <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
+            </h2>
+          </div>
+
+          <div class="w-full font-mono text-[7px] sm:text-[8px] text-slate-400 space-y-0.5 mb-2.5 leading-tight tracking-tight uppercase">
+            <div class="flex justify-between"><span>FRENCH FRIES</span><span>22.000</span></div>
+            <div class="flex justify-between"><span>MATCHA LATTE</span><span>17.000</span></div>
+            <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
+          </div>
+
+          <!-- Grid 2x2 Placeholder Biru Frame -->
+          <div class="w-full grid grid-cols-2 gap-1.5 mb-2.5">
+            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
+              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">1</span>
+              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            </div>
+            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
+              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">2</span>
+              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            </div>
+            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
+              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">3</span>
+              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            </div>
+            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
+              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">4</span>
+              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            </div>
+          </div>
+
+          <div class="text-center font-mono text-[6px] sm:text-[7px] text-slate-400 tracking-wider uppercase leading-tight pt-0.5">
+            <p>-WERE HOPING TO SEE YOU AGAIN-</p>
+            <p class="font-bold tracking-widest mt-0.5">-OUR RECEIPTIPT-</p>
+          </div>
+        </div>
+
+        <!-- Panah Kanan -->
+        <button
+          type="button"
+          id="btnNextFrame"
+          aria-label="Frame Selanjutnya"
+          class="flex items-center justify-center w-8 h-5 sm:w-9 sm:h-6 rounded-full border border-navy-dark/60 text-navy-dark hover:bg-navy-dark hover:text-white transition-all duration-200 active:scale-90 focus:outline-none focus:ring-1 focus:ring-navy-dark/30 cursor-pointer flex-shrink-0"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Tombol Aksi Lanjut -->
+      <div class="w-full flex justify-center">
+        <button
+          id="btnLanjut"
+          type="button"
+          class="inline-flex items-center justify-center min-w-[88px] px-6 py-1.5 rounded-full border border-navy-dark/70 text-navy-dark text-xs sm:text-sm font-normal tracking-wide transition-all duration-200 hover:bg-navy-dark hover:text-white hover:border-navy-dark active:scale-95 focus:outline-none focus:ring-2 focus:ring-navy-dark/30 cursor-pointer shadow-sm"
+        >
+          Lanjut
+        </button>
+      </div>
+    </main>
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- 3. SCREEN 3: TAKE PHOTO SCREEN                            -->
+  <!-- ========================================================= -->
+  <div id="take_photo_screen" class="screen-view hidden w-full max-w-[390px] sm:max-w-md mx-auto filter drop-shadow-[0_16px_36px_rgba(244,114,182,0.22)] drop-shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+    <main class="stamp-edge-card w-full py-7 px-5 sm:py-8 sm:px-7 flex flex-col items-center">
+      
+      <!-- 1. Header: "Get Ready!" -->
+      <header class="text-center mb-3">
+        <h1 id="takePhotoHeader" class="font-serif italic font-semibold text-3xl sm:text-4xl text-navy-dark tracking-wide">
+          Get Ready!
+        </h1>
+      </header>
+
+      <!-- 2. Indikator Sesi Foto (4 Lingkaran) -->
+      <div id="sessionIndicators" class="flex items-center justify-center gap-2.5 mb-4" aria-label="Indikator Sesi Foto">
+        <span id="dot-0" class="w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200"></span>
+        <span id="dot-1" class="w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200"></span>
+        <span id="dot-2" class="w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200"></span>
+        <span id="dot-3" class="w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200"></span>
+      </div>
+
+      <!-- 3. Area Kamera Live Webcam (Aspect 4:3) -->
+      <div class="relative overflow-hidden rounded-lg w-full aspect-[4/3] bg-camera-slate shadow-inner flex items-center justify-center mb-5 border border-slate-800">
+        
+        <!-- Elemen Video Live Stream -->
+        <video
+          id="webcamVideo"
+          autoplay
+          playsinline
+          muted
+          class="w-full h-full object-cover mirror-video"
+        ></video>
+
+        <!-- Overlay Garis Panduan (Guide Frame Viewfinder Crop Area) -->
+        <div class="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
+          <!-- Sisi Kiri Gelap -->
+          <div class="flex-1 h-full bg-black/40"></div>
+
+          <!-- Kotak Panduan Potong Tengah (Rasio Potret 3:4) -->
+          <div class="h-full aspect-[3/4] border-2 border-white/70 border-dashed rounded-sm shrink-0"></div>
+
+          <!-- Sisi Kanan Gelap -->
+          <div class="flex-1 h-full bg-black/40"></div>
+        </div>
+
+        <!-- Flash Effect Overlay saat Memotret -->
+        <div id="flashOverlay" class="absolute inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-150 z-30"></div>
+
+        <!-- Framing Viewfinder Kamera -->
+        <div class="absolute inset-2 border border-white/15 rounded pointer-events-none flex flex-col justify-between p-2 z-10">
+          <div class="flex justify-between items-center text-[10px] text-white/50 font-mono tracking-wider">
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> REC</span>
+            <span id="frameCounter">01 / 04</span>
+          </div>
+          <div class="flex justify-between items-center text-[10px] text-white/40 font-mono tracking-wider">
+            <span>3:4 PORTRAIT</span>
+            <span>AUTO FOCUS</span>
+          </div>
+        </div>
+
+        <!-- Crosshair Guide -->
+        <div class="absolute w-6 h-6 pointer-events-none opacity-25 z-10">
+          <div class="absolute inset-x-0 top-1/2 h-px bg-white -translate-y-1/2"></div>
+          <div class="absolute inset-y-0 left-1/2 w-px bg-white -translate-x-1/2"></div>
+        </div>
+
+        <!-- 4. Overlay Countdown: Angka Hitung Mundur Besar -->
+        <div id="countdownOverlay" class="hidden absolute inset-0 z-20 flex items-center justify-center bg-black/25">
+          <span id="countdownText" class="font-sans font-bold text-7xl sm:text-8xl text-white drop-shadow-xl animate-count-pop select-none">
+            3
+          </span>
+        </div>
+
+      </div>
+
+      <!-- 5. Tombol Shutter (Aksi Jepret) -->
+      <div class="flex items-center justify-center pt-1">
+        <button
+          id="btnShutter"
+          type="button"
+          aria-label="Ambil Foto"
+          class="group relative flex items-center justify-center w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-full border-4 border-pink-shutter/50 p-1 mx-auto transition-all duration-200 hover:scale-105 active:scale-95 hover:border-pink-shutter focus:outline-none focus:ring-4 focus:ring-pink-shutter/30 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+        >
+          <!-- Lingkaran Solid Pink Dalam -->
+          <span class="w-full h-full rounded-full bg-pink-shutter shadow-md transition-transform duration-150 group-active:scale-90 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white/95" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+    </main>
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- 4. SCREEN 4: RESULT SCREEN                                -->
+  <!-- ========================================================= -->
+  <div id="result_screen" class="screen-view hidden w-full max-w-[350px] sm:max-w-[390px] mx-auto filter drop-shadow-[0_16px_36px_rgba(244,114,182,0.22)] drop-shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+    <main class="stamp-edge-card w-full py-6 px-4 sm:py-8 sm:px-6 flex flex-col items-center">
+
+      <!-- 1. Judul Atas: "Hasil" -->
+      <header class="text-center mb-3 sm:mb-4">
+        <h1 class="font-serif italic font-normal text-3xl sm:text-4xl text-navy-dark tracking-wide">
+          Hasil
+        </h1>
+      </header>
+
+      <!-- 2. Area Tinjau Foto (Struk Belanja dengan 4 Foto Nyata) -->
+      <div id="receiptCard" class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2.5 sm:px-3 flex flex-col items-center text-navy-dark mb-4">
+        
+        <!-- Header Struk -->
+        <div class="text-center mb-1.5">
+          <h2 class="font-serif italic leading-none text-navy-dark">
+            <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
+            <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
+          </h2>
+        </div>
+
+        <!-- Rincian Teks Kecil Struk -->
+        <div class="w-full font-mono text-[7px] sm:text-[8px] text-slate-400 space-y-0.5 mb-2 leading-tight tracking-tight uppercase">
+          <div class="flex justify-between"><span>FRENCH FRIES</span><span>22.000</span></div>
+          <div class="flex justify-between"><span>MATCHA LATTE</span><span>17.000</span></div>
+          <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
+        </div>
+
+        <!-- 2x2 Grid Foto Hasil Jepretan Nyata -->
+        <div class="w-full grid grid-cols-2 gap-1.5 mb-2">
+          <!-- Foto 1 -->
+          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <img id="resultImg0" src="" alt="Pose 1" class="w-full h-full object-cover">
+            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">1</span>
+          </div>
+
+          <!-- Foto 2 -->
+          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <img id="resultImg1" src="" alt="Pose 2" class="w-full h-full object-cover">
+            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">2</span>
+          </div>
+
+          <!-- Foto 3 -->
+          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <img id="resultImg2" src="" alt="Pose 3" class="w-full h-full object-cover">
+            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">3</span>
+          </div>
+
+          <!-- Foto 4 -->
+          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <img id="resultImg3" src="" alt="Pose 4" class="w-full h-full object-cover">
+            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">4</span>
+          </div>
+        </div>
+
+        <!-- Footer Struk -->
+        <div class="text-center font-mono text-[6px] sm:text-[7px] text-slate-400 tracking-wider uppercase leading-tight pt-0.5">
+          <p>- WE'RE HOPING TO SEE YOU AGAIN -</p>
+          <p class="font-bold tracking-widest mt-0.5">~OUR RECEIPT~</p>
+        </div>
+      </div>
+
+      <!-- 3. Area Aksi di Bagian Bawah -->
+      <div class="w-full flex flex-col items-center gap-2">
+        <!-- Ambil Foto Lagi? -->
+        <button
+          id="btnRetake"
+          type="button"
+          class="text-[11px] sm:text-xs text-slate-400 hover:text-navy-dark transition-colors duration-150 underline underline-offset-4 font-medium cursor-pointer"
+        >
+          Ambil Foto Lagi?
+        </button>
+
+        <!-- Tombol Download Gambar -->
+        <button
+          id="btnDownload"
+          type="button"
+          class="w-full max-w-[210px] py-2 px-5 rounded-full bg-pink-shutter text-white font-medium text-xs sm:text-sm tracking-wide shadow-md shadow-pink-shutter/25 hover:bg-[#f25ca8] hover:shadow-lg hover:shadow-pink-shutter/35 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-shutter/30"
+        >
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 12L12 16.5m0 0L16.5 12M12 16.5V3" />
+          </svg>
+          <span>Download Gambar</span>
+        </button>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Canvas Tersembunyi untuk Snapshot Foto & Download Struk -->
+  <canvas id="hiddenCanvas" class="hidden"></canvas>
+
+  <!-- ========================================================= -->
+  <!-- JAVASCRIPT LOGIC (Client-Side Vanilla JS)                  -->
+  <!-- ========================================================= -->
+  <script>
+    // State Aplikasi
+    let mediaStream = null;
+    let capturedPhotos = [];
+    let isCapturing = false;
+
+    // Elemen DOM
+    const screens = {
+      welcome: document.getElementById('welcome_screen'),
+      chooseFrame: document.getElementById('choose_frame_screen'),
+      takePhoto: document.getElementById('take_photo_screen'),
+      result: document.getElementById('result_screen')
+    };
+
+    const btnStart = document.getElementById('btnStart');
+    const btnLanjut = document.getElementById('btnLanjut');
+    const btnShutter = document.getElementById('btnShutter');
+    const btnRetake = document.getElementById('btnRetake');
+    const btnDownload = document.getElementById('btnDownload');
+
+    const video = document.getElementById('webcamVideo');
+    const hiddenCanvas = document.getElementById('hiddenCanvas');
+    const countdownOverlay = document.getElementById('countdownOverlay');
+    const countdownText = document.getElementById('countdownText');
+    const flashOverlay = document.getElementById('flashOverlay');
+    const frameCounter = document.getElementById('frameCounter');
+    const takePhotoHeader = document.getElementById('takePhotoHeader');
+
+    // 1. Fungsi Navigasi Layar
+    function showScreen(name) {
+      Object.keys(screens).forEach(key => {
+        screens[key].classList.add('hidden');
+      });
+      if (screens[name]) {
+        screens[name].classList.remove('hidden');
+      }
+    }
+
+    // 2. Integrasi Kamera (Webcam)
+    async function startCamera() {
+      try {
+        if (mediaStream) {
+          stopCamera();
+        }
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'user',
+            width: { ideal: 1280 },
+            height: { ideal: 960 }
+          },
+          audio: false
+        });
+        video.srcObject = mediaStream;
+        await video.play();
+      } catch (err) {
+        console.warn('Akses kamera tidak tersedia atau izin ditolak:', err);
+        alert('Izin kamera diperlukan untuk mengambil foto photobox. Pastikan akses kamera diizinkan di browser Anda.');
+      }
+    }
+
+    // Hentikan Stream Kamera
+    function stopCamera() {
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        mediaStream = null;
+      }
+      if (video) {
+        video.srcObject = null;
+      }
+    }
+
+    // Reset Indikator Foto
+    function resetPhotoIndicators() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        if (dot) {
+          dot.className = "w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200";
+        }
+      }
+      if (frameCounter) frameCounter.textContent = '01 / 04';
+      if (takePhotoHeader) takePhotoHeader.textContent = 'Get Ready!';
+    }
+
+    // Update Indikator Foto Terisi
+    function updatePhotoIndicator(index) {
+      const dot = document.getElementById(`dot-${index}`);
+      if (dot) {
+        dot.className = "w-2.5 h-2.5 rounded-full bg-pink-shutter ring-2 ring-pink-shutter ring-offset-2 ring-offset-white transition-all duration-200";
+      }
+      const nextIndex = Math.min(index + 2, 4);
+      if (frameCounter) frameCounter.textContent = `0${nextIndex} / 04`;
+    }
+
+    // Efek Kilatan Flash Kamera
+    function triggerFlash() {
+      flashOverlay.style.opacity = '1';
+      setTimeout(() => {
+        flashOverlay.style.opacity = '0';
+      }, 120);
+    }
+
+    // Jepret Foto Tunggal ke Canvas
+    function snapPhoto() {
+      triggerFlash();
+
+      const width = video.videoWidth || 640;
+      const height = video.videoHeight || 480;
+
+      hiddenCanvas.width = width;
+      hiddenCanvas.height = height;
+      const ctx = hiddenCanvas.getContext('2d');
+
+      if (mediaStream && video.videoWidth > 0) {
+        // Mirror horizontal agar selfie natural
+        ctx.translate(width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, 0, 0, width, height);
+      } else {
+        // Fallback simulasi jika kamera tidak aktif
+        ctx.fillStyle = '#1E293B';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '24px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Snap Photo ' + (capturedPhotos.length + 1), width / 2, height / 2);
+      }
+
+      const dataUrl = hiddenCanvas.toDataURL('image/jpeg', 0.95);
+      capturedPhotos.push(dataUrl);
+    }
+
+    // Hitung Mundur 3, 2, 1
+    function runCountdown(seconds) {
+      return new Promise(resolve => {
+        countdownOverlay.classList.remove('hidden');
+        let current = seconds;
+        countdownText.textContent = current;
+
+        // Picu animasi
+        countdownText.classList.remove('animate-count-pop');
+        void countdownText.offsetWidth;
+        countdownText.classList.add('animate-count-pop');
+
+        const timer = setInterval(() => {
+          current--;
+          if (current > 0) {
+            countdownText.textContent = current;
+            countdownText.classList.remove('animate-count-pop');
+            void countdownText.offsetWidth;
+            countdownText.classList.add('animate-count-pop');
+          } else {
+            clearInterval(timer);
+            countdownOverlay.classList.add('hidden');
+            resolve();
+          }
+        }, 1000);
+      });
+    }
+
+    // 3. Logika Pemotretan 4 Slot Otomatis
+    async function startCaptureSequence() {
+      if (isCapturing) return;
+      isCapturing = true;
+      capturedPhotos = [];
+      resetPhotoIndicators();
+      btnShutter.disabled = true;
+
+      for (let i = 0; i < 4; i++) {
+        if (takePhotoHeader) {
+          takePhotoHeader.textContent = `Pose ${i + 1} of 4!`;
+        }
+
+        // Hitung mundur 3, 2, 1
+        await runCountdown(3);
+
+        // Ambil frame foto
+        snapPhoto();
+        updatePhotoIndicator(i);
+
+        // Jeda antar pose
+        if (i < 3) {
+          await new Promise(r => setTimeout(r, 800));
+        }
+      }
+
+      isCapturing = false;
+      btnShutter.disabled = false;
+      stopCamera();
+
+      // Pindah ke layar hasil
+      renderResultScreen();
+      showScreen('result');
+    }
+
+    // Render Hasil Jepretan ke <img> di Result Screen
+    function renderResultScreen() {
+      for (let i = 0; i < 4; i++) {
+        const img = document.getElementById(`resultImg${i}`);
+        if (img && capturedPhotos[i]) {
+          img.src = capturedPhotos[i];
+        }
+      }
+    }
+
+    // Helper untuk menjaga aspek rasio cover pada canvas
+    function drawImageCover(ctx, img, x, y, w, h) {
+      if (!img) return;
+      const imgW = img.naturalWidth || img.width;
+      const imgH = img.naturalHeight || img.height;
+      const r = Math.min(w / imgW, h / imgH);
+      let nw = imgW * r, nh = imgH * r;
+      let cx, cy, cw, ch, ar = 1;
+      if (nw < w) ar = w / nw;
+      if (Math.abs(ar - 1) < 1e-14 && nh < h) ar = h / nh;
+      nw *= ar;
+      nh *= ar;
+      cw = imgW / (nw / w);
+      ch = imgH / (nh / h);
+      cx = (imgW - cw) * 0.5;
+      cy = (imgH - ch) * 0.5;
+      ctx.drawImage(img, cx, cy, cw, ch, x, y, w, h);
+    }
+
+    // 4. Rendering Hasil & Unduhan (Download Gambar)
+    async function downloadReceiptImage() {
+      if (capturedPhotos.length < 4) return;
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Ukuran Kanvas High-Resolution
+      const w = 600;
+      const h = 1000;
+      canvas.width = w;
+      canvas.height = h;
+
+      // Background Putih
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, w, h);
+
+      // Border Struk
+      ctx.strokeStyle = '#E2E8F0';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(10, 10, w - 20, h - 20);
+
+      // Header "receipt photobooth"
+      ctx.fillStyle = '#0F172A';
+      ctx.textAlign = 'center';
+
+      ctx.font = 'italic 26px "Playfair Display", serif';
+      ctx.fillText('receipt', w / 2, 65);
+
+      ctx.font = 'italic bold 36px "Playfair Display", serif';
+      ctx.fillText('photobooth', w / 2, 105);
+
+      // Rincian Item Struk
+      ctx.font = '14px "Space Mono", monospace';
+      ctx.fillStyle = '#64748B';
+
+      ctx.textAlign = 'left';
+      ctx.fillText('FRENCH FRIES', 50, 150);
+      ctx.fillText('MATCHA LATTE', 50, 172);
+      ctx.fillText('AMERICANO', 50, 194);
+
+      ctx.textAlign = 'right';
+      ctx.fillText('22.000', w - 50, 150);
+      ctx.fillText('17.000', w - 50, 172);
+      ctx.fillText('15.000', w - 50, 194);
+
+      // Garis Pembatas Putus-putus
+      ctx.strokeStyle = '#CBD5E1';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath();
+      ctx.moveTo(50, 215);
+      ctx.lineTo(w - 50, 215);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Gambar 4 Foto ke Grid 2x2
+      const gridX = 50;
+      const gridY = 235;
+      const photoW = 240;
+      const photoH = 320;
+      const gap = 20;
+
+      const positions = [
+        { x: gridX, y: gridY },
+        { x: gridX + photoW + gap, y: gridY },
+        { x: gridX, y: gridY + photoH + gap },
+        { x: gridX + photoW + gap, y: gridY + photoH + gap }
+      ];
+
+      const loadedImages = await Promise.all(
+        capturedPhotos.slice(0, 4).map(src => {
+          return new Promise(res => {
+            const img = new Image();
+            img.onload = () => res(img);
+            img.onerror = () => res(null);
+            img.src = src;
+          });
+        })
+      );
+
+      loadedImages.forEach((img, idx) => {
+        const pos = positions[idx];
+
+        ctx.save();
+        drawImageCover(ctx, img, pos.x, pos.y, photoW, photoH);
+
+        // Lingkaran Nomor Sudut Kiri Atas
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
+        ctx.beginPath();
+        ctx.arc(pos.x + 22, pos.y + 22, 14, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#0F172A';
+        ctx.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText((idx + 1).toString(), pos.x + 22, pos.y + 22);
+
+        // Ornamen Pil Bawah Tengah
+        const pillW = 42;
+        const pillH = 14;
+        const pillX = pos.x + (photoW - pillW) / 2;
+        const pillY = pos.y + photoH - 22;
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.beginPath();
+        ctx.roundRect(pillX, pillY, pillW, pillH, 7);
+        ctx.fill();
+
+        ctx.fillStyle = '#2563EB';
+        ctx.font = 'bold 8px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText('frame', pillX + pillW / 2, pillY + pillH / 2);
+
+        ctx.restore();
+      });
+
+      // Footer Struk
+      const footerY = gridY + (photoH * 2) + gap + 35;
+
+      ctx.strokeStyle = '#CBD5E1';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath();
+      ctx.moveTo(50, footerY - 15);
+      ctx.lineTo(w - 50, footerY - 15);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = '#94A3B8';
+      ctx.textAlign = 'center';
+      ctx.font = '12px "Space Mono", monospace';
+      ctx.fillText("- WE'RE HOPING TO SEE YOU AGAIN -", w / 2, footerY + 10);
+
+      ctx.font = 'bold 13px "Space Mono", monospace';
+      ctx.fillText('~OUR RECEIPT~', w / 2, footerY + 32);
+
+      // Unduh File Gambar
+      const imageURL = canvas.toDataURL('image/png');
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.href = imageURL;
+      downloadAnchor.download = 'ubi-photobox-result.png';
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      document.body.removeChild(downloadAnchor);
+    }
+
+    // 5. Event Listeners & Reset Alur
+    btnStart.addEventListener('click', () => {
+      showScreen('chooseFrame');
+    });
+
+    btnLanjut.addEventListener('click', async () => {
+      showScreen('takePhoto');
+      resetPhotoIndicators();
+      await startCamera();
+    });
+
+    btnShutter.addEventListener('click', () => {
+      startCaptureSequence();
+    });
+
+    btnRetake.addEventListener('click', async () => {
+      capturedPhotos = [];
+      showScreen('takePhoto');
+      resetPhotoIndicators();
+      await startCamera();
+    });
+
+    btnDownload.addEventListener('click', () => {
+      downloadReceiptImage();
+    });
+  </script>
+
+</body>
+</html>

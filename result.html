@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ubi photobox - Hasil</title>
+
+  <!-- Google Fonts: Playfair Display (Serif), Plus Jakarta Sans (Sans-serif), Space Mono (Monospace) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            'pink-bg': '#FDF2F8',
+            'pink-grid': '#FBCFE8',
+            'navy-dark': '#0F172A',
+            'pink-primary': '#F472B6',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Latar Belakang Kotak-kotak (Plaid/Tartan) Soft Pink */
+    .bg-plaid-tartan {
+      background-color: #FDF2F8;
+      background-image:
+        repeating-linear-gradient(0deg,
+          transparent,
+          transparent 32px,
+          rgba(251, 207, 232, 0.55) 32px,
+          rgba(251, 207, 232, 0.55) 34px,
+          transparent 34px,
+          transparent 68px,
+          rgba(244, 114, 182, 0.16) 68px,
+          rgba(244, 114, 182, 0.16) 78px),
+        repeating-linear-gradient(90deg,
+          transparent,
+          transparent 32px,
+          rgba(251, 207, 232, 0.55) 32px,
+          rgba(251, 207, 232, 0.55) 34px,
+          transparent 34px,
+          transparent 68px,
+          rgba(244, 114, 182, 0.16) 68px,
+          rgba(244, 114, 182, 0.16) 78px);
+    }
+
+    /* Pinggiran Bergerigi Prangko (Stamp-Edge) CSS Murni */
+    .stamp-edge-card {
+      --radius: 8px;
+      --spacing: 24px;
+      background-color: #FFFFFF;
+      -webkit-mask:
+        radial-gradient(circle var(--radius) at 50% 0, #0000 98%, #000) 50% 0/var(--spacing) 100%,
+        radial-gradient(circle var(--radius) at 50% 100%, #0000 98%, #000) 50% 100%/var(--spacing) 100%,
+        radial-gradient(circle var(--radius) at 0 50%, #0000 98%, #000) 0 50%/100% var(--spacing),
+        radial-gradient(circle var(--radius) at 100% 50%, #0000 98%, #000) 100% 50%/100% var(--spacing);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-plaid-tartan min-h-screen w-full flex items-center justify-center p-3 sm:p-6 font-sans text-navy-dark select-none antialiased">
+
+  <!-- Wrapper Drop Shadow untuk Siluet Prangko Vertikal -->
+  <div
+    class="w-full max-w-[350px] sm:max-w-[390px] mx-auto filter drop-shadow-[0_16px_36px_rgba(244,114,182,0.22)] drop-shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+
+    <!-- Kontainer Utama: Putih Bergaya Kertas Prangko (Stamp-Edge) -->
+    <main class="stamp-edge-card w-full py-6 px-4 sm:py-8 sm:px-6 flex flex-col items-center">
+
+      <!-- 1. Judul Atas: "Hasil" (Serif, Italic, Rata Tengah) -->
+      <header class="text-center mb-3 sm:mb-4">
+        <h1 class="font-serif italic font-normal text-3xl sm:text-4xl text-navy-dark tracking-wide">
+          Hasil
+        </h1>
+      </header>
+
+      <!-- 2. Area Tinjau (Preview) Foto: Kontainer Struk Belanja (Receipt) -->
+      <div
+        class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2.5 sm:px-3 flex flex-col items-center text-navy-dark mb-4">
+
+        <!-- Header Struk: "receipt photobooth" -->
+        <div class="text-center mb-1.5">
+          <h2 class="font-serif italic leading-none text-navy-dark">
+            <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
+            <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
+          </h2>
+        </div>
+
+        <!-- Rincian Teks Kecil Menyerupai Struk Belanja -->
+        <div
+          class="w-full font-mono text-[7px] sm:text-[8px] text-slate-400 space-y-0.5 mb-2 leading-tight tracking-tight uppercase">
+          <div class="flex justify-between">
+            <span>FRENCH FRIES</span>
+            <span>22.000</span>
+          </div>
+          <div class="flex justify-between">
+            <span>MATCHA LATTE</span>
+            <span>17.000</span>
+          </div>
+          <div class="flex justify-between">
+            <span>AMERICANO</span>
+            <span>15.000</span>
+          </div>
+        </div>
+
+        <!-- Grid 2x2 Foto Hasil Jepretan Nyata & Ceria -->
+        <div class="w-full grid grid-cols-2 gap-1.5 mb-2">
+
+          <!-- Foto 1 -->
+          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=350&q=80"
+              alt="Pose 1" class="w-full h-full object-cover grayscale contrast-110" loading="eager" />
+            <span
+              class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">
+              1
+            </span>
+          </div>
+
+          <!-- Foto 2 -->
+          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=350&q=80"
+              alt="Pose 2" class="w-full h-full object-cover grayscale contrast-110" loading="eager" />
+            <span
+              class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">
+              2
+            </span>
+          </div>
+
+          <!-- Foto 3 -->
+          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=350&q=80"
+              alt="Pose 3" class="w-full h-full object-cover grayscale contrast-110" loading="eager" />
+            <span
+              class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">
+              3
+            </span>
+          </div>
+
+          <!-- Foto 4 -->
+          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=350&q=80"
+              alt="Pose 4" class="w-full h-full object-cover grayscale contrast-110" loading="eager" />
+            <span
+              class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">
+              4
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Footer Struk -->
+        <div
+          class="text-center font-mono text-[6px] sm:text-[7px] text-slate-400 tracking-wider uppercase leading-tight pt-0.5">
+          <p>- WE'RE HOPING TO SEE YOU AGAIN -</p>
+          <p class="font-bold tracking-widest mt-0.5">~OUR RECEIPT~</p>
+        </div>
+
+      </div>
+
+      <!-- 3. Area Aksi di Bagian Bawah Preview -->
+      <div class="w-full flex flex-col items-center gap-2">
+
+        <!-- Teks/Link Interaktif: Ambil Foto Lagi? -->
+        <a href="index.html"
+          class="text-[11px] sm:text-xs text-slate-400 hover:text-navy-dark transition-colors duration-150 underline underline-offset-4 font-medium cursor-pointer">
+          Ambil Foto Lagi?
+        </a>
+
+        <!-- Tombol Utama: Download Gambar (Pil, Menonjol, Pink Manis, Hover Effect) -->
+        <button type="button"
+          class="w-full max-w-[210px] py-2 px-5 rounded-full bg-pink-primary text-white font-medium text-xs sm:text-sm tracking-wide shadow-md shadow-pink-primary/25 hover:bg-[#f25ca8] hover:shadow-lg hover:shadow-pink-primary/35 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-primary/30">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 12L12 16.5m0 0L16.5 12M12 16.5V3" />
+          </svg>
+          <span>Download Gambar</span>
+        </button>
+
+      </div>
+
+    </main>
+  </div>
+
+</body>
+
+</html>

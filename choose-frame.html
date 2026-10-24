@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ubi photobox - Pilih Frame</title>
+
+  <!-- Google Fonts: Playfair Display (Serif) & Plus Jakarta Sans / Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            'pink-bg': '#FDF2F8',
+            'pink-grid': '#FBCFE8',
+            'navy-dark': '#0F172A',
+            'frame-blue': '#2563EB',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Latar Belakang Kotak-kotak (Plaid/Tartan) Soft Pink */
+    .bg-plaid-tartan {
+      background-color: #FDF2F8;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 32px,
+          rgba(251, 207, 232, 0.55) 32px,
+          rgba(251, 207, 232, 0.55) 34px,
+          transparent 34px,
+          transparent 68px,
+          rgba(244, 114, 182, 0.16) 68px,
+          rgba(244, 114, 182, 0.16) 78px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 32px,
+          rgba(251, 207, 232, 0.55) 32px,
+          rgba(251, 207, 232, 0.55) 34px,
+          transparent 34px,
+          transparent 68px,
+          rgba(244, 114, 182, 0.16) 68px,
+          rgba(244, 114, 182, 0.16) 78px
+        );
+    }
+
+    /* Pinggiran Bergerigi Prangko (Stamp-Edge) CSS Murni */
+    .stamp-edge-card {
+      --radius: 8px;
+      --spacing: 24px;
+      background-color: #FFFFFF;
+      -webkit-mask:
+        radial-gradient(circle var(--radius) at 50% 0, #0000 98%, #000) 50% 0/var(--spacing) 100%,
+        radial-gradient(circle var(--radius) at 50% 100%, #0000 98%, #000) 50% 100%/var(--spacing) 100%,
+        radial-gradient(circle var(--radius) at 0 50%, #0000 98%, #000) 0 50%/100% var(--spacing),
+        radial-gradient(circle var(--radius) at 100% 50%, #0000 98%, #000) 100% 50%/100% var(--spacing);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+    }
+  </style>
+</head>
+<body class="bg-plaid-tartan min-h-screen w-full flex items-center justify-center p-3 sm:p-6 font-sans text-navy-dark select-none antialiased">
+
+  <!-- Wrapper Drop Shadow untuk Kontainer Prangko Vertikal Responsif -->
+  <div class="w-full max-w-[360px] sm:max-w-md mx-auto filter drop-shadow-[0_16px_36px_rgba(244,114,182,0.22)] drop-shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+
+    <!-- Kontainer Utama: Putih Bergaya Kertas Prangko (Stamp-Edge) -->
+    <main class="stamp-edge-card w-full py-8 px-4 sm:py-10 sm:px-6 flex flex-col items-center">
+
+      <!-- 1. Judul Atas: "Pilih Frame" (Serif, Italic, Rata Tengah) -->
+      <header class="text-center mb-5 sm:mb-6">
+        <h1 class="font-serif italic font-normal text-3xl sm:text-4xl text-navy-dark tracking-wide">
+          Pilih Frame
+        </h1>
+      </header>
+
+      <!-- 2. Area Konten Tengah (Carousel/Slider): Panah Kiri - Struk - Panah Kanan -->
+      <div class="w-full flex items-center justify-center gap-2 sm:gap-3.5 mb-6 sm:mb-7">
+
+        <!-- Tombol Panah Kiri: Pil dengan Outline Tipis -->
+        <button
+          type="button"
+          aria-label="Frame Sebelumnya"
+          class="flex items-center justify-center w-8 h-5 sm:w-9 sm:h-6 rounded-full border border-navy-dark/60 text-navy-dark hover:bg-navy-dark hover:text-white transition-all duration-200 active:scale-90 focus:outline-none focus:ring-1 focus:ring-navy-dark/30 cursor-pointer flex-shrink-0"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+        </button>
+
+        <!-- Kontainer Struk (Receipt): Kotak Putih Vertikal dengan Sedikit Shadow -->
+        <div class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3.5 px-3 flex flex-col items-center text-navy-dark">
+
+          <!-- Header Struk: "receipt photobooth" -->
+          <div class="text-center mb-2">
+            <h2 class="font-serif italic leading-none text-navy-dark">
+              <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
+              <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
+            </h2>
+          </div>
+
+          <!-- Rincian Teks Kecil Menyerupai Struk Belanja -->
+          <div class="w-full font-mono text-[7px] sm:text-[8px] text-slate-400 space-y-0.5 mb-2.5 leading-tight tracking-tight uppercase">
+            <div class="flex justify-between">
+              <span>FRENCH FRIES</span>
+              <span>22.000</span>
+            </div>
+            <div class="flex justify-between">
+              <span>MATCHA LATTE</span>
+              <span>17.000</span>
+            </div>
+            <div class="flex justify-between">
+              <span>AMERICANO</span>
+              <span>15.000</span>
+            </div>
+          </div>
+
+          <!-- Grid Layout 2x2 Foto (4 Kotak Biru Pekat) -->
+          <div class="w-full grid grid-cols-2 gap-1.5 mb-2.5">
+
+            <!-- Slot Foto 1 -->
+            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
+              <!-- Lingkaran Angka Sudut Kiri Atas -->
+              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">
+                1
+              </span>
+              <!-- Ornamen Pil Putih Bawah Tengah -->
+              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5 shadow-xs">
+                frame
+              </span>
+            </div>
+
+            <!-- Slot Foto 2 -->
+            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
+              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">
+                2
+              </span>
+              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5 shadow-xs">
+                frame
+              </span>
+            </div>
+
+            <!-- Slot Foto 3 -->
+            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
+              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">
+                3
+              </span>
+              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5 shadow-xs">
+                frame
+              </span>
+            </div>
+
+            <!-- Slot Foto 4 -->
+            <div class="aspect-[3/4] bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm">
+              <span class="w-3.5 h-3.5 rounded-full bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">
+                4
+              </span>
+              <span class="mx-auto px-1.5 py-[1px] bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5 shadow-xs">
+                frame
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Footer Struk -->
+          <div class="text-center font-mono text-[6px] sm:text-[7px] text-slate-400 tracking-wider uppercase leading-tight pt-0.5">
+            <p>-WERE HOPING TO SEE YOU AGAIN-</p>
+            <p class="font-bold tracking-widest mt-0.5">-OUR RECEIPTIPT-</p>
+          </div>
+
+        </div>
+
+        <!-- Tombol Panah Kanan: Pil dengan Outline Tipis -->
+        <button
+          type="button"
+          aria-label="Frame Selanjutnya"
+          class="flex items-center justify-center w-8 h-5 sm:w-9 sm:h-6 rounded-full border border-navy-dark/60 text-navy-dark hover:bg-navy-dark hover:text-white transition-all duration-200 active:scale-90 focus:outline-none focus:ring-1 focus:ring-navy-dark/30 cursor-pointer flex-shrink-0"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </button>
+
+      </div>
+
+      <!-- 3. Tombol Aksi Bawah: Pil (rounded-full) "Lanjut" Outline Tipis -->
+      <div class="w-full flex justify-center">
+        <a
+          href="index.html"
+          class="inline-flex items-center justify-center min-w-[88px] px-6 py-1.5 rounded-full border border-navy-dark/70 text-navy-dark text-xs sm:text-sm font-normal tracking-wide transition-all duration-200 hover:bg-navy-dark hover:text-white hover:border-navy-dark active:scale-95 focus:outline-none focus:ring-2 focus:ring-navy-dark/30 cursor-pointer shadow-sm"
+        >
+          Lanjut
+        </a>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

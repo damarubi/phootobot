@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ubi photobox - Welcome</title>
+
+  <!-- Google Fonts: Playfair Display (Serif) & Plus Jakarta Sans (Sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            'pink-bg': '#FDF2F8',
+            'pink-grid': '#FBCFE8',
+            'navy-dark': '#0F172A',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Pola Kotak-kotak (Plaid/Tartan) Soft Pink */
+    .bg-plaid-tartan {
+      background-color: #FDF2F8;
+      background-image:
+        repeating-linear-gradient(0deg,
+          transparent,
+          transparent 32px,
+          rgba(251, 207, 232, 0.55) 32px,
+          rgba(251, 207, 232, 0.55) 34px,
+          transparent 34px,
+          transparent 68px,
+          rgba(244, 114, 182, 0.16) 68px,
+          rgba(244, 114, 182, 0.16) 78px),
+        repeating-linear-gradient(90deg,
+          transparent,
+          transparent 32px,
+          rgba(251, 207, 232, 0.55) 32px,
+          rgba(251, 207, 232, 0.55) 34px,
+          transparent 34px,
+          transparent 68px,
+          rgba(244, 114, 182, 0.16) 68px,
+          rgba(244, 114, 182, 0.16) 78px);
+    }
+
+    /* Pinggiran Bergerigi Prangko (Stamp-Edge) CSS Murni */
+    .stamp-edge-card {
+      --radius: 8px;
+      --spacing: 24px;
+      background-color: #FFFFFF;
+      -webkit-mask:
+        radial-gradient(circle var(--radius) at 50% 0, #0000 98%, #000) 50% 0/var(--spacing) 100%,
+        radial-gradient(circle var(--radius) at 50% 100%, #0000 98%, #000) 50% 100%/var(--spacing) 100%,
+        radial-gradient(circle var(--radius) at 0 50%, #0000 98%, #000) 0 50%/100% var(--spacing),
+        radial-gradient(circle var(--radius) at 100% 50%, #0000 98%, #000) 100% 50%/100% var(--spacing);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-plaid-tartan min-h-screen w-full flex items-center justify-center p-4 sm:p-6 font-sans text-navy-dark select-none antialiased">
+
+  <!-- Wrapper Drop Shadow untuk Bentuk Prangko Vertikal Responsif -->
+  <div
+    class="w-full max-w-[340px] sm:max-w-[380px] mx-auto filter drop-shadow-[0_16px_36px_rgba(244,114,182,0.22)] drop-shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+
+    <!-- Kontainer Utama: Putih Bergaya Kertas Prangko (Stamp-Edge) -->
+    <main
+      class="stamp-edge-card w-full py-16 sm:py-20 px-8 sm:px-10 flex flex-col items-center justify-center text-center">
+
+      <!-- 1. Judul: "ubi" baris pertama, "photobox" baris kedua (Font Serif Elegan, Italic) -->
+      <h1 class="font-serif italic font-normal text-navy-dark leading-[1.1] mb-6">
+        <span class="block text-3xl sm:text-4xl">ubi</span>
+        <span class="block text-4xl sm:text-5xl mt-1">photobox</span>
+      </h1>
+
+      <!-- 2. Paragraf Deskripsi Kecil dan Tipis -->
+      <p
+        class="text-[11px] sm:text-xs text-slate-500 font-light leading-relaxed max-w-[240px] sm:max-w-[260px] mx-auto mb-8">
+        Personality-led content focussed on creating content is authentically you content that is relatable and connect.
+      </p>
+
+      <!-- 3. Tombol Aksi: Pil (rounded-full) dengan Garis Tepi Tipis Transparan -->
+      <div>
+        <a href="#start"
+          class="inline-flex items-center justify-center px-7 py-2 rounded-full border border-navy-dark/70 text-navy-dark text-xs sm:text-sm font-normal tracking-wide transition-all duration-200 hover:bg-navy-dark hover:text-white hover:border-navy-dark active:scale-95 focus:outline-none focus:ring-2 focus:ring-navy-dark/30 cursor-pointer shadow-sm">
+          Start
+        </a>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+
+</html>
