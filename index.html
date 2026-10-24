@@ -95,6 +95,24 @@
 </head>
 <body class="bg-plaid-tartan min-h-screen w-full flex items-center justify-center p-3 sm:p-6 font-sans text-navy-dark select-none antialiased">
 
+  <!-- Tombol Audio Mute / Unmute (Kontrol Suara Global) -->
+  <button
+    id="btnMuteToggle"
+    type="button"
+    aria-label="Matikan Suara (Mute)"
+    title="Suara Aktif (Klik untuk Mematikan)"
+    class="fixed top-3 right-3 sm:top-5 sm:right-5 z-50 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-[0_4px_14px_rgba(0,0,0,0.08)] text-navy-dark hover:bg-white hover:scale-105 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-shutter/40 cursor-pointer"
+  >
+    <!-- Icon Speaker Bunyi (Unmuted) -->
+    <svg id="iconAudioOn" class="w-4 h-4 sm:w-5 sm:h-5 text-navy-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" />
+    </svg>
+    <!-- Icon Speaker Bisu (Muted) -->
+    <svg id="iconAudioOff" class="hidden w-4 h-4 sm:w-5 sm:h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-7.5l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" />
+    </svg>
+  </button>
+
   <!-- ========================================================= -->
   <!-- 1. SCREEN 1: WELCOME SCREEN                               -->
   <!-- ========================================================= -->
@@ -161,11 +179,17 @@
 
         <!-- Preview Struk Belanja -->
         <div id="previewReceiptCard" class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3.5 px-3 flex flex-col items-center text-navy-dark transition-all duration-200">
-          <div class="text-center mb-2">
+          <div class="text-center mb-1.5">
             <h2 class="font-serif italic leading-none receipt-header-title">
               <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
               <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
             </h2>
+          </div>
+
+          <!-- Metadata Baris Tanggal & Order ID -->
+          <div class="w-full flex justify-between font-mono text-[6px] sm:text-[7px] receipt-meta mb-1.5 pb-1 border-b border-dashed receipt-divider border-slate-200 text-slate-500 uppercase tracking-tight">
+            <span class="receipt-date-time">DATE: 25/10/2026 00:15:20</span>
+            <span class="receipt-order-id font-semibold">ORDER #UBI-83921</span>
           </div>
 
           <div class="w-full font-mono text-[7px] sm:text-[8px] receipt-items space-y-0.5 mb-2 leading-tight tracking-tight uppercase">
@@ -247,11 +271,36 @@
       </header>
 
       <!-- 2. Indikator Sesi Foto (4 Lingkaran) -->
-      <div id="sessionIndicators" class="flex items-center justify-center gap-2.5 mb-4" aria-label="Indikator Sesi Foto">
+      <div id="sessionIndicators" class="flex items-center justify-center gap-2.5 mb-2.5" aria-label="Indikator Sesi Foto">
         <span id="dot-0" class="w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200"></span>
         <span id="dot-1" class="w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200"></span>
         <span id="dot-2" class="w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200"></span>
         <span id="dot-3" class="w-2.5 h-2.5 rounded-full border border-slate-300 bg-transparent transition-all duration-200"></span>
+      </div>
+
+      <!-- 2.5. Pilihan Filter Kamera Real-Time (Pill Selector) -->
+      <div id="filterSelector" class="flex items-center justify-center gap-1.5 sm:gap-2 mb-3.5" role="group" aria-label="Pilihan Filter Foto">
+        <button
+          type="button"
+          data-filter="normal"
+          class="btn-filter px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-pink-shutter text-white ring-2 ring-pink-shutter/40"
+        >
+          Normal
+        </button>
+        <button
+          type="button"
+          data-filter="bw"
+          class="btn-filter px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-white/80 text-navy-dark hover:bg-white border border-slate-200/80"
+        >
+          B&W Film
+        </button>
+        <button
+          type="button"
+          data-filter="vintage"
+          class="btn-filter px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-white/80 text-navy-dark hover:bg-white border border-slate-200/80"
+        >
+          Vintage Warm
+        </button>
       </div>
 
       <!-- 3. Area Kamera Live Webcam (Aspect 4:3) -->
@@ -352,6 +401,12 @@
             <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
             <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
           </h2>
+        </div>
+
+        <!-- Metadata Baris Tanggal & Order ID -->
+        <div class="w-full flex justify-between font-mono text-[6px] sm:text-[7px] receipt-meta mb-1.5 pb-1 border-b border-dashed receipt-divider border-slate-200 text-slate-500 uppercase tracking-tight">
+          <span class="receipt-date-time">DATE: 25/10/2026 00:15:20</span>
+          <span class="receipt-order-id font-semibold">ORDER #UBI-83921</span>
         </div>
 
         <!-- Rincian Teks Kecil Struk -->
@@ -492,6 +547,35 @@
     let mediaStream = null;
     let capturedPhotos = [];
     let isCapturing = false;
+    let isMuted = false;
+
+    // Presets Filter Foto
+    const PHOTO_FILTERS = {
+      normal: {
+        label: 'Normal',
+        cssFilter: 'none',
+        canvasFilter: 'none'
+      },
+      bw: {
+        label: 'B&W Film',
+        cssFilter: 'grayscale(100%) contrast(115%)',
+        canvasFilter: 'grayscale(100%) contrast(1.15)'
+      },
+      vintage: {
+        label: 'Vintage Warm',
+        cssFilter: 'sepia(35%) contrast(105%) saturate(125%)',
+        canvasFilter: 'sepia(0.35) contrast(1.05) saturate(1.25)'
+      }
+    };
+
+    let currentFilterKey = 'normal';
+
+    // Metadata Struk (Order ID & Timestamp Riil)
+    let receiptMetadata = {
+      orderId: '#UBI-00000',
+      dateStr: '',
+      timeStr: ''
+    };
 
     // Elemen DOM
     const screens = {
@@ -508,6 +592,9 @@
     const btnDownload = document.getElementById('btnDownload');
     const btnPrevFrame = document.getElementById('btnPrevFrame');
     const btnNextFrame = document.getElementById('btnNextFrame');
+    const btnMuteToggle = document.getElementById('btnMuteToggle');
+    const iconAudioOn = document.getElementById('iconAudioOn');
+    const iconAudioOff = document.getElementById('iconAudioOff');
 
     const previewReceiptCard = document.getElementById('previewReceiptCard');
     const receiptCard = document.getElementById('receiptCard');
@@ -523,7 +610,7 @@
     const takePhotoHeader = document.getElementById('takePhotoHeader');
 
     // =========================================================
-    // FITUR 1: SISTEM AUDIO WEBCAM (Web Audio API)
+    // FITUR 1: SISTEM AUDIO WEBCAM & MUTE KONTROL (Web Audio API)
     // =========================================================
     let audioCtx = null;
 
@@ -539,8 +626,28 @@
       }
     }
 
+    function setAudioMute(muted) {
+      isMuted = muted;
+      if (isMuted) {
+        if (iconAudioOn) iconAudioOn.classList.add('hidden');
+        if (iconAudioOff) iconAudioOff.classList.remove('hidden');
+        if (btnMuteToggle) {
+          btnMuteToggle.setAttribute('aria-label', 'Hidupkan Suara (Unmute)');
+          btnMuteToggle.setAttribute('title', 'Suara Bisu (Klik untuk Menghidupkan)');
+        }
+      } else {
+        if (iconAudioOn) iconAudioOn.classList.remove('hidden');
+        if (iconAudioOff) iconAudioOff.classList.add('hidden');
+        if (btnMuteToggle) {
+          btnMuteToggle.setAttribute('aria-label', 'Matikan Suara (Mute)');
+          btnMuteToggle.setAttribute('title', 'Suara Aktif (Klik untuk Mematikan)');
+        }
+      }
+    }
+
     // 1. Beep countdown (880Hz detik 3 & 2, 1760Hz detik 1)
     function playCountdownBeep(isFinal = false) {
+      if (isMuted) return;
       try {
         initAudioContext();
         if (!audioCtx) return;
@@ -566,6 +673,7 @@
 
     // 2. Suara klik/shutter kamera mekanik (Noise burst + click drop)
     function playShutterSound() {
+      if (isMuted) return;
       try {
         initAudioContext();
         if (!audioCtx) return;
@@ -634,7 +742,64 @@
     }
 
     // =========================================================
-    // FITUR 2 & 3: TEMA STRUK & CAROUSEL HELPER
+    // FITUR 2: FILTER FOTO KAMERA REAL-TIME
+    // =========================================================
+    function setPhotoFilter(filterKey) {
+      if (!PHOTO_FILTERS[filterKey]) return;
+      currentFilterKey = filterKey;
+      const preset = PHOTO_FILTERS[filterKey];
+
+      // Terapkan efek langsung ke live video stream
+      if (video) {
+        video.style.filter = preset.cssFilter;
+      }
+
+      // Perbarui style tombol selektor filter
+      document.querySelectorAll('.btn-filter').forEach(btn => {
+        const isCurrent = btn.getAttribute('data-filter') === filterKey;
+        if (isCurrent) {
+          btn.className = "btn-filter px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-pink-shutter text-white ring-2 ring-pink-shutter/40";
+        } else {
+          btn.className = "btn-filter px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-white/80 text-navy-dark hover:bg-white border border-slate-200/80";
+        }
+      });
+    }
+
+    // =========================================================
+    // FITUR 3: GENERATE & UPDATE METADATA STRUK
+    // =========================================================
+    function generateReceiptMetadata() {
+      const now = new Date();
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const yyyy = now.getFullYear();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const min = String(now.getMinutes()).padStart(2, '0');
+      const ss = String(now.getSeconds()).padStart(2, '0');
+
+      const randomDigits = Math.floor(10000 + Math.random() * 90000);
+      receiptMetadata = {
+        orderId: `#UBI-${randomDigits}`,
+        dateStr: `${dd}/${mm}/${yyyy}`,
+        timeStr: `${hh}:${min}:${ss}`
+      };
+      updateReceiptMetadataUI();
+      return receiptMetadata;
+    }
+
+    function updateReceiptMetadataUI() {
+      const dateEls = document.querySelectorAll('.receipt-date-time');
+      const orderEls = document.querySelectorAll('.receipt-order-id');
+      dateEls.forEach(el => {
+        el.textContent = `DATE: ${receiptMetadata.dateStr} ${receiptMetadata.timeStr}`;
+      });
+      orderEls.forEach(el => {
+        el.textContent = `ORDER ${receiptMetadata.orderId}`;
+      });
+    }
+
+    // =========================================================
+    // TEMA STRUK & CAROUSEL HELPER
     // =========================================================
     function applyThemeToReceipt(theme, cardElement) {
       if (!cardElement) return;
@@ -645,6 +810,12 @@
 
       const headers = cardElement.querySelectorAll('.receipt-header-title');
       headers.forEach(h => h.style.color = theme.textPrimary);
+
+      const metaRows = cardElement.querySelectorAll('.receipt-meta');
+      metaRows.forEach(row => {
+        row.style.color = theme.textSecondary;
+        row.style.borderColor = theme.dashedLine;
+      });
 
       const items = cardElement.querySelectorAll('.receipt-items');
       items.forEach(it => it.style.color = theme.textSecondary);
@@ -707,6 +878,9 @@
         });
         video.srcObject = mediaStream;
         await video.play();
+        // Pastikan filter aktif diaplikasikan ke video
+        const preset = PHOTO_FILTERS[currentFilterKey] || PHOTO_FILTERS.normal;
+        video.style.filter = preset.cssFilter;
       } catch (err) {
         console.warn('Akses kamera tidak tersedia atau izin ditolak:', err);
         alert('Izin kamera diperlukan untuk mengambil foto photobox. Pastikan akses kamera diizinkan di browser Anda.');
@@ -754,13 +928,15 @@
       }, 120);
     }
 
-    // Jepret Foto Tunggal ke Canvas dengan Cropping Presisi 3:4 Sesuai Viewfinder
+    // Jepret Foto Tunggal ke Canvas dengan Cropping Presisi 3:4 dan Filter Aktif
     function snapPhoto() {
       playShutterSound();
       triggerFlash();
 
       const vw = video.videoWidth || 640;
       const vh = video.videoHeight || 480;
+
+      const activeFilter = PHOTO_FILTERS[currentFilterKey] || PHOTO_FILTERS.normal;
 
       if (mediaStream && video.videoWidth > 0) {
         // Container kamera berasio 4:3 dengan video object-cover
@@ -796,6 +972,9 @@
         hiddenCanvas.height = targetH;
         const ctx = hiddenCanvas.getContext('2d');
 
+        // Terapkan filter kamera yang dipilih
+        ctx.filter = activeFilter.canvasFilter;
+
         // Mirror horizontal agar pose selfie natural dan sesuai viewfinder
         ctx.save();
         ctx.translate(targetW, 0);
@@ -806,6 +985,7 @@
           0, 0, targetW, targetH
         );
         ctx.restore();
+        ctx.filter = 'none';
       } else {
         // Fallback simulasi jika kamera tidak aktif (Rasio 3:4)
         const targetW = 600;
@@ -814,6 +994,8 @@
         hiddenCanvas.height = targetH;
         const ctx = hiddenCanvas.getContext('2d');
 
+        // Terapkan filter pada fallback canvas
+        ctx.filter = activeFilter.canvasFilter;
         ctx.fillStyle = '#1E293B';
         ctx.fillRect(0, 0, targetW, targetH);
         ctx.fillStyle = '#FFFFFF';
@@ -821,6 +1003,7 @@
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('Snap Photo ' + (capturedPhotos.length + 1), targetW / 2, targetH / 2);
+        ctx.filter = 'none';
       }
 
       const dataUrl = hiddenCanvas.toDataURL('image/jpeg', 0.95);
@@ -906,6 +1089,8 @@
       }
       // Terapkan tema yang dipilih ke struk hasil
       applyThemeToReceipt(FRAME_THEMES[selectedThemeIndex], receiptCard);
+      // Sinkronkan metadata di struk hasil
+      updateReceiptMetadataUI();
     }
 
     // Helper untuk menjaga aspek rasio cover pada canvas
@@ -962,24 +1147,42 @@
       ctx.textAlign = 'center';
 
       ctx.font = 'italic 52px "Playfair Display", serif';
-      ctx.fillText('receipt', w / 2, 130);
+      ctx.fillText('receipt', w / 2, 125);
 
-      ctx.font = 'italic bold 72px "Playfair Display", serif';
-      ctx.fillText('photobooth', w / 2, 210);
+      ctx.font = 'italic bold 70px "Playfair Display", serif';
+      ctx.fillText('photobooth', w / 2, 195);
+
+      // Metadata Tanggal, Jam & Order ID (Sesuai Tema)
+      ctx.font = '22px "Space Mono", monospace';
+      ctx.fillStyle = theme.textSecondary;
+      ctx.textAlign = 'left';
+      ctx.fillText(`DATE: ${receiptMetadata.dateStr} ${receiptMetadata.timeStr}`, 100, 245);
+      ctx.textAlign = 'right';
+      ctx.fillText(`ORDER ${receiptMetadata.orderId}`, w - 100, 245);
+
+      // Garis Pembatas Putus-putus Metadata
+      ctx.strokeStyle = theme.dashedLine;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([8, 8]);
+      ctx.beginPath();
+      ctx.moveTo(100, 265);
+      ctx.lineTo(w - 100, 265);
+      ctx.stroke();
+      ctx.setLineDash([]);
 
       // Rincian Item Struk (Sesuai Tema)
-      ctx.font = '28px "Space Mono", monospace';
+      ctx.font = '26px "Space Mono", monospace';
       ctx.fillStyle = theme.textSecondary;
 
       ctx.textAlign = 'left';
-      ctx.fillText('FRENCH FRIES', 100, 300);
-      ctx.fillText('MATCHA LATTE', 100, 344);
-      ctx.fillText('AMERICANO', 100, 388);
+      ctx.fillText('FRENCH FRIES', 100, 310);
+      ctx.fillText('MATCHA LATTE', 100, 354);
+      ctx.fillText('AMERICANO', 100, 398);
 
       ctx.textAlign = 'right';
-      ctx.fillText('22.000', w - 100, 300);
-      ctx.fillText('17.000', w - 100, 344);
-      ctx.fillText('15.000', w - 100, 388);
+      ctx.fillText('22.000', w - 100, 310);
+      ctx.fillText('17.000', w - 100, 354);
+      ctx.fillText('15.000', w - 100, 398);
 
       // Garis Pembatas Putus-putus Atas (Sesuai Tema)
       ctx.strokeStyle = theme.dashedLine;
@@ -1085,8 +1288,24 @@
     }
 
     // 5. Event Listeners & Reset Alur
+    if (btnMuteToggle) {
+      btnMuteToggle.addEventListener('click', () => {
+        initAudioContext();
+        setAudioMute(!isMuted);
+      });
+    }
+
+    document.querySelectorAll('.btn-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        initAudioContext();
+        const filterKey = btn.getAttribute('data-filter');
+        setPhotoFilter(filterKey);
+      });
+    });
+
     btnStart.addEventListener('click', () => {
       initAudioContext();
+      generateReceiptMetadata();
       showScreen('chooseFrame');
     });
 
@@ -1120,6 +1339,7 @@
 
     btnRetake.addEventListener('click', async () => {
       initAudioContext();
+      generateReceiptMetadata();
       capturedPhotos = [];
       showScreen('takePhoto');
       resetPhotoIndicators();
@@ -1131,7 +1351,8 @@
       downloadReceiptImage();
     });
 
-    // Inisialisasi Tema Carousel Awal
+    // Inisialisasi Metadata Awal & Tema Carousel Awal
+    generateReceiptMetadata();
     updateThemeCarousel();
   </script>
 
