@@ -242,6 +242,7 @@
       
       <!-- Debossed Studio Header Badge -->
       <div class="flex items-center justify-between w-full pb-2.5 mb-3.5 border-b border-slate-100 font-mono text-[9px] tracking-widest text-slate-400 select-none uppercase">
+        <button id="btnBackToWelcome" type="button" class="flex items-center gap-1 text-[9px] font-mono tracking-wider text-slate-500 hover:text-navy-dark transition-colors cursor-pointer py-0.5 px-2 rounded-full border border-slate-200/80 bg-slate-50 hover:bg-white shadow-2xs"><span>←</span> BERANDA</button>
         <span class="flex items-center gap-1.5 font-semibold text-slate-600">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
           FRAME SELECTION
@@ -613,6 +614,7 @@
       
       <!-- Debossed Studio Header Badge -->
       <div class="flex items-center justify-between w-full pb-2.5 mb-3 border-b border-slate-100 font-mono text-[9px] tracking-widest text-slate-400 select-none uppercase">
+        <button id="btnBackToFrames" type="button" class="flex items-center gap-1 text-[9px] font-mono tracking-wider text-slate-500 hover:text-navy-dark transition-colors cursor-pointer py-0.5 px-2 rounded-full border border-slate-200/80 bg-slate-50 hover:bg-white shadow-2xs"><span>←</span> GANTI FRAME</button>
         <span class="flex items-center gap-1.5 font-semibold text-slate-600">
           <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
           STUDIO CAM • LIVE
@@ -1168,6 +1170,13 @@
           Ambil Foto Lagi?
         </button>
 
+        <!-- Navigasi Fleksibel di Layar Hasil -->
+        <div class="flex items-center justify-center gap-4 text-[10px] sm:text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">
+          <button id="btnResultChangeFrame" type="button" class="hover:text-navy-dark underline underline-offset-4 cursor-pointer">Ganti Frame</button>
+          <span>•</span>
+          <button id="btnResultHome" type="button" class="hover:text-navy-dark underline underline-offset-4 cursor-pointer">Ke Awal</button>
+        </div>
+
         <!-- Tombol Download Gambar -->
         <button
           id="btnDownload"
@@ -1440,6 +1449,10 @@
     const btnDownload = document.getElementById('btnDownload');
     const btnPrevFrame = document.getElementById('btnPrevFrame');
     const btnNextFrame = document.getElementById('btnNextFrame');
+    const btnBackToWelcome = document.getElementById('btnBackToWelcome');
+    const btnBackToFrames = document.getElementById('btnBackToFrames');
+    const btnResultChangeFrame = document.getElementById('btnResultChangeFrame');
+    const btnResultHome = document.getElementById('btnResultHome');
     const btnMuteToggle = document.getElementById('btnMuteToggle');
     const iconAudioOn = document.getElementById('iconAudioOn');
     const iconAudioOff = document.getElementById('iconAudioOff');
@@ -2022,6 +2035,12 @@
         countdownText.classList.add('animate-count-pop');
 
         const timer = setInterval(() => {
+          if (!isCapturing) {
+            clearInterval(timer);
+            countdownOverlay.classList.add('hidden');
+            resolve();
+            return;
+          }
           current--;
           if (current > 0) {
             countdownText.textContent = current;
@@ -2049,12 +2068,14 @@
       btnShutter.disabled = true;
 
       for (let i = 0; i < 4; i++) {
+        if (!isCapturing) return;
         if (takePhotoHeader) {
           takePhotoHeader.textContent = `Pose ${i + 1} of 4!`;
         }
 
         // Hitung mundur 3, 2, 1
         await runCountdown(3);
+        if (!isCapturing) return;
 
         // Ambil frame foto
         snapPhoto();
@@ -2064,6 +2085,7 @@
         if (i < 3) {
           await new Promise(r => setTimeout(r, 800));
         }
+        if (!isCapturing) return;
       }
 
       isCapturing = false;
@@ -2907,12 +2929,31 @@
       showScreen('chooseFrame');
     });
 
+    if (btnBackToWelcome) {
+      btnBackToWelcome.addEventListener('click', () => {
+        initAudioContext();
+        showScreen('welcome');
+      });
+    }
+
     btnLanjut.addEventListener('click', async () => {
       initAudioContext();
       showScreen('takePhoto');
       resetPhotoIndicators();
       await startCamera();
     });
+
+    if (btnBackToFrames) {
+      btnBackToFrames.addEventListener('click', () => {
+        initAudioContext();
+        isCapturing = false;
+        countdownOverlay.classList.add('hidden');
+        btnShutter.disabled = false;
+        stopCamera();
+        resetPhotoIndicators();
+        showScreen('chooseFrame');
+      });
+    }
 
     if (btnPrevFrame) {
       btnPrevFrame.addEventListener('click', () => {
@@ -2948,6 +2989,28 @@
       resetPhotoIndicators();
       await startCamera();
     });
+
+    if (btnResultChangeFrame) {
+      btnResultChangeFrame.addEventListener('click', () => {
+        initAudioContext();
+        showScreen('chooseFrame');
+      });
+    }
+
+    if (btnResultHome) {
+      btnResultHome.addEventListener('click', () => {
+        initAudioContext();
+        stopCamera();
+        capturedPhotos = [];
+        customSignature = '';
+        activeStickers = [];
+        if (inputSignature) inputSignature.value = '';
+        updateSignatureUI();
+        updateStickersUI();
+        resetPhotoIndicators();
+        showScreen('welcome');
+      });
+    }
 
     btnDownload.addEventListener('click', () => {
       initAudioContext();
