@@ -147,6 +147,15 @@
     .animate-sticker-pop {
       animation: sticker-pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
+
+    /* Utility no-scrollbar untuk horizontal scrolling */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 <body class="studio-bg min-h-screen w-full flex items-center justify-center p-3 sm:p-6 font-sans text-navy-dark select-none antialiased">
@@ -247,29 +256,52 @@
         </h1>
       </header>
 
-      <!-- Selector Format Multi-Layout (3 Pill Tabs) -->
-      <div id="formatSelector" class="flex items-center justify-center gap-1.5 sm:gap-2 mb-3" role="tablist" aria-label="Format Layout Cetak">
-        <button
-          type="button"
-          data-format="strip"
-          class="btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-navy-dark text-white ring-2 ring-navy-dark/30"
-        >
-          1x4 Strip
-        </button>
-        <button
-          type="button"
-          data-format="polaroid"
-          class="btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60"
-        >
-          2x2 Polaroid
-        </button>
-        <button
-          type="button"
-          data-format="receipt"
-          class="btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60"
-        >
-          Receipt
-        </button>
+      <!-- Selector Format Multi-Layout (6 Scrollable Pill Tabs) -->
+      <div class="w-full max-w-[320px] sm:max-w-[360px] mb-3 px-1">
+        <div id="formatSelector" class="flex items-center overflow-x-auto no-scrollbar gap-1.5 py-1 px-1 select-none" role="tablist" aria-label="Format Layout Cetak">
+          <button
+            type="button"
+            data-format="strip"
+            class="btn-format flex-shrink-0 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-navy-dark text-white ring-2 ring-navy-dark/30 whitespace-nowrap"
+          >
+            🎞️ 1x4 Strip
+          </button>
+          <button
+            type="button"
+            data-format="polaroid"
+            class="btn-format flex-shrink-0 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60 whitespace-nowrap"
+          >
+            📷 2x2 Polaroid
+          </button>
+          <button
+            type="button"
+            data-format="receipt"
+            class="btn-format flex-shrink-0 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60 whitespace-nowrap"
+          >
+            🧾 Receipt
+          </button>
+          <button
+            type="button"
+            data-format="film"
+            class="btn-format flex-shrink-0 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60 whitespace-nowrap"
+          >
+            🎬 35mm Film
+          </button>
+          <button
+            type="button"
+            data-format="twin"
+            class="btn-format flex-shrink-0 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60 whitespace-nowrap"
+          >
+            ✂️ Bestie Twin
+          </button>
+          <button
+            type="button"
+            data-format="cinema"
+            class="btn-format flex-shrink-0 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60 whitespace-nowrap"
+          >
+            🎥 1x3 Cinema
+          </button>
+        </div>
       </div>
 
       <!-- Indikator Tema Carousel -->
@@ -413,6 +445,135 @@
             <div class="text-center font-mono text-[6px] sm:text-[7px] receipt-footer tracking-wider uppercase leading-tight pt-0.5">
               <p class="receipt-footer-sub text-slate-400">- WE'RE HOPING TO SEE YOU AGAIN -</p>
               <p class="font-bold tracking-widest mt-0.5 receipt-footer-main">~OUR RECEIPT~</p>
+            </div>
+          </div>
+
+          <!-- Layout Format 4: 35mm Film -->
+          <div id="previewFilm" class="w-full flex flex-col items-center hidden bg-[#121214] text-white rounded p-1.5 border border-black/40 shadow-inner">
+            <div class="text-center mb-1">
+              <span class="font-mono text-[6px] tracking-widest text-amber-400 font-bold uppercase">KODAK 400 • UBI 35MM</span>
+            </div>
+            <!-- Film Strip with side sprocket holes -->
+            <div class="w-full flex items-center justify-between gap-1">
+              <!-- Left Sprocket Holes -->
+              <div class="flex flex-col justify-between py-1 gap-1.5 opacity-60 flex-shrink-0">
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              </div>
+              <!-- Center Photos -->
+              <div class="flex-1 flex flex-col gap-1 my-0.5">
+                <div class="aspect-[4/3] bg-slate-800 rounded-[2px] relative flex items-center justify-between p-1 border border-white/10">
+                  <span class="font-mono text-[5px] text-amber-400 font-bold">01A ▶</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/20 text-white text-[6px] flex items-center justify-center font-bold">1</span>
+                </div>
+                <div class="aspect-[4/3] bg-slate-800 rounded-[2px] relative flex items-center justify-between p-1 border border-white/10">
+                  <span class="font-mono text-[5px] text-amber-400 font-bold">02A ▶</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/20 text-white text-[6px] flex items-center justify-center font-bold">2</span>
+                </div>
+                <div class="aspect-[4/3] bg-slate-800 rounded-[2px] relative flex items-center justify-between p-1 border border-white/10">
+                  <span class="font-mono text-[5px] text-amber-400 font-bold">03A ▶</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/20 text-white text-[6px] flex items-center justify-center font-bold">3</span>
+                </div>
+                <div class="aspect-[4/3] bg-slate-800 rounded-[2px] relative flex items-center justify-between p-1 border border-white/10">
+                  <span class="font-mono text-[5px] text-amber-400 font-bold">04A ▶</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-white/20 text-white text-[6px] flex items-center justify-center font-bold">4</span>
+                </div>
+              </div>
+              <!-- Right Sprocket Holes -->
+              <div class="flex flex-col justify-between py-1 gap-1.5 opacity-60 flex-shrink-0">
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+                <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              </div>
+            </div>
+            <!-- Film Footer -->
+            <div class="w-full pt-1 text-center font-mono text-[5px] text-slate-400 tracking-wider">
+              <span>SAFETY FILM • ISO 400</span>
+            </div>
+          </div>
+
+          <!-- Layout Format 5: Bestie Twin -->
+          <div id="previewTwin" class="w-full flex flex-col items-center hidden">
+            <div class="text-center mb-1">
+              <span class="font-mono text-[6px] tracking-widest text-slate-400 uppercase font-semibold">UBI BESTIE TWIN CUT</span>
+            </div>
+            <!-- Dual Parallel Strips with Center Cut Line -->
+            <div class="w-full flex items-stretch gap-1.5 my-1">
+              <!-- Left Strip: Bestie 1 -->
+              <div class="flex-1 flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80">
+                <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 1</div>
+                <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
+                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">1</span>
+                </div>
+                <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
+                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">2</span>
+                </div>
+                <div class="text-center font-serif italic text-[7px] text-navy-dark mt-0.5">memories ♡</div>
+              </div>
+              <!-- Center Cut Line with Scissors -->
+              <div class="flex flex-col items-center justify-between py-1 border-r border-dashed border-slate-300 relative px-0.5">
+                <span class="text-[8px] text-slate-400">✂</span>
+                <span class="font-mono text-[5px] text-slate-400 uppercase [writing-mode:vertical-lr] tracking-widest my-1 select-none">CUT HERE</span>
+                <span class="text-[8px] text-slate-400">✂</span>
+              </div>
+              <!-- Right Strip: Bestie 2 -->
+              <div class="flex-1 flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80">
+                <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 2</div>
+                <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
+                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">3</span>
+                </div>
+                <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
+                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">4</span>
+                </div>
+                <div class="text-center font-serif italic text-[7px] text-navy-dark mt-0.5">memories ♡</div>
+              </div>
+            </div>
+            <!-- Twin Footer -->
+            <div class="text-center font-mono text-[5px] text-slate-400 uppercase tracking-tight mt-0.5">
+              <span>SHARE WITH BESTIE • UBI STUDIO</span>
+            </div>
+          </div>
+
+          <!-- Layout Format 6: 1x3 Cinema -->
+          <div id="previewCinema" class="w-full flex flex-col items-center hidden">
+            <div class="text-center mb-1">
+              <span class="font-mono text-[6px] tracking-widest text-slate-400 uppercase">CINEMATIC REEL • 24 FPS</span>
+            </div>
+            <!-- 3 Cinema Frames -->
+            <div class="w-full flex flex-col gap-1.5 my-1">
+              <div class="flex flex-col bg-slate-900 rounded-[3px] p-1 shadow-xs border border-slate-800">
+                <div class="aspect-[16/10] receipt-placeholder bg-frame-blue rounded-[2px] relative flex items-center justify-between p-0.5">
+                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">1</span>
+                  <span class="font-mono text-[5px] text-white/70">TC 00:01</span>
+                </div>
+                <span class="font-mono text-[5px] text-amber-300 text-center mt-0.5 uppercase tracking-wider">[ SCENE 01: INTRO ]</span>
+              </div>
+              <div class="flex flex-col bg-slate-900 rounded-[3px] p-1 shadow-xs border border-slate-800">
+                <div class="aspect-[16/10] receipt-placeholder bg-frame-blue rounded-[2px] relative flex items-center justify-between p-0.5">
+                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">2</span>
+                  <span class="font-mono text-[5px] text-white/70">TC 00:02</span>
+                </div>
+                <span class="font-mono text-[5px] text-amber-300 text-center mt-0.5 uppercase tracking-wider">[ SCENE 02: CLIMAX ]</span>
+              </div>
+              <div class="flex flex-col bg-slate-900 rounded-[3px] p-1 shadow-xs border border-slate-800">
+                <div class="aspect-[16/10] receipt-placeholder bg-frame-blue rounded-[2px] relative flex items-center justify-between p-0.5">
+                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">3</span>
+                  <span class="font-mono text-[5px] text-white/70">TC 00:03</span>
+                </div>
+                <span class="font-mono text-[5px] text-amber-300 text-center mt-0.5 uppercase tracking-wider">[ SCENE 03: OUTRO ]</span>
+              </div>
+            </div>
+            <!-- Cinema Footer -->
+            <div class="w-full pt-1 text-center font-mono text-[5px] text-slate-400 uppercase tracking-tight">
+              <span class="block font-serif italic text-[8px] text-navy-dark">directed by besties</span>
+              <span class="block mt-0.5">WIDESCREEN 35MM • UBI CINEMA</span>
             </div>
           </div>
         </div>
@@ -798,6 +959,174 @@
           </div>
         </div>
 
+        <!-- Result Format 4: 35mm Film -->
+        <div id="resultFilm" class="w-full flex flex-col items-center relative hidden bg-[#121214] text-white rounded p-1.5 border border-black/40 shadow-inner">
+          <div class="text-center mb-1">
+            <span class="font-mono text-[6px] tracking-widest text-amber-400 font-bold uppercase">KODAK 400 • UBI 35MM</span>
+          </div>
+          <!-- Film Strip with side sprocket holes -->
+          <div class="w-full flex items-center justify-between gap-1 relative">
+            <!-- Left Sprocket Holes -->
+            <div class="flex flex-col justify-between py-1 gap-1.5 opacity-60 flex-shrink-0">
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+            </div>
+            <!-- Center Photos with stickers -->
+            <div class="flex-1 flex flex-col gap-1 my-0.5 relative">
+              <div class="aspect-[4/3] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
+                <img src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
+                <span class="absolute top-0.5 left-0.5 font-mono text-[5px] text-amber-400 font-bold bg-black/60 px-1 rounded-xs">01A ▶</span>
+              </div>
+              <div class="aspect-[4/3] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
+                <img src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
+                <span class="absolute top-0.5 left-0.5 font-mono text-[5px] text-amber-400 font-bold bg-black/60 px-1 rounded-xs">02A ▶</span>
+              </div>
+              <div class="aspect-[4/3] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
+                <img src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
+                <span class="absolute top-0.5 left-0.5 font-mono text-[5px] text-amber-400 font-bold bg-black/60 px-1 rounded-xs">03A ▶</span>
+              </div>
+              <div class="aspect-[4/3] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
+                <img src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
+                <span class="absolute top-0.5 left-0.5 font-mono text-[5px] text-amber-400 font-bold bg-black/60 px-1 rounded-xs">04A ▶</span>
+              </div>
+              <!-- Sticker Overlay Layer for Film -->
+              <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+                <span class="card-sticker sticker-ribbon absolute top-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
+                <span class="card-sticker sticker-sparkles absolute top-[27%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
+                <span class="card-sticker sticker-heart absolute top-[47%] right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
+                <span class="card-sticker sticker-cherries absolute top-[71%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
+                <span class="card-sticker sticker-paws absolute bottom-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
+                <span class="card-sticker sticker-besties absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
+              </div>
+            </div>
+            <!-- Right Sprocket Holes -->
+            <div class="flex flex-col justify-between py-1 gap-1.5 opacity-60 flex-shrink-0">
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+              <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
+            </div>
+          </div>
+          <!-- Film Footer -->
+          <div class="receipt-live-signature font-serif italic text-xs text-amber-300 text-center my-0.5 min-h-[14px]"></div>
+          <div class="text-center font-mono text-[5px] text-slate-400 tracking-wider pt-0.5">
+            <span class="receipt-date-time block text-slate-400">25/10/2026 00:15</span>
+            <span class="text-amber-400 font-semibold block mt-0.5">SAFETY FILM • ISO 400</span>
+          </div>
+        </div>
+
+        <!-- Result Format 5: Bestie Twin -->
+        <div id="resultTwin" class="w-full flex flex-col items-center relative hidden">
+          <div class="text-center mb-1">
+            <span class="font-mono text-[6px] tracking-widest text-slate-400 uppercase font-semibold">UBI BESTIE TWIN CUT</span>
+          </div>
+          <!-- Dual Parallel Strips with Center Cut Line -->
+          <div class="w-full flex items-stretch gap-1.5 my-1 relative">
+            <!-- Left Strip: Bestie 1 -->
+            <div class="flex-1 flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80 relative">
+              <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 1</div>
+              <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
+                <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">1</span>
+              </div>
+              <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
+                <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">2</span>
+              </div>
+              <div class="receipt-live-signature font-serif italic text-[7px] text-navy-dark text-center mt-0.5 min-h-[10px]">memories ♡</div>
+            </div>
+            <!-- Center Cut Line with Scissors -->
+            <div class="flex flex-col items-center justify-between py-1 border-r border-dashed border-slate-300 relative px-0.5">
+              <span class="text-[8px] text-slate-400">✂</span>
+              <span class="font-mono text-[5px] text-slate-400 uppercase [writing-mode:vertical-lr] tracking-widest my-1 select-none">CUT HERE</span>
+              <span class="text-[8px] text-slate-400">✂</span>
+            </div>
+            <!-- Right Strip: Bestie 2 -->
+            <div class="flex-1 flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80 relative">
+              <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 2</div>
+              <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
+                <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">3</span>
+              </div>
+              <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
+                <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">4</span>
+              </div>
+              <div class="receipt-live-signature font-serif italic text-[7px] text-navy-dark text-center mt-0.5 min-h-[10px]">memories ♡</div>
+            </div>
+            <!-- Sticker Overlay Layer for Twin -->
+            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+              <span class="card-sticker sticker-ribbon absolute top-1 right-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
+              <span class="card-sticker sticker-sparkles absolute top-1 left-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
+              <span class="card-sticker sticker-heart absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
+              <span class="card-sticker sticker-cherries absolute bottom-1 left-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
+              <span class="card-sticker sticker-paws absolute bottom-1 right-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
+              <span class="card-sticker sticker-besties absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
+            </div>
+          </div>
+          <!-- Twin Footer -->
+          <div class="text-center font-mono text-[5px] text-slate-400 uppercase tracking-tight mt-0.5">
+            <span class="receipt-date-time">25/10/2026 • SHARE WITH BESTIE</span>
+          </div>
+        </div>
+
+        <!-- Result Format 6: 1x3 Cinema -->
+        <div id="resultCinema" class="w-full flex flex-col items-center relative hidden">
+          <div class="text-center mb-1">
+            <span class="font-mono text-[6px] tracking-widest text-slate-400 uppercase">CINEMATIC REEL • 24 FPS</span>
+          </div>
+          <!-- 3 Cinema Frames with stickers -->
+          <div class="w-full relative">
+            <div class="w-full flex flex-col gap-1.5 my-1">
+              <div class="flex flex-col bg-slate-950 rounded-[3px] p-1 shadow-xs border border-slate-800">
+                <div class="aspect-[16/10] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900">
+                  <img src="" alt="Scene 1" class="result-img-0 w-full h-full object-cover">
+                  <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">1</span>
+                  <span class="absolute bottom-0.5 right-1 font-mono text-[5px] text-white/80">TC 00:01</span>
+                </div>
+                <span class="font-mono text-[5px] text-amber-300 text-center mt-0.5 uppercase tracking-wider">[ SCENE 01: INTRO ]</span>
+              </div>
+              <div class="flex flex-col bg-slate-950 rounded-[3px] p-1 shadow-xs border border-slate-800">
+                <div class="aspect-[16/10] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900">
+                  <img src="" alt="Scene 2" class="result-img-1 w-full h-full object-cover">
+                  <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">2</span>
+                  <span class="absolute bottom-0.5 right-1 font-mono text-[5px] text-white/80">TC 00:02</span>
+                </div>
+                <span class="font-mono text-[5px] text-amber-300 text-center mt-0.5 uppercase tracking-wider">[ SCENE 02: CLIMAX ]</span>
+              </div>
+              <div class="flex flex-col bg-slate-950 rounded-[3px] p-1 shadow-xs border border-slate-800">
+                <div class="aspect-[16/10] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900">
+                  <img src="" alt="Scene 3" class="result-img-2 w-full h-full object-cover">
+                  <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">3</span>
+                  <span class="absolute bottom-0.5 right-1 font-mono text-[5px] text-white/80">TC 00:03</span>
+                </div>
+                <span class="font-mono text-[5px] text-amber-300 text-center mt-0.5 uppercase tracking-wider">[ SCENE 03: OUTRO ]</span>
+              </div>
+            </div>
+            <!-- Sticker Overlay Layer for Cinema -->
+            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+              <span class="card-sticker sticker-ribbon absolute top-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
+              <span class="card-sticker sticker-sparkles absolute top-[30%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
+              <span class="card-sticker sticker-heart absolute top-[60%] right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
+              <span class="card-sticker sticker-cherries absolute bottom-1 left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
+              <span class="card-sticker sticker-paws absolute bottom-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
+              <span class="card-sticker sticker-besties absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
+            </div>
+          </div>
+          <!-- Cinema Footer -->
+          <div class="receipt-live-signature font-serif italic text-xs text-navy-dark text-center my-0.5 min-h-[14px]">directed by besties</div>
+          <div class="w-full pt-0.5 text-center font-mono text-[5px] text-slate-400 uppercase tracking-tight">
+            <span class="receipt-date-time block text-slate-400">25/10/2026 • PRODUCTION #UBI-83921</span>
+            <span class="block mt-0.5 text-slate-500 font-semibold">WIDESCREEN 35MM • UBI CINEMA</span>
+          </div>
+        </div>
+
       </div>
 
       <!-- FITUR 2: PANEL DEKORASI (Input Tanda Tangan & Sticker Tray) -->
@@ -920,25 +1249,58 @@
     // =========================================================
     const FORMATS = {
       strip: {
+        id: 'strip',
         key: 'strip',
         name: '1x4 Strip',
+        icon: '🎞️',
         canvasW: 600,
         canvasH: 1800,
         cardWidthClass: 'w-[140px] sm:w-[155px]'
       },
       polaroid: {
+        id: 'polaroid',
         key: 'polaroid',
         name: '2x2 Polaroid',
+        icon: '📷',
         canvasW: 1200,
         canvasH: 1500,
         cardWidthClass: 'w-[185px] sm:w-[205px]'
       },
       receipt: {
+        id: 'receipt',
         key: 'receipt',
         name: 'Receipt',
+        icon: '🧾',
         canvasW: 1200,
         canvasH: 2000,
         cardWidthClass: 'w-[185px] sm:w-[205px]'
+      },
+      film: {
+        id: 'film',
+        key: 'film',
+        name: '35mm Film',
+        icon: '🎬',
+        canvasW: 700,
+        canvasH: 2000,
+        cardWidthClass: 'w-[150px] sm:w-[165px]'
+      },
+      twin: {
+        id: 'twin',
+        key: 'twin',
+        name: 'Bestie Twin',
+        icon: '✂️',
+        canvasW: 1200,
+        canvasH: 1600,
+        cardWidthClass: 'w-[200px] sm:w-[220px]'
+      },
+      cinema: {
+        id: 'cinema',
+        key: 'cinema',
+        name: '1x3 Cinema',
+        icon: '🎥',
+        canvasW: 600,
+        canvasH: 1500,
+        cardWidthClass: 'w-[145px] sm:w-[160px]'
       }
     };
 
@@ -955,7 +1317,10 @@
         coords: {
           strip: { x: 475, y: 170 },
           polaroid: { x: 1045, y: 140 },
-          receipt: { x: 1030, y: 535 }
+          receipt: { x: 1030, y: 535 },
+          film: { x: 550, y: 150 },
+          twin: { x: 500, y: 150 },
+          cinema: { x: 490, y: 140 }
         }
       },
       sparkles: {
@@ -965,7 +1330,10 @@
         coords: {
           strip: { x: 125, y: 540 },
           polaroid: { x: 155, y: 140 },
-          receipt: { x: 170, y: 535 }
+          receipt: { x: 170, y: 535 },
+          film: { x: 150, y: 580 },
+          twin: { x: 700, y: 150 },
+          cinema: { x: 110, y: 520 }
         }
       },
       heart: {
@@ -975,7 +1343,10 @@
         coords: {
           strip: { x: 475, y: 815 },
           polaroid: { x: 600, y: 665 },
-          receipt: { x: 600, y: 1150 }
+          receipt: { x: 600, y: 1150 },
+          film: { x: 550, y: 990 },
+          twin: { x: 600, y: 700 },
+          cinema: { x: 490, y: 840 }
         }
       },
       cherries: {
@@ -985,7 +1356,10 @@
         coords: {
           strip: { x: 125, y: 1185 },
           polaroid: { x: 155, y: 1175 },
-          receipt: { x: 170, y: 1750 }
+          receipt: { x: 170, y: 1750 },
+          film: { x: 150, y: 1420 },
+          twin: { x: 130, y: 1240 },
+          cinema: { x: 110, y: 1140 }
         }
       },
       paws: {
@@ -995,7 +1369,10 @@
         coords: {
           strip: { x: 475, y: 1545 },
           polaroid: { x: 1045, y: 1175 },
-          receipt: { x: 1030, y: 1750 }
+          receipt: { x: 1030, y: 1750 },
+          film: { x: 550, y: 1720 },
+          twin: { x: 1070, y: 1240 },
+          cinema: { x: 490, y: 1140 }
         }
       },
       besties: {
@@ -1006,7 +1383,10 @@
         coords: {
           strip: { x: 300, y: 1595 },
           polaroid: { x: 600, y: 1250 },
-          receipt: { x: 600, y: 1825 }
+          receipt: { x: 600, y: 1825 },
+          film: { x: 350, y: 1820 },
+          twin: { x: 600, y: 1350 },
+          cinema: { x: 300, y: 1250 }
         }
       }
     };
@@ -1278,36 +1658,56 @@
       document.querySelectorAll('.btn-format').forEach(btn => {
         const isCurrent = btn.getAttribute('data-format') === formatKey;
         if (isCurrent) {
-          btn.className = "btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-navy-dark text-white ring-2 ring-navy-dark/30";
+          btn.className = "btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-navy-dark text-white ring-2 ring-navy-dark/30 flex-shrink-0 whitespace-nowrap";
         } else {
-          btn.className = "btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60";
+          btn.className = "btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60 flex-shrink-0 whitespace-nowrap";
         }
       });
 
       // 2. Update layout di previewReceiptCard (Screen 2)
       if (previewReceiptCard) {
         const widthClass = FORMATS[formatKey].cardWidthClass;
-        previewReceiptCard.className = `${widthClass} bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3 px-2 flex flex-col items-center text-navy-dark transition-all duration-200`;
+        if (formatKey === 'film') {
+          previewReceiptCard.className = `${widthClass} bg-[#121214] rounded shadow-[0_4px_16px_rgba(0,0,0,0.4)] border border-black/40 py-2.5 px-2 flex flex-col items-center text-white transition-all duration-200`;
+        } else {
+          previewReceiptCard.className = `${widthClass} bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3 px-2 flex flex-col items-center text-navy-dark transition-all duration-200`;
+        }
 
         const pStrip = document.getElementById('previewStrip');
         const pPolaroid = document.getElementById('previewPolaroid');
         const pReceipt = document.getElementById('previewReceipt');
+        const pFilm = document.getElementById('previewFilm');
+        const pTwin = document.getElementById('previewTwin');
+        const pCinema = document.getElementById('previewCinema');
         if (pStrip) pStrip.classList.toggle('hidden', formatKey !== 'strip');
         if (pPolaroid) pPolaroid.classList.toggle('hidden', formatKey !== 'polaroid');
         if (pReceipt) pReceipt.classList.toggle('hidden', formatKey !== 'receipt');
+        if (pFilm) pFilm.classList.toggle('hidden', formatKey !== 'film');
+        if (pTwin) pTwin.classList.toggle('hidden', formatKey !== 'twin');
+        if (pCinema) pCinema.classList.toggle('hidden', formatKey !== 'cinema');
       }
 
       // 3. Update layout di receiptCard (Screen 4)
       if (receiptCard) {
         const widthClass = FORMATS[formatKey].cardWidthClass;
-        receiptCard.className = `${widthClass} bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2 flex flex-col items-center text-navy-dark mb-3.5 transition-all duration-200 relative`;
+        if (formatKey === 'film') {
+          receiptCard.className = `${widthClass} bg-[#121214] rounded shadow-[0_4px_16px_rgba(0,0,0,0.4)] border border-black/40 py-2.5 px-2 flex flex-col items-center text-white mb-3.5 transition-all duration-200 relative`;
+        } else {
+          receiptCard.className = `${widthClass} bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2 flex flex-col items-center text-navy-dark mb-3.5 transition-all duration-200 relative`;
+        }
 
         const rStrip = document.getElementById('resultStrip');
         const rPolaroid = document.getElementById('resultPolaroid');
         const rReceipt = document.getElementById('resultReceipt');
+        const rFilm = document.getElementById('resultFilm');
+        const rTwin = document.getElementById('resultTwin');
+        const rCinema = document.getElementById('resultCinema');
         if (rStrip) rStrip.classList.toggle('hidden', formatKey !== 'strip');
         if (rPolaroid) rPolaroid.classList.toggle('hidden', formatKey !== 'polaroid');
         if (rReceipt) rReceipt.classList.toggle('hidden', formatKey !== 'receipt');
+        if (rFilm) rFilm.classList.toggle('hidden', formatKey !== 'film');
+        if (rTwin) rTwin.classList.toggle('hidden', formatKey !== 'twin');
+        if (rCinema) rCinema.classList.toggle('hidden', formatKey !== 'cinema');
       }
 
       // 4. Re-apply tema & metadata & signature & stickers
@@ -1325,8 +1725,11 @@
           el.textContent = customSignature;
           el.classList.remove('opacity-40');
         } else {
-          if (selectedFormat === 'polaroid') {
+          if (selectedFormat === 'polaroid' || selectedFormat === 'twin') {
             el.textContent = 'our memories ♡';
+            el.classList.add('opacity-40');
+          } else if (selectedFormat === 'cinema') {
+            el.textContent = 'directed by besties';
             el.classList.add('opacity-40');
           } else {
             el.textContent = '';
@@ -1382,9 +1785,15 @@
     function applyThemeToReceipt(theme, cardElement) {
       if (!cardElement) return;
 
-      cardElement.style.backgroundColor = theme.bg;
-      cardElement.style.borderColor = theme.border;
-      cardElement.style.color = theme.textPrimary;
+      if (selectedFormat === 'film') {
+        cardElement.style.backgroundColor = '#121214';
+        cardElement.style.borderColor = '#27272A';
+        cardElement.style.color = '#FFFFFF';
+      } else {
+        cardElement.style.backgroundColor = theme.bg;
+        cardElement.style.borderColor = theme.border;
+        cardElement.style.color = theme.textPrimary;
+      }
 
       const headers = cardElement.querySelectorAll('.receipt-header-title');
       headers.forEach(h => h.style.color = theme.textPrimary);
@@ -1423,7 +1832,13 @@
       footerMains.forEach(fm => fm.style.color = theme.textPrimary);
 
       const signatures = cardElement.querySelectorAll('.receipt-live-signature, .signature-preview-text');
-      signatures.forEach(sig => sig.style.color = theme.textPrimary);
+      signatures.forEach(sig => {
+        if (selectedFormat === 'film') {
+          sig.style.color = '#FDE047';
+        } else {
+          sig.style.color = theme.textPrimary;
+        }
+      });
     }
 
     function updateThemeCarousel() {
@@ -1911,7 +2326,7 @@
         ctx.font = 'bold 15px "Space Mono", monospace';
         ctx.fillText('★ UBI TACTILE ANALOG STUDIO ★', w / 2, 1435);
 
-      } else {
+      } else if (selectedFormat === 'receipt') {
         // ==========================================
         // FORMAT 3: RECEIPT (1200 x 2000 px)
         // ==========================================
@@ -2047,6 +2462,348 @@
         ctx.fillStyle = theme.textPrimary;
         ctx.font = 'bold 26px "Space Mono", monospace';
         ctx.fillText('~OUR RECEIPT~', w / 2, footerY + 74);
+
+      } else if (selectedFormat === 'film') {
+        // ==========================================
+        // FORMAT 4: 35MM ANALOG REEL (700 x 2000 px)
+        // ==========================================
+        const w = 700;
+        const h = 2000;
+        canvas.width = w;
+        canvas.height = h;
+
+        // Dark Charcoal Negative Background
+        ctx.fillStyle = '#121214';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#27272A';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(10, 10, w - 20, h - 20);
+
+        // Sprocket Holes along left and right
+        const spW = 28;
+        const spH = 38;
+        const spRadius = 6;
+        const leftSpX = 18;
+        const rightSpX = w - 18 - spW;
+
+        for (let y = 35; y < h - 40; y += 52) {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+          ctx.beginPath();
+          ctx.roundRect(leftSpX, y, spW, spH, spRadius);
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.roundRect(rightSpX, y, spW, spH, spRadius);
+          ctx.fill();
+          ctx.stroke();
+        }
+
+        // Top Header
+        ctx.fillStyle = '#EAB308'; // Kodak amber/gold
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = 'bold 16px "Space Mono", monospace';
+        ctx.fillText('▲ KODAK PORTRA 400 • UBI 35MM NEGATIVE FILM ▲', w / 2, 55);
+
+        // 4 Photos (500 x 375, 4:3 Aspect Ratio)
+        const photoW = 500;
+        const photoH = 375;
+        const photoX = 100;
+        const startY = 85;
+        const gap = 45;
+
+        for (let idx = 0; idx < 4; idx++) {
+          const py = startY + idx * (photoH + gap);
+          const img = loadedImages[idx];
+
+          ctx.save();
+          drawImageCover(ctx, img, photoX, py, photoW, photoH);
+
+          // Subtle photo border
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+          ctx.lineWidth = 3;
+          ctx.strokeRect(photoX, py, photoW, photoH);
+
+          // Amber Frame Number Badge
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+          ctx.beginPath();
+          ctx.roundRect(photoX + 14, py + 14, 76, 28, 4);
+          ctx.fill();
+
+          ctx.fillStyle = '#FBBF24';
+          ctx.font = 'bold 16px "Space Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(`0${idx + 1}A ▶`, photoX + 52, py + 28);
+
+          // Frame indicator right side
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+          ctx.font = '12px "Space Mono", monospace';
+          ctx.textAlign = 'right';
+          ctx.textBaseline = 'alphabetic';
+          ctx.fillText(`EXP 0${idx + 1}/04`, photoX + photoW - 14, py + photoH - 14);
+
+          ctx.restore();
+        }
+
+        // Divider
+        const footerY = startY + 4 * photoH + 3 * gap + 35;
+        ctx.strokeStyle = 'rgba(234, 179, 8, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(photoX, footerY);
+        ctx.lineTo(w - photoX, footerY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        let currentY = footerY + 40;
+        if (customSignature) {
+          ctx.fillStyle = '#FDE047';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'alphabetic';
+          ctx.font = 'italic bold 32px "Playfair Display", serif';
+          ctx.fillText(customSignature, w / 2, currentY);
+          currentY += 36;
+        }
+
+        ctx.fillStyle = '#94A3B8';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = '15px "Space Mono", monospace';
+        ctx.fillText(`${receiptMetadata.dateStr} ${receiptMetadata.timeStr} • ${receiptMetadata.orderId}`, w / 2, currentY);
+        currentY += 28;
+
+        ctx.fillStyle = '#EAB308';
+        ctx.font = 'bold 14px "Space Mono", monospace';
+        ctx.fillText('★ KODAK SAFETY FILM • ISO 400 • UBI RETRO LAB ★', w / 2, currentY);
+
+      } else if (selectedFormat === 'twin') {
+        // ==========================================
+        // FORMAT 5: BESTIE TWIN CUT (1200 x 1600 px)
+        // ==========================================
+        const w = 1200;
+        const h = 1600;
+        canvas.width = w;
+        canvas.height = h;
+
+        ctx.fillStyle = theme.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = theme.border;
+        ctx.lineWidth = 8;
+        ctx.strokeRect(20, 20, w - 40, h - 40);
+
+        // Vertical Center Dashed Cut Line with Scissors
+        ctx.strokeStyle = theme.dashedLine;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([14, 10]);
+        ctx.beginPath();
+        ctx.moveTo(600, 40);
+        ctx.lineTo(600, 1560);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = theme.textSecondary;
+        ctx.font = 'bold 24px "Space Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('✂', 600, 70);
+        ctx.fillText('✂', 600, 1530);
+
+        ctx.save();
+        ctx.translate(600, 800);
+        ctx.rotate(-Math.PI / 2);
+        ctx.font = 'bold 16px "Space Mono", monospace';
+        ctx.fillText('✂ CUT HERE TO SHARE WITH BESTIE ✂', 0, 0);
+        ctx.restore();
+
+        // Headers for Bestie 1 & Bestie 2
+        ctx.fillStyle = theme.textSecondary;
+        ctx.font = 'bold 18px "Space Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillText('★ BESTIE 1 • MEMORIES ★', 300, 75);
+        ctx.fillText('★ BESTIE 2 • MEMORIES ★', 900, 75);
+
+        const photoW = 450;
+        const photoH = 550;
+
+        // Left Strip: Photos 0 & 1
+        [0, 1].forEach((idx, i) => {
+          const py = i === 0 ? 100 : 690;
+          ctx.save();
+          drawImageCover(ctx, loadedImages[idx], 75, py, photoW, photoH);
+
+          ctx.fillStyle = theme.numberCircleBg;
+          ctx.beginPath();
+          ctx.arc(75 + 38, py + 38, 24, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = theme.numberCircleText;
+          ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText((idx + 1).toString(), 75 + 38, py + 38);
+          ctx.restore();
+        });
+
+        // Right Strip: Photos 2 & 3
+        [2, 3].forEach((idx, i) => {
+          const py = i === 0 ? 100 : 690;
+          ctx.save();
+          drawImageCover(ctx, loadedImages[idx], 675, py, photoW, photoH);
+
+          ctx.fillStyle = theme.numberCircleBg;
+          ctx.beginPath();
+          ctx.arc(675 + 38, py + 38, 24, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = theme.numberCircleText;
+          ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText((idx + 1).toString(), 675 + 38, py + 38);
+          ctx.restore();
+        });
+
+        // Footers for Left & Right strips
+        ctx.strokeStyle = theme.dashedLine;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(75, 1270);
+        ctx.lineTo(525, 1270);
+        ctx.moveTo(675, 1270);
+        ctx.lineTo(1125, 1270);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Left Footer
+        ctx.fillStyle = theme.textPrimary;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = 'italic bold 32px "Playfair Display", serif';
+        ctx.fillText(customSignature || 'our memories ♡', 300, 1320);
+        ctx.fillStyle = theme.textSecondary;
+        ctx.font = '16px "Space Mono", monospace';
+        ctx.fillText(`${receiptMetadata.dateStr} • ${receiptMetadata.orderId}`, 300, 1365);
+        ctx.fillStyle = theme.accent;
+        ctx.font = 'bold 14px "Space Mono", monospace';
+        ctx.fillText('★ BESTIE TWIN PHOTOBOX ★', 300, 1405);
+
+        // Right Footer
+        ctx.fillStyle = theme.textPrimary;
+        ctx.font = 'italic bold 32px "Playfair Display", serif';
+        ctx.fillText(customSignature || 'our memories ♡', 900, 1320);
+        ctx.fillStyle = theme.textSecondary;
+        ctx.font = '16px "Space Mono", monospace';
+        ctx.fillText(`${receiptMetadata.dateStr} • ${receiptMetadata.orderId}`, 900, 1365);
+        ctx.fillStyle = theme.accent;
+        ctx.font = 'bold 14px "Space Mono", monospace';
+        ctx.fillText('★ BESTIE TWIN PHOTOBOX ★', 900, 1405);
+
+      } else if (selectedFormat === 'cinema') {
+        // ==========================================
+        // FORMAT 6: 1x3 CINEMA LETTERBOX (600 x 1500 px)
+        // ==========================================
+        const w = 600;
+        const h = 1500;
+        canvas.width = w;
+        canvas.height = h;
+
+        ctx.fillStyle = theme.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = theme.border;
+        ctx.lineWidth = 6;
+        ctx.strokeRect(15, 15, w - 30, h - 30);
+
+        // Header
+        ctx.fillStyle = theme.textSecondary;
+        ctx.font = 'bold 14px "Space Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillText('CINEMATIC REEL • 24 FPS • WIDESCREEN', w / 2, 55);
+
+        // 3 Photos (idx 0, 1, 2)
+        const photoW = 480;
+        const photoH = 300;
+        const photoX = 60;
+        const startY = 80;
+        const gap = 55;
+        const sceneLabels = ['[ SCENE 01: INTRO ]', '[ SCENE 02: CLIMAX ]', '[ SCENE 03: OUTRO ]'];
+        const timecodes = ['TC 00:01:24', 'TC 00:02:48', 'TC 00:03:52'];
+
+        for (let idx = 0; idx < 3; idx++) {
+          const py = startY + idx * (photoH + gap);
+          const img = loadedImages[idx];
+
+          // Dark Letterbox Frame
+          ctx.fillStyle = '#090D16';
+          ctx.beginPath();
+          ctx.roundRect(photoX - 6, py - 6, photoW + 12, photoH + 46, 6);
+          ctx.fill();
+
+          ctx.save();
+          drawImageCover(ctx, img, photoX, py, photoW, photoH);
+
+          // Timecode Overlay
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+          ctx.font = '12px "Space Mono", monospace';
+          ctx.textAlign = 'right';
+          ctx.textBaseline = 'alphabetic';
+          ctx.fillText(timecodes[idx], photoX + photoW - 10, py + photoH - 10);
+
+          // Number Badge
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+          ctx.beginPath();
+          ctx.arc(photoX + 24, py + 24, 16, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText((idx + 1).toString(), photoX + 24, py + 24);
+
+          ctx.restore();
+
+          // Subtitle Label Under Photo
+          ctx.fillStyle = '#FBBF24';
+          ctx.font = 'bold 14px "Space Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(sceneLabels[idx], w / 2, py + photoH + 20);
+        }
+
+        // Footer
+        const footerY = startY + 3 * photoH + 2 * gap + 50;
+        ctx.strokeStyle = theme.dashedLine;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(photoX, footerY);
+        ctx.lineTo(w - photoX, footerY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = theme.textPrimary;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = 'italic bold 28px "Playfair Display", serif';
+        ctx.fillText(`directed by ${customSignature || 'besties'}`, w / 2, footerY + 45);
+
+        ctx.fillStyle = theme.textSecondary;
+        ctx.font = '14px "Space Mono", monospace';
+        ctx.fillText(`${receiptMetadata.dateStr} • PRODUCTION ${receiptMetadata.orderId}`, w / 2, footerY + 80);
+
+        ctx.fillStyle = theme.accent;
+        ctx.font = 'bold 12px "Space Mono", monospace';
+        ctx.fillText('★ 35MM PANAVISION FORMAT • UBI CINEMA STUDIO ★', w / 2, footerY + 110);
       }
 
       // ==========================================
@@ -2063,8 +2820,9 @@
         ctx.textBaseline = 'middle';
 
         if (cfg.isBadge) {
-          const badgeW = selectedFormat === 'strip' ? 140 : 180;
-          const badgeH = selectedFormat === 'strip' ? 36 : 46;
+          const isCompact = (selectedFormat === 'strip' || selectedFormat === 'cinema' || selectedFormat === 'film');
+          const badgeW = isCompact ? 140 : 180;
+          const badgeH = isCompact ? 36 : 46;
           ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
           ctx.strokeStyle = '#94A3B8';
           ctx.lineWidth = 2;
@@ -2074,10 +2832,11 @@
           ctx.stroke();
 
           ctx.fillStyle = '#0F172A';
-          ctx.font = selectedFormat === 'strip' ? 'bold 15px "Space Mono", monospace' : 'bold 20px "Space Mono", monospace';
+          ctx.font = isCompact ? 'bold 15px "Space Mono", monospace' : 'bold 20px "Space Mono", monospace';
           ctx.fillText('🏷️ BESTIES', coord.x, coord.y);
         } else {
-          const fontSize = selectedFormat === 'strip' ? 44 : 64;
+          const isCompact = (selectedFormat === 'strip' || selectedFormat === 'cinema');
+          const fontSize = isCompact ? 44 : (selectedFormat === 'film' ? 48 : 64);
           ctx.font = `${fontSize}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
           ctx.fillText(cfg.emoji, coord.x, coord.y);
         }
