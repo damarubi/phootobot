@@ -137,6 +137,16 @@
     .mirror-video {
       transform: scaleX(-1);
     }
+
+    /* Animasi Pop Stiker Taktil */
+    @keyframes sticker-pop {
+      0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+      70% { transform: scale(1.2) rotate(6deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    .animate-sticker-pop {
+      animation: sticker-pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
   </style>
 </head>
 <body class="studio-bg min-h-screen w-full flex items-center justify-center p-3 sm:p-6 font-sans text-navy-dark select-none antialiased">
@@ -237,6 +247,31 @@
         </h1>
       </header>
 
+      <!-- Selector Format Multi-Layout (3 Pill Tabs) -->
+      <div id="formatSelector" class="flex items-center justify-center gap-1.5 sm:gap-2 mb-3" role="tablist" aria-label="Format Layout Cetak">
+        <button
+          type="button"
+          data-format="strip"
+          class="btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-navy-dark text-white ring-2 ring-navy-dark/30"
+        >
+          1x4 Strip
+        </button>
+        <button
+          type="button"
+          data-format="polaroid"
+          class="btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60"
+        >
+          2x2 Polaroid
+        </button>
+        <button
+          type="button"
+          data-format="receipt"
+          class="btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60"
+        >
+          Receipt
+        </button>
+      </div>
+
       <!-- Indikator Tema Carousel -->
       <div id="themeIndicator" class="text-center font-mono text-[11px] sm:text-xs text-navy-dark/80 font-medium tracking-wide mb-3 flex items-center justify-center gap-2">
         <span class="px-3 py-1 rounded-full bg-slate-50 border border-slate-200/90 shadow-xs">
@@ -244,7 +279,7 @@
         </span>
       </div>
 
-      <!-- Carousel Area: Panah Kiri - Struk - Panah Kanan -->
+      <!-- Carousel Area: Panah Kiri - Struk/Strip - Panah Kanan -->
       <div class="w-full flex items-center justify-center gap-2 sm:gap-3.5 mb-6 sm:mb-7">
         <!-- Panah Kiri -->
         <button
@@ -258,56 +293,127 @@
           </svg>
         </button>
 
-        <!-- Preview Struk Belanja -->
-        <div id="previewReceiptCard" class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3.5 px-3 flex flex-col items-center text-navy-dark transition-all duration-200">
-          <div class="text-center mb-1.5">
-            <h2 class="font-serif italic leading-none receipt-header-title">
-              <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
-              <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
-            </h2>
+        <!-- Preview Struk/Card Multi-Format -->
+        <div id="previewReceiptCard" class="w-[140px] sm:w-[155px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3 px-2 flex flex-col items-center text-navy-dark transition-all duration-200">
+          
+          <!-- Layout Format 1: 1x4 Strip (Default) -->
+          <div id="previewStrip" class="w-full flex flex-col items-center">
+            <div class="text-center mb-1.5">
+              <p class="font-mono text-[6px] tracking-widest text-slate-400 uppercase leading-none">UBI STUDIO</p>
+              <h2 class="font-serif italic leading-none receipt-header-title mt-0.5">
+                <span class="block text-[11px] sm:text-xs font-semibold">ubi 4-cut</span>
+              </h2>
+            </div>
+            <!-- Vertical 4-Cut Placeholders -->
+            <div class="w-full flex flex-col gap-1.5 my-1">
+              <div class="aspect-[4/3] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">1</span>
+                <span class="mx-auto px-1 py-[0.5px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[5px] font-sans font-medium leading-none">frame</span>
+              </div>
+              <div class="aspect-[4/3] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">2</span>
+                <span class="mx-auto px-1 py-[0.5px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[5px] font-sans font-medium leading-none">frame</span>
+              </div>
+              <div class="aspect-[4/3] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">3</span>
+                <span class="mx-auto px-1 py-[0.5px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[5px] font-sans font-medium leading-none">frame</span>
+              </div>
+              <div class="aspect-[4/3] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">4</span>
+                <span class="mx-auto px-1 py-[0.5px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[5px] font-sans font-medium leading-none">frame</span>
+              </div>
+            </div>
+            <!-- Strip Footer -->
+            <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+            <div class="text-center font-mono text-[5px] sm:text-[6px] receipt-meta uppercase tracking-tight leading-tight w-full">
+              <span class="receipt-date-time block text-slate-400">25/10/2026 00:15</span>
+              <span class="receipt-order-id font-semibold block text-slate-600 mt-0.5">ORDER #UBI-83921</span>
+              <!-- Mini Barcode Visual -->
+              <div class="flex items-center justify-center gap-[1px] mt-1 h-2.5 opacity-60">
+                <span class="w-[1px] h-full bg-current"></span>
+                <span class="w-[2px] h-full bg-current"></span>
+                <span class="w-[1px] h-full bg-current"></span>
+                <span class="w-[3px] h-full bg-current"></span>
+                <span class="w-[1px] h-full bg-current"></span>
+                <span class="w-[2px] h-full bg-current"></span>
+                <span class="w-[1px] h-full bg-current"></span>
+                <span class="w-[2.5px] h-full bg-current"></span>
+                <span class="w-[1px] h-full bg-current"></span>
+              </div>
+            </div>
           </div>
 
-          <!-- Metadata Baris Tanggal & Order ID -->
-          <div class="w-full flex justify-between font-mono text-[6px] sm:text-[7px] receipt-meta mb-1.5 pb-1 border-b border-dashed receipt-divider border-slate-200 text-slate-500 uppercase tracking-tight">
-            <span class="receipt-date-time">DATE: 25/10/2026 00:15:20</span>
-            <span class="receipt-order-id font-semibold">ORDER #UBI-83921</span>
-          </div>
-
-          <div class="w-full font-mono text-[7px] sm:text-[8px] receipt-items space-y-0.5 mb-2 leading-tight tracking-tight uppercase">
-            <div class="flex justify-between"><span>FRENCH FRIES</span><span>22.000</span></div>
-            <div class="flex justify-between"><span>MATCHA LATTE</span><span>17.000</span></div>
-            <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
-          </div>
-
-          <!-- Garis Pembatas Putus-putus Atas -->
-          <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
-
-          <!-- Grid 2x2 Placeholder Frame -->
-          <div class="w-full grid grid-cols-2 gap-1.5 my-1.5">
-            <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm transition-colors duration-200">
-              <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">1</span>
-              <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+          <!-- Layout Format 2: 2x2 Polaroid -->
+          <div id="previewPolaroid" class="w-full flex flex-col items-center hidden">
+            <div class="text-center mb-1">
+              <span class="font-mono text-[7px] tracking-[0.18em] text-slate-400 uppercase">UBI POLAROID 2x2</span>
             </div>
-            <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm transition-colors duration-200">
-              <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">2</span>
-              <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            <div class="w-full grid grid-cols-2 gap-1.5 my-1">
+              <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">1</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+              </div>
+              <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">2</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+              </div>
+              <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">3</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+              </div>
+              <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">4</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+              </div>
             </div>
-            <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm transition-colors duration-200">
-              <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">3</span>
-              <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
-            </div>
-            <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-sm transition-colors duration-200">
-              <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">4</span>
-              <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+            <!-- Polaroid Wide Bottom Chin -->
+            <div class="w-full pt-2.5 pb-1 text-center border-t border-slate-100 mt-1">
+              <p class="font-serif italic text-xs text-navy-dark signature-preview-text">our memories ♡</p>
+              <p class="font-mono text-[6px] text-slate-400 uppercase tracking-widest mt-1 receipt-date-time">25/10/2026 • UBI STUDIO</p>
             </div>
           </div>
 
-          <!-- Garis Pembatas Putus-putus Bawah -->
-          <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
-
-          <div class="text-center font-mono text-[6px] sm:text-[7px] receipt-footer tracking-wider uppercase leading-tight pt-0.5">
-            <p class="receipt-footer-sub text-slate-400">- WE'RE HOPING TO SEE YOU AGAIN -</p>
-            <p class="font-bold tracking-widest mt-0.5 receipt-footer-main">~OUR RECEIPT~</p>
+          <!-- Layout Format 3: Receipt -->
+          <div id="previewReceipt" class="w-full flex flex-col items-center hidden">
+            <div class="text-center mb-1.5">
+              <h2 class="font-serif italic leading-none receipt-header-title">
+                <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
+                <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
+              </h2>
+            </div>
+            <div class="w-full flex justify-between font-mono text-[6px] sm:text-[7px] receipt-meta mb-1.5 pb-1 border-b border-dashed receipt-divider border-slate-200 text-slate-500 uppercase tracking-tight">
+              <span class="receipt-date-time">DATE: 25/10/2026 00:15:20</span>
+              <span class="receipt-order-id font-semibold">ORDER #UBI-83921</span>
+            </div>
+            <div class="w-full font-mono text-[7px] sm:text-[8px] receipt-items space-y-0.5 mb-2 leading-tight tracking-tight uppercase">
+              <div class="flex justify-between"><span>FRENCH FRIES</span><span>22.000</span></div>
+              <div class="flex justify-between"><span>MATCHA LATTE</span><span>17.000</span></div>
+              <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
+            </div>
+            <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+            <div class="w-full grid grid-cols-2 gap-1.5 my-1.5">
+              <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">1</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+              </div>
+              <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">2</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+              </div>
+              <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">3</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+              </div>
+              <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-1 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[8px] font-bold flex items-center justify-center">4</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none mb-0.5">frame</span>
+              </div>
+            </div>
+            <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+            <div class="text-center font-mono text-[6px] sm:text-[7px] receipt-footer tracking-wider uppercase leading-tight pt-0.5">
+              <p class="receipt-footer-sub text-slate-400">- WE'RE HOPING TO SEE YOU AGAIN -</p>
+              <p class="font-bold tracking-widest mt-0.5 receipt-footer-main">~OUR RECEIPT~</p>
+            </div>
           </div>
         </div>
 
@@ -528,68 +634,198 @@
         </h1>
       </header>
 
-      <!-- 2. Area Tinjau Foto (Struk Belanja dengan 4 Foto Nyata) -->
-      <div id="receiptCard" class="w-[185px] sm:w-[205px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2.5 sm:px-3 flex flex-col items-center text-navy-dark mb-4 transition-all duration-200">
+      <!-- 2. Area Tinjau Foto Multi-Format -->
+      <div id="receiptCard" class="w-[140px] sm:w-[155px] bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2 flex flex-col items-center text-navy-dark mb-3.5 transition-all duration-200 relative">
         
-        <!-- Header Struk -->
-        <div class="text-center mb-1.5">
-          <h2 class="font-serif italic leading-none receipt-header-title">
-            <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
-            <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
-          </h2>
-        </div>
-
-        <!-- Metadata Baris Tanggal & Order ID -->
-        <div class="w-full flex justify-between font-mono text-[6px] sm:text-[7px] receipt-meta mb-1.5 pb-1 border-b border-dashed receipt-divider border-slate-200 text-slate-500 uppercase tracking-tight">
-          <span class="receipt-date-time">DATE: 25/10/2026 00:15:20</span>
-          <span class="receipt-order-id font-semibold">ORDER #UBI-83921</span>
-        </div>
-
-        <!-- Rincian Teks Kecil Struk -->
-        <div class="w-full font-mono text-[7px] sm:text-[8px] receipt-items space-y-0.5 mb-1.5 leading-tight tracking-tight uppercase">
-          <div class="flex justify-between"><span>FRENCH FRIES</span><span>22.000</span></div>
-          <div class="flex justify-between"><span>MATCHA LATTE</span><span>17.000</span></div>
-          <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
-        </div>
-
-        <!-- Garis Pembatas Putus-putus Atas -->
-        <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
-
-        <!-- 2x2 Grid Foto Hasil Jepretan Nyata -->
-        <div class="w-full grid grid-cols-2 gap-1.5 my-1">
-          <!-- Foto 1 -->
-          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
-            <img id="resultImg0" src="" alt="Pose 1" class="w-full h-full object-cover">
-            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">1</span>
+        <!-- Result Format 1: 1x4 Strip (Default) -->
+        <div id="resultStrip" class="w-full flex flex-col items-center relative">
+          <!-- Header -->
+          <div class="text-center mb-1.5">
+            <p class="font-mono text-[6px] tracking-widest text-slate-400 uppercase leading-none">UBI STUDIO</p>
+            <h2 class="font-serif italic leading-none receipt-header-title mt-0.5">
+              <span class="block text-[11px] sm:text-xs font-semibold">ubi 4-cut</span>
+            </h2>
           </div>
-
-          <!-- Foto 2 -->
-          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
-            <img id="resultImg1" src="" alt="Pose 2" class="w-full h-full object-cover">
-            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">2</span>
+          <!-- Relative photo container with stickers -->
+          <div class="w-full relative">
+            <div class="w-full flex flex-col gap-1.5 my-1">
+              <div class="aspect-[4/3] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img id="resultImg0" src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">1</span>
+              </div>
+              <div class="aspect-[4/3] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img id="resultImg1" src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">2</span>
+              </div>
+              <div class="aspect-[4/3] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img id="resultImg2" src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">3</span>
+              </div>
+              <div class="aspect-[4/3] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img id="resultImg3" src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">4</span>
+              </div>
+            </div>
+            <!-- Sticker Overlay Layer for Strip -->
+            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+              <span class="card-sticker sticker-ribbon absolute top-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
+              <span class="card-sticker sticker-sparkles absolute top-[27%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
+              <span class="card-sticker sticker-heart absolute top-[47%] right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
+              <span class="card-sticker sticker-cherries absolute top-[71%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
+              <span class="card-sticker sticker-paws absolute bottom-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
+              <span class="card-sticker sticker-besties absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
+            </div>
           </div>
-
-          <!-- Foto 3 -->
-          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
-            <img id="resultImg2" src="" alt="Pose 3" class="w-full h-full object-cover">
-            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">3</span>
-          </div>
-
-          <!-- Foto 4 -->
-          <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
-            <img id="resultImg3" src="" alt="Pose 4" class="w-full h-full object-cover">
-            <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">4</span>
+          <!-- Strip Footer -->
+          <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+          <div class="receipt-live-signature font-serif italic text-xs text-navy-dark text-center my-0.5 min-h-[14px]"></div>
+          <div class="text-center font-mono text-[5px] sm:text-[6px] receipt-meta uppercase tracking-tight leading-tight w-full">
+            <span class="receipt-date-time block text-slate-400">25/10/2026 00:15</span>
+            <span class="receipt-order-id font-semibold block text-slate-600 mt-0.5">ORDER #UBI-83921</span>
+            <div class="flex items-center justify-center gap-[1px] mt-1 h-2.5 opacity-60">
+              <span class="w-[1px] h-full bg-current"></span>
+              <span class="w-[2px] h-full bg-current"></span>
+              <span class="w-[1px] h-full bg-current"></span>
+              <span class="w-[3px] h-full bg-current"></span>
+              <span class="w-[1px] h-full bg-current"></span>
+              <span class="w-[2px] h-full bg-current"></span>
+              <span class="w-[1px] h-full bg-current"></span>
+              <span class="w-[2.5px] h-full bg-current"></span>
+              <span class="w-[1px] h-full bg-current"></span>
+            </div>
           </div>
         </div>
 
-        <!-- Garis Pembatas Putus-putus Bawah -->
-        <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
-
-        <!-- Footer Struk -->
-        <div class="text-center font-mono text-[6px] sm:text-[7px] receipt-footer tracking-wider uppercase leading-tight pt-0.5">
-          <p class="receipt-footer-sub text-slate-400">- WE'RE HOPING TO SEE YOU AGAIN -</p>
-          <p class="font-bold tracking-widest mt-0.5 receipt-footer-main">~OUR RECEIPT~</p>
+        <!-- Result Format 2: 2x2 Polaroid -->
+        <div id="resultPolaroid" class="w-full flex flex-col items-center relative hidden">
+          <div class="text-center mb-1">
+            <span class="font-mono text-[7px] tracking-[0.18em] text-slate-400 uppercase">UBI POLAROID 2x2</span>
+          </div>
+          <!-- Relative photo container with stickers -->
+          <div class="w-full relative">
+            <div class="w-full grid grid-cols-2 gap-1.5 my-1">
+              <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">1</span>
+              </div>
+              <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">2</span>
+              </div>
+              <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">3</span>
+              </div>
+              <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">4</span>
+              </div>
+            </div>
+            <!-- Sticker Overlay Layer for Polaroid -->
+            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+              <span class="card-sticker sticker-ribbon absolute top-1 right-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
+              <span class="card-sticker sticker-sparkles absolute top-1 left-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
+              <span class="card-sticker sticker-heart absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
+              <span class="card-sticker sticker-cherries absolute bottom-1 left-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
+              <span class="card-sticker sticker-paws absolute bottom-1 right-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
+            </div>
+          </div>
+          <!-- Polaroid Wide Bottom Chin -->
+          <div class="w-full pt-2 pb-1 text-center border-t border-slate-100 mt-1 relative">
+            <div class="receipt-live-signature font-serif italic text-xs sm:text-sm text-navy-dark text-center min-h-[18px]">our memories ♡</div>
+            <div class="flex items-center justify-center gap-1.5 mt-0.5">
+              <span class="card-sticker sticker-besties inline-block bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
+              <span class="receipt-date-time font-mono text-[6px] text-slate-400 uppercase tracking-widest">25/10/2026 • UBI STUDIO</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Result Format 3: Receipt -->
+        <div id="resultReceipt" class="w-full flex flex-col items-center relative hidden">
+          <!-- Header Struk -->
+          <div class="text-center mb-1.5">
+            <h2 class="font-serif italic leading-none receipt-header-title">
+              <span class="block text-xs sm:text-[13px] font-normal">receipt</span>
+              <span class="block text-sm sm:text-base font-medium mt-0.5">photobooth</span>
+            </h2>
+          </div>
+          <div class="w-full flex justify-between font-mono text-[6px] sm:text-[7px] receipt-meta mb-1.5 pb-1 border-b border-dashed receipt-divider border-slate-200 text-slate-500 uppercase tracking-tight">
+            <span class="receipt-date-time">DATE: 25/10/2026 00:15:20</span>
+            <span class="receipt-order-id font-semibold">ORDER #UBI-83921</span>
+          </div>
+          <div class="w-full font-mono text-[7px] sm:text-[8px] receipt-items space-y-0.5 mb-1.5 leading-tight tracking-tight uppercase">
+            <div class="flex justify-between"><span>FRENCH FRIES</span><span>22.000</span></div>
+            <div class="flex justify-between"><span>MATCHA LATTE</span><span>17.000</span></div>
+            <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
+          </div>
+          <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+          <!-- 2x2 Grid with stickers -->
+          <div class="w-full relative">
+            <div class="w-full grid grid-cols-2 gap-1.5 my-1">
+              <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">1</span>
+              </div>
+              <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">2</span>
+              </div>
+              <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">3</span>
+              </div>
+              <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+                <img src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">4</span>
+              </div>
+            </div>
+            <!-- Sticker Overlay Layer for Receipt -->
+            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+              <span class="card-sticker sticker-ribbon absolute top-1 right-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
+              <span class="card-sticker sticker-sparkles absolute top-1 left-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
+              <span class="card-sticker sticker-heart absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
+              <span class="card-sticker sticker-cherries absolute bottom-1 left-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
+              <span class="card-sticker sticker-paws absolute bottom-1 right-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
+            </div>
+          </div>
+          <!-- Live signature line inside receipt -->
+          <div class="receipt-live-signature font-serif italic text-xs text-navy-dark text-center my-1 min-h-[14px]"></div>
+          <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
+          <div class="text-center font-mono text-[6px] sm:text-[7px] receipt-footer tracking-wider uppercase leading-tight pt-0.5">
+            <span class="card-sticker sticker-besties inline-block bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark mb-0.5 transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
+            <p class="receipt-footer-sub text-slate-400">- WE'RE HOPING TO SEE YOU AGAIN -</p>
+            <p class="font-bold tracking-widest mt-0.5 receipt-footer-main">~OUR RECEIPT~</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FITUR 2: PANEL DEKORASI (Input Tanda Tangan & Sticker Tray) -->
+      <div class="w-full max-w-[270px] sm:max-w-[300px] flex flex-col items-center gap-2 mb-3.5">
+        
+        <!-- Input Teks Caption / Tanda Tangan -->
+        <div class="w-full">
+          <input
+            id="inputSignature"
+            type="text"
+            maxlength="32"
+            placeholder="Tulis nama atau catatan kenangan..."
+            class="w-full text-center font-serif italic text-xs sm:text-sm py-1.5 px-3 rounded-full border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-navy-dark placeholder:text-slate-400 transition-all duration-150 shadow-2xs"
+          >
+        </div>
+
+        <!-- Sticker Tray (6 Stiker Interaktif) -->
+        <div class="w-full flex flex-col items-center">
+          <div id="stickerTray" class="flex items-center justify-center gap-1.5 sm:gap-2 p-1.5 rounded-full bg-slate-100/90 border border-slate-200/80 shadow-inner">
+            <button type="button" data-sticker="ribbon" class="btn-sticker w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Ribbon">🎀</button>
+            <button type="button" data-sticker="sparkles" class="btn-sticker w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Sparkles">✨</button>
+            <button type="button" data-sticker="heart" class="btn-sticker w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Sweet Heart">💖</button>
+            <button type="button" data-sticker="cherries" class="btn-sticker w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Cherries">🍒</button>
+            <button type="button" data-sticker="paws" class="btn-sticker w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Paws">🐾</button>
+            <button type="button" data-sticker="besties" class="btn-sticker px-2 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-[10px] font-mono font-bold tracking-tight hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="BESTIES">🏷️</button>
+          </div>
+        </div>
+
       </div>
 
       <!-- 3. Area Aksi di Bagian Bawah -->
@@ -679,6 +915,102 @@
 
     let selectedThemeIndex = 0;
 
+    // =========================================================
+    // FITUR 1: SISTEM MULTI-FORMAT LAYOUT & STATE DEKORASI
+    // =========================================================
+    const FORMATS = {
+      strip: {
+        key: 'strip',
+        name: '1x4 Strip',
+        canvasW: 600,
+        canvasH: 1800,
+        cardWidthClass: 'w-[140px] sm:w-[155px]'
+      },
+      polaroid: {
+        key: 'polaroid',
+        name: '2x2 Polaroid',
+        canvasW: 1200,
+        canvasH: 1500,
+        cardWidthClass: 'w-[185px] sm:w-[205px]'
+      },
+      receipt: {
+        key: 'receipt',
+        name: 'Receipt',
+        canvasW: 1200,
+        canvasH: 2000,
+        cardWidthClass: 'w-[185px] sm:w-[205px]'
+      }
+    };
+
+    let selectedFormat = 'strip'; // Default ke 1x4 Strip khas photobox Korea
+    let customSignature = '';
+    let activeStickers = [];
+
+    // Konfigurasi 6 Stiker Interaktif & Koordinat Canvas untuk Setiap Format
+    const STICKER_CONFIG = {
+      ribbon: {
+        key: 'ribbon',
+        emoji: '🎀',
+        label: 'Ribbon',
+        coords: {
+          strip: { x: 475, y: 170 },
+          polaroid: { x: 1045, y: 140 },
+          receipt: { x: 1030, y: 535 }
+        }
+      },
+      sparkles: {
+        key: 'sparkles',
+        emoji: '✨',
+        label: 'Sparkles',
+        coords: {
+          strip: { x: 125, y: 540 },
+          polaroid: { x: 155, y: 140 },
+          receipt: { x: 170, y: 535 }
+        }
+      },
+      heart: {
+        key: 'heart',
+        emoji: '💖',
+        label: 'Sweet Heart',
+        coords: {
+          strip: { x: 475, y: 815 },
+          polaroid: { x: 600, y: 665 },
+          receipt: { x: 600, y: 1150 }
+        }
+      },
+      cherries: {
+        key: 'cherries',
+        emoji: '🍒',
+        label: 'Cherries',
+        coords: {
+          strip: { x: 125, y: 1185 },
+          polaroid: { x: 155, y: 1175 },
+          receipt: { x: 170, y: 1750 }
+        }
+      },
+      paws: {
+        key: 'paws',
+        emoji: '🐾',
+        label: 'Paws',
+        coords: {
+          strip: { x: 475, y: 1545 },
+          polaroid: { x: 1045, y: 1175 },
+          receipt: { x: 1030, y: 1750 }
+        }
+      },
+      besties: {
+        key: 'besties',
+        emoji: '🏷️',
+        label: 'BESTIES',
+        isBadge: true,
+        coords: {
+          strip: { x: 300, y: 1595 },
+          polaroid: { x: 600, y: 1250 },
+          receipt: { x: 600, y: 1825 }
+        }
+      }
+    };
+
     // State Aplikasi
     let mediaStream = null;
     let capturedPhotos = [];
@@ -736,6 +1068,7 @@
     const receiptCard = document.getElementById('receiptCard');
     const themeIndexText = document.getElementById('themeIndexText');
     const themeNameText = document.getElementById('themeNameText');
+    const inputSignature = document.getElementById('inputSignature');
 
     const video = document.getElementById('webcamVideo');
     const hiddenCanvas = document.getElementById('hiddenCanvas');
@@ -935,6 +1268,115 @@
     }
 
     // =========================================================
+    // FITUR 1 & 2: MULTI-FORMAT LAYOUT & STIKER & TANDA TANGAN
+    // =========================================================
+    function setFormat(formatKey) {
+      if (!FORMATS[formatKey]) return;
+      selectedFormat = formatKey;
+
+      // 1. Update tombol selector format
+      document.querySelectorAll('.btn-format').forEach(btn => {
+        const isCurrent = btn.getAttribute('data-format') === formatKey;
+        if (isCurrent) {
+          btn.className = "btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-navy-dark text-white ring-2 ring-navy-dark/30";
+        } else {
+          btn.className = "btn-format px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium transition-all duration-200 cursor-pointer shadow-xs bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60";
+        }
+      });
+
+      // 2. Update layout di previewReceiptCard (Screen 2)
+      if (previewReceiptCard) {
+        const widthClass = FORMATS[formatKey].cardWidthClass;
+        previewReceiptCard.className = `${widthClass} bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-3 px-2 flex flex-col items-center text-navy-dark transition-all duration-200`;
+
+        const pStrip = document.getElementById('previewStrip');
+        const pPolaroid = document.getElementById('previewPolaroid');
+        const pReceipt = document.getElementById('previewReceipt');
+        if (pStrip) pStrip.classList.toggle('hidden', formatKey !== 'strip');
+        if (pPolaroid) pPolaroid.classList.toggle('hidden', formatKey !== 'polaroid');
+        if (pReceipt) pReceipt.classList.toggle('hidden', formatKey !== 'receipt');
+      }
+
+      // 3. Update layout di receiptCard (Screen 4)
+      if (receiptCard) {
+        const widthClass = FORMATS[formatKey].cardWidthClass;
+        receiptCard.className = `${widthClass} bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-3 px-2 flex flex-col items-center text-navy-dark mb-3.5 transition-all duration-200 relative`;
+
+        const rStrip = document.getElementById('resultStrip');
+        const rPolaroid = document.getElementById('resultPolaroid');
+        const rReceipt = document.getElementById('resultReceipt');
+        if (rStrip) rStrip.classList.toggle('hidden', formatKey !== 'strip');
+        if (rPolaroid) rPolaroid.classList.toggle('hidden', formatKey !== 'polaroid');
+        if (rReceipt) rReceipt.classList.toggle('hidden', formatKey !== 'receipt');
+      }
+
+      // 4. Re-apply tema & metadata & signature & stickers
+      const currentTheme = FRAME_THEMES[selectedThemeIndex] || FRAME_THEMES[0];
+      applyThemeToReceipt(currentTheme, previewReceiptCard);
+      applyThemeToReceipt(currentTheme, receiptCard);
+      updateReceiptMetadataUI();
+      updateSignatureUI();
+      updateStickersUI();
+    }
+
+    function updateSignatureUI() {
+      document.querySelectorAll('.receipt-live-signature').forEach(el => {
+        if (customSignature) {
+          el.textContent = customSignature;
+          el.classList.remove('opacity-40');
+        } else {
+          if (selectedFormat === 'polaroid') {
+            el.textContent = 'our memories ♡';
+            el.classList.add('opacity-40');
+          } else {
+            el.textContent = '';
+          }
+        }
+      });
+      document.querySelectorAll('.signature-preview-text').forEach(el => {
+        el.textContent = customSignature || 'our memories ♡';
+      });
+    }
+
+    function updateStickersUI() {
+      // Update tombol di tray
+      document.querySelectorAll('.btn-sticker').forEach(btn => {
+        const key = btn.getAttribute('data-sticker');
+        const isActive = activeStickers.includes(key);
+        if (isActive) {
+          btn.className = "btn-sticker w-8 h-8 rounded-full bg-rose-50 border border-rose-400 ring-2 ring-rose-400/50 scale-105 flex items-center justify-center text-sm shadow-xs transition-all cursor-pointer";
+        } else {
+          btn.className = "btn-sticker w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs";
+        }
+      });
+
+      // Update stiker di preview card
+      Object.keys(STICKER_CONFIG).forEach(key => {
+        const isActive = activeStickers.includes(key);
+        document.querySelectorAll(`.sticker-${key}`).forEach(el => {
+          if (isActive) {
+            el.classList.remove('scale-0', 'opacity-0');
+            el.classList.add('scale-100', 'opacity-100', 'animate-sticker-pop');
+          } else {
+            el.classList.remove('scale-100', 'opacity-100', 'animate-sticker-pop');
+            el.classList.add('scale-0', 'opacity-0');
+          }
+        });
+      });
+    }
+
+    function toggleSticker(stickerKey) {
+      if (!STICKER_CONFIG[stickerKey]) return;
+      const idx = activeStickers.indexOf(stickerKey);
+      if (idx > -1) {
+        activeStickers.splice(idx, 1);
+      } else {
+        activeStickers.push(stickerKey);
+      }
+      updateStickersUI();
+    }
+
+    // =========================================================
     // TEMA STRUK & CAROUSEL HELPER
     // =========================================================
     function applyThemeToReceipt(theme, cardElement) {
@@ -979,6 +1421,9 @@
 
       const footerMains = cardElement.querySelectorAll('.receipt-footer-main');
       footerMains.forEach(fm => fm.style.color = theme.textPrimary);
+
+      const signatures = cardElement.querySelectorAll('.receipt-live-signature, .signature-preview-text');
+      signatures.forEach(sig => sig.style.color = theme.textPrimary);
     }
 
     function updateThemeCarousel() {
@@ -1217,16 +1662,24 @@
 
     // Render Hasil Jepretan ke <img> di Result Screen
     function renderResultScreen() {
+      // Isi foto ke semua format container (strip, polaroid, maupun receipt)
       for (let i = 0; i < 4; i++) {
-        const img = document.getElementById(`resultImg${i}`);
-        if (img && capturedPhotos[i]) {
-          img.src = capturedPhotos[i];
-        }
+        const photoSrc = capturedPhotos[i] || '';
+        document.querySelectorAll(`.result-img-${i}`).forEach(img => {
+          img.src = photoSrc;
+        });
+        const fallbackImg = document.getElementById(`resultImg${i}`);
+        if (fallbackImg) fallbackImg.src = photoSrc;
       }
+      // Terapkan layout format aktif
+      setFormat(selectedFormat);
       // Terapkan tema yang dipilih ke struk hasil
       applyThemeToReceipt(FRAME_THEMES[selectedThemeIndex], receiptCard);
       // Sinkronkan metadata di struk hasil
       updateReceiptMetadataUI();
+      // Sinkronkan tanda tangan & stiker
+      updateSignatureUI();
+      updateStickersUI();
     }
 
     // Helper untuk menjaga aspek rasio cover pada canvas
@@ -1248,7 +1701,7 @@
       ctx.drawImage(img, cx, cy, cw, ch, x, y, w, h);
     }
 
-    // 4. Rendering Hasil & Unduhan (Download Gambar Resolusi Tinggi 1200 x 2000 px dengan Tema Terpilih)
+    // 4. Rendering Hasil & Unduhan (Download Gambar Mendukung Semua Format, Tanda Tangan, dan Stiker)
     async function downloadReceiptImage() {
       if (capturedPhotos.length < 4) return;
 
@@ -1259,91 +1712,9 @@
 
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-
-      // Ukuran Kanvas High-Resolution 2x DPI (1200 x 2000 px)
-      const w = 1200;
-      const h = 2000;
-      canvas.width = w;
-      canvas.height = h;
-
-      // Ambil tema aktif terpilih
       const theme = FRAME_THEMES[selectedThemeIndex] || FRAME_THEMES[0];
 
-      // Background Struk (Sesuai Tema)
-      ctx.fillStyle = theme.bg;
-      ctx.fillRect(0, 0, w, h);
-
-      // Border Struk (Sesuai Tema)
-      ctx.strokeStyle = theme.border;
-      ctx.lineWidth = 8;
-      ctx.strokeRect(20, 20, w - 40, h - 40);
-
-      // Header "receipt photobooth" (Sesuai Tema)
-      ctx.fillStyle = theme.textPrimary;
-      ctx.textAlign = 'center';
-
-      ctx.font = 'italic 52px "Playfair Display", serif';
-      ctx.fillText('receipt', w / 2, 125);
-
-      ctx.font = 'italic bold 70px "Playfair Display", serif';
-      ctx.fillText('photobooth', w / 2, 195);
-
-      // Metadata Tanggal, Jam & Order ID (Sesuai Tema)
-      ctx.font = '22px "Space Mono", monospace';
-      ctx.fillStyle = theme.textSecondary;
-      ctx.textAlign = 'left';
-      ctx.fillText(`DATE: ${receiptMetadata.dateStr} ${receiptMetadata.timeStr}`, 100, 245);
-      ctx.textAlign = 'right';
-      ctx.fillText(`ORDER ${receiptMetadata.orderId}`, w - 100, 245);
-
-      // Garis Pembatas Putus-putus Metadata
-      ctx.strokeStyle = theme.dashedLine;
-      ctx.lineWidth = 2;
-      ctx.setLineDash([8, 8]);
-      ctx.beginPath();
-      ctx.moveTo(100, 265);
-      ctx.lineTo(w - 100, 265);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Rincian Item Struk (Sesuai Tema)
-      ctx.font = '26px "Space Mono", monospace';
-      ctx.fillStyle = theme.textSecondary;
-
-      ctx.textAlign = 'left';
-      ctx.fillText('FRENCH FRIES', 100, 310);
-      ctx.fillText('MATCHA LATTE', 100, 354);
-      ctx.fillText('AMERICANO', 100, 398);
-
-      ctx.textAlign = 'right';
-      ctx.fillText('22.000', w - 100, 310);
-      ctx.fillText('17.000', w - 100, 354);
-      ctx.fillText('15.000', w - 100, 398);
-
-      // Garis Pembatas Putus-putus Atas (Sesuai Tema)
-      ctx.strokeStyle = theme.dashedLine;
-      ctx.lineWidth = 4;
-      ctx.setLineDash([12, 12]);
-      ctx.beginPath();
-      ctx.moveTo(100, 430);
-      ctx.lineTo(w - 100, 430);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Gambar 4 Foto ke Grid 2x2 (Foto masing-masing rasio 3:4)
-      const gridX = 100;
-      const gridY = 470;
-      const photoW = 480;
-      const photoH = 640;
-      const gap = 40;
-
-      const positions = [
-        { x: gridX, y: gridY },
-        { x: gridX + photoW + gap, y: gridY },
-        { x: gridX, y: gridY + photoH + gap },
-        { x: gridX + photoW + gap, y: gridY + photoH + gap }
-      ];
-
+      // Memuat 4 gambar hasil jepretan
       const loadedImages = await Promise.all(
         capturedPhotos.slice(0, 4).map(src => {
           return new Promise(res => {
@@ -1355,69 +1726,369 @@
         })
       );
 
-      loadedImages.forEach((img, idx) => {
-        const pos = positions[idx];
+      if (selectedFormat === 'strip') {
+        // ==========================================
+        // FORMAT 1: 1x4 VERTICAL PHOTOSTRIP (600 x 1800 px)
+        // ==========================================
+        const w = 600;
+        const h = 1800;
+        canvas.width = w;
+        canvas.height = h;
+
+        // Background & Border
+        ctx.fillStyle = theme.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = theme.border;
+        ctx.lineWidth = 6;
+        ctx.strokeRect(15, 15, w - 30, h - 30);
+
+        // Header UBI 4-CUT
+        ctx.fillStyle = theme.textSecondary;
+        ctx.textAlign = 'center';
+        ctx.font = '14px "Space Mono", monospace';
+        ctx.fillText('UBI STUDIO ARCHIVE', w / 2, 60);
+
+        ctx.fillStyle = theme.textPrimary;
+        ctx.font = 'italic bold 42px "Playfair Display", serif';
+        ctx.fillText('ubi 4-cut', w / 2, 105);
+
+        // 4 Photos (Width: 460, Height: 345, Gap: 25)
+        const photoW = 460;
+        const photoH = 345;
+        const photoX = 70;
+        const startY = 125;
+        const gap = 25;
+
+        for (let idx = 0; idx < 4; idx++) {
+          const py = startY + idx * (photoH + gap);
+          const img = loadedImages[idx];
+
+          ctx.save();
+          drawImageCover(ctx, img, photoX, py, photoW, photoH);
+
+          // Number badge
+          ctx.fillStyle = theme.numberCircleBg;
+          ctx.beginPath();
+          ctx.arc(photoX + 34, py + 34, 22, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = theme.numberCircleText;
+          ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText((idx + 1).toString(), photoX + 34, py + 34);
+
+          ctx.restore();
+        }
+
+        // Divider
+        const footerY = startY + 4 * photoH + 3 * gap + 25;
+        ctx.strokeStyle = theme.dashedLine;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(photoX, footerY);
+        ctx.lineTo(w - photoX, footerY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Custom Signature (jika ada)
+        let currentY = footerY + 36;
+        if (customSignature) {
+          ctx.fillStyle = theme.textPrimary;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'alphabetic';
+          ctx.font = 'italic bold 28px "Playfair Display", serif';
+          ctx.fillText(customSignature, w / 2, currentY);
+          currentY += 30;
+        }
+
+        // Tanggal & Order ID
+        ctx.fillStyle = theme.textSecondary;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = '14px "Space Mono", monospace';
+        ctx.fillText(`${receiptMetadata.dateStr} ${receiptMetadata.timeStr} • ${receiptMetadata.orderId}`, w / 2, currentY);
+        currentY += 22;
+
+        // Barcode Visual Analog
+        ctx.fillStyle = theme.textPrimary;
+        const barcodeWidths = [2, 1, 3, 1, 2, 4, 1, 2, 1, 3, 2, 1, 4, 2, 1, 3, 1, 2, 3, 1, 2, 4, 1, 3, 2];
+        const totalBcW = barcodeWidths.reduce((a, b) => a + b + 2, 0);
+        let bcX = (w - totalBcW) / 2;
+        barcodeWidths.forEach(bw => {
+          ctx.fillRect(bcX, currentY, bw, 20);
+          bcX += bw + 2;
+        });
+        currentY += 34;
+
+        ctx.fillStyle = theme.textSecondary;
+        ctx.font = '11px "Space Mono", monospace';
+        ctx.fillText('~ UBI STUDIO PHOTOSTRIP ~', w / 2, currentY);
+
+      } else if (selectedFormat === 'polaroid') {
+        // ==========================================
+        // FORMAT 2: 2x2 EDITORIAL POLAROID (1200 x 1500 px)
+        // ==========================================
+        const w = 1200;
+        const h = 1500;
+        canvas.width = w;
+        canvas.height = h;
+
+        // Background & Wide Polaroid Border
+        ctx.fillStyle = theme.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = theme.border;
+        ctx.lineWidth = 8;
+        ctx.strokeRect(20, 20, w - 40, h - 40);
+
+        // Minimal Top Badge
+        ctx.fillStyle = theme.textSecondary;
+        ctx.textAlign = 'center';
+        ctx.font = '16px "Space Mono", monospace';
+        ctx.fillText('UBI STUDIO • EDITORIAL POLAROID', w / 2, 55);
+
+        // 2x2 Grid Photos
+        const photoW = 500;
+        const photoH = 550;
+        const gridX = 80;
+        const gridY = 75;
+        const gap = 40;
+
+        const positions = [
+          { x: gridX, y: gridY },
+          { x: gridX + photoW + gap, y: gridY },
+          { x: gridX, y: gridY + photoH + gap },
+          { x: gridX + photoW + gap, y: gridY + photoH + gap }
+        ];
+
+        loadedImages.forEach((img, idx) => {
+          const pos = positions[idx];
+          ctx.save();
+          drawImageCover(ctx, img, pos.x, pos.y, photoW, photoH);
+
+          // Number badge
+          ctx.fillStyle = theme.numberCircleBg;
+          ctx.beginPath();
+          ctx.arc(pos.x + 40, pos.y + 40, 24, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = theme.numberCircleText;
+          ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText((idx + 1).toString(), pos.x + 40, pos.y + 40);
+
+          ctx.restore();
+        });
+
+        // Polaroid Wide Bottom Chin Area (1215 to 1500)
+        ctx.strokeStyle = theme.dashedLine;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(gridX, 1225);
+        ctx.lineTo(w - gridX, 1225);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Custom Signature or Default Italic Text
+        ctx.fillStyle = theme.textPrimary;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = 'italic bold 44px "Playfair Display", serif';
+        ctx.fillText(customSignature || 'our memories ♡', w / 2, 1315);
+
+        // Metadata Date & Order ID
+        ctx.fillStyle = theme.textSecondary;
+        ctx.font = '20px "Space Mono", monospace';
+        ctx.fillText(`${receiptMetadata.dateStr} ${receiptMetadata.timeStr} • ${receiptMetadata.orderId}`, w / 2, 1385);
+
+        // Studio Emblem Text
+        ctx.fillStyle = theme.accent;
+        ctx.font = 'bold 15px "Space Mono", monospace';
+        ctx.fillText('★ UBI TACTILE ANALOG STUDIO ★', w / 2, 1435);
+
+      } else {
+        // ==========================================
+        // FORMAT 3: RECEIPT (1200 x 2000 px)
+        // ==========================================
+        const w = 1200;
+        const h = 2000;
+        canvas.width = w;
+        canvas.height = h;
+
+        ctx.fillStyle = theme.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = theme.border;
+        ctx.lineWidth = 8;
+        ctx.strokeRect(20, 20, w - 40, h - 40);
+
+        ctx.fillStyle = theme.textPrimary;
+        ctx.textAlign = 'center';
+        ctx.font = 'italic 52px "Playfair Display", serif';
+        ctx.fillText('receipt', w / 2, 125);
+
+        ctx.font = 'italic bold 70px "Playfair Display", serif';
+        ctx.fillText('photobooth', w / 2, 195);
+
+        ctx.font = '22px "Space Mono", monospace';
+        ctx.fillStyle = theme.textSecondary;
+        ctx.textAlign = 'left';
+        ctx.fillText(`DATE: ${receiptMetadata.dateStr} ${receiptMetadata.timeStr}`, 100, 245);
+        ctx.textAlign = 'right';
+        ctx.fillText(`ORDER ${receiptMetadata.orderId}`, w - 100, 245);
+
+        ctx.strokeStyle = theme.dashedLine;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(100, 265);
+        ctx.lineTo(w - 100, 265);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.font = '26px "Space Mono", monospace';
+        ctx.fillStyle = theme.textSecondary;
+        ctx.textAlign = 'left';
+        ctx.fillText('FRENCH FRIES', 100, 310);
+        ctx.fillText('MATCHA LATTE', 100, 354);
+        ctx.fillText('AMERICANO', 100, 398);
+
+        ctx.textAlign = 'right';
+        ctx.fillText('22.000', w - 100, 310);
+        ctx.fillText('17.000', w - 100, 354);
+        ctx.fillText('15.000', w - 100, 398);
+
+        ctx.strokeStyle = theme.dashedLine;
+        ctx.lineWidth = 4;
+        ctx.setLineDash([12, 12]);
+        ctx.beginPath();
+        ctx.moveTo(100, 430);
+        ctx.lineTo(w - 100, 430);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const gridX = 100;
+        const gridY = 470;
+        const photoW = 480;
+        const photoH = 640;
+        const gap = 40;
+
+        const positions = [
+          { x: gridX, y: gridY },
+          { x: gridX + photoW + gap, y: gridY },
+          { x: gridX, y: gridY + photoH + gap },
+          { x: gridX + photoW + gap, y: gridY + photoH + gap }
+        ];
+
+        loadedImages.forEach((img, idx) => {
+          const pos = positions[idx];
+          ctx.save();
+          drawImageCover(ctx, img, pos.x, pos.y, photoW, photoH);
+
+          ctx.fillStyle = theme.numberCircleBg;
+          ctx.beginPath();
+          ctx.arc(pos.x + 44, pos.y + 44, 28, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = theme.numberCircleText;
+          ctx.font = 'bold 26px "Plus Jakarta Sans", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText((idx + 1).toString(), pos.x + 44, pos.y + 44);
+
+          const pillW = 84;
+          const pillH = 28;
+          const pillX = pos.x + (photoW - pillW) / 2;
+          const pillY = pos.y + photoH - 44;
+
+          ctx.fillStyle = theme.pillBg;
+          ctx.beginPath();
+          ctx.roundRect(pillX, pillY, pillW, pillH, 14);
+          ctx.fill();
+
+          ctx.fillStyle = theme.pillText;
+          ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+          ctx.fillText('frame', pillX + pillW / 2, pillY + pillH / 2);
+
+          ctx.restore();
+        });
+
+        const footerY = gridY + (photoH * 2) + gap + 70;
+
+        // Tampilkan Tanda Tangan Kustom di Struk jika ada
+        if (customSignature) {
+          ctx.fillStyle = theme.textPrimary;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'alphabetic';
+          ctx.font = 'italic bold 32px "Playfair Display", serif';
+          ctx.fillText(`"${customSignature}"`, w / 2, footerY - 50);
+        }
+
+        ctx.strokeStyle = theme.dashedLine;
+        ctx.lineWidth = 4;
+        ctx.setLineDash([12, 12]);
+        ctx.beginPath();
+        ctx.moveTo(100, footerY - 20);
+        ctx.lineTo(w - 100, footerY - 20);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = theme.textSecondary;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = '24px "Space Mono", monospace';
+        ctx.fillText("- WE'RE HOPING TO SEE YOU AGAIN -", w / 2, footerY + 30);
+
+        ctx.fillStyle = theme.textPrimary;
+        ctx.font = 'bold 26px "Space Mono", monospace';
+        ctx.fillText('~OUR RECEIPT~', w / 2, footerY + 74);
+      }
+
+      // ==========================================
+      // RENDER ACTIVE STICKERS PADA KANVAS DOWNLOAD
+      // ==========================================
+      activeStickers.forEach(stickerKey => {
+        const cfg = STICKER_CONFIG[stickerKey];
+        if (!cfg) return;
+        const coord = cfg.coords[selectedFormat];
+        if (!coord) return;
 
         ctx.save();
-        drawImageCover(ctx, img, pos.x, pos.y, photoW, photoH);
-
-        // Lingkaran Nomor Sudut Kiri Atas (Sesuai Tema)
-        ctx.fillStyle = theme.numberCircleBg;
-        ctx.beginPath();
-        ctx.arc(pos.x + 44, pos.y + 44, 28, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = theme.numberCircleText;
-        ctx.font = 'bold 26px "Plus Jakarta Sans", sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText((idx + 1).toString(), pos.x + 44, pos.y + 44);
 
-        // Ornamen Pil Bawah Tengah (Sesuai Tema)
-        const pillW = 84;
-        const pillH = 28;
-        const pillX = pos.x + (photoW - pillW) / 2;
-        const pillY = pos.y + photoH - 44;
+        if (cfg.isBadge) {
+          const badgeW = selectedFormat === 'strip' ? 140 : 180;
+          const badgeH = selectedFormat === 'strip' ? 36 : 46;
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.strokeStyle = '#94A3B8';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(coord.x - badgeW / 2, coord.y - badgeH / 2, badgeW, badgeH, 8);
+          ctx.fill();
+          ctx.stroke();
 
-        ctx.fillStyle = theme.pillBg;
-        ctx.beginPath();
-        ctx.roundRect(pillX, pillY, pillW, pillH, 14);
-        ctx.fill();
-
-        ctx.fillStyle = theme.pillText;
-        ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
-        ctx.fillText('frame', pillX + pillW / 2, pillY + pillH / 2);
-
+          ctx.fillStyle = '#0F172A';
+          ctx.font = selectedFormat === 'strip' ? 'bold 15px "Space Mono", monospace' : 'bold 20px "Space Mono", monospace';
+          ctx.fillText('🏷️ BESTIES', coord.x, coord.y);
+        } else {
+          const fontSize = selectedFormat === 'strip' ? 44 : 64;
+          ctx.font = `${fontSize}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
+          ctx.fillText(cfg.emoji, coord.x, coord.y);
+        }
         ctx.restore();
       });
 
-      // Footer Struk (Sesuai Tema)
-      const footerY = gridY + (photoH * 2) + gap + 70;
-
-      ctx.strokeStyle = theme.dashedLine;
-      ctx.lineWidth = 4;
-      ctx.setLineDash([12, 12]);
-      ctx.beginPath();
-      ctx.moveTo(100, footerY - 30);
-      ctx.lineTo(w - 100, footerY - 30);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      ctx.fillStyle = theme.textSecondary;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'alphabetic';
-      ctx.font = '24px "Space Mono", monospace';
-      ctx.fillText("- WE'RE HOPING TO SEE YOU AGAIN -", w / 2, footerY + 20);
-
-      ctx.fillStyle = theme.textPrimary;
-      ctx.font = 'bold 26px "Space Mono", monospace';
-      ctx.fillText('~OUR RECEIPT~', w / 2, footerY + 64);
-
-      // Unduh File Gambar
+      // Unduh File Gambar PNG
       const imageURL = canvas.toDataURL('image/png');
       const downloadAnchor = document.createElement('a');
       downloadAnchor.href = imageURL;
-      downloadAnchor.download = `ubi-photobox-${theme.id}.png`;
+      downloadAnchor.download = `ubi-photobox-${selectedFormat}-${theme.id}.png`;
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       document.body.removeChild(downloadAnchor);
@@ -1431,6 +2102,32 @@
       });
     }
 
+    // Event Listener Format Selector Tabs
+    document.querySelectorAll('.btn-format').forEach(btn => {
+      btn.addEventListener('click', () => {
+        initAudioContext();
+        const formatKey = btn.getAttribute('data-format');
+        setFormat(formatKey);
+      });
+    });
+
+    // Event Listener Live Input Tanda Tangan
+    if (inputSignature) {
+      inputSignature.addEventListener('input', (e) => {
+        customSignature = e.target.value.trim();
+        updateSignatureUI();
+      });
+    }
+
+    // Event Listener Sticker Tray (Toggle Stiker)
+    document.querySelectorAll('.btn-sticker').forEach(btn => {
+      btn.addEventListener('click', () => {
+        initAudioContext();
+        const stickerKey = btn.getAttribute('data-sticker');
+        toggleSticker(stickerKey);
+      });
+    });
+
     document.querySelectorAll('.btn-filter').forEach(btn => {
       btn.addEventListener('click', () => {
         initAudioContext();
@@ -1442,6 +2139,12 @@
     btnStart.addEventListener('click', () => {
       initAudioContext();
       generateReceiptMetadata();
+      // Reset signature dan stiker
+      customSignature = '';
+      activeStickers = [];
+      if (inputSignature) inputSignature.value = '';
+      updateSignatureUI();
+      updateStickersUI();
       showScreen('chooseFrame');
     });
 
@@ -1477,6 +2180,11 @@
       initAudioContext();
       generateReceiptMetadata();
       capturedPhotos = [];
+      customSignature = '';
+      activeStickers = [];
+      if (inputSignature) inputSignature.value = '';
+      updateSignatureUI();
+      updateStickersUI();
       showScreen('takePhoto');
       resetPhotoIndicators();
       await startCamera();
@@ -1487,7 +2195,8 @@
       downloadReceiptImage();
     });
 
-    // Inisialisasi Metadata Awal & Tema Carousel Awal
+    // Inisialisasi Format Default ('strip'), Metadata Awal & Tema Carousel Awal
+    setFormat('strip');
     generateReceiptMetadata();
     updateThemeCarousel();
   </script>
