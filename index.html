@@ -185,23 +185,15 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    /* Scrollbar Internal yang Ramping dan Estetik untuk Kartu Frame */
+    /* Scrollbar Internal yang Ramping dan Estetik untuk Kartu Frame (Ghost Scroll) */
     .card-internal-scroll {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE & Edge */
     }
     .card-internal-scroll::-webkit-scrollbar {
-      width: 4px;
-    }
-    .card-internal-scroll::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .card-internal-scroll::-webkit-scrollbar-thumb {
-      background: rgba(148, 163, 184, 0.4);
-      border-radius: 4px;
-    }
-    .card-internal-scroll::-webkit-scrollbar-thumb:hover {
-      background: rgba(148, 163, 184, 0.7);
+      display: none; /* Chrome, Safari, Opera */
+      width: 0;
+      height: 0;
     }
 
     /* ============================================================
@@ -494,7 +486,7 @@
         <!-- Preview Struk/Card Multi-Format: In-Card Scroll + 3D Tilt Modal -->
         <div
           id="previewReceiptCard"
-          class="w-[210px] sm:w-[245px] h-[48dvh] sm:h-[52dvh] overflow-y-auto card-internal-scroll scroll-smooth bg-white rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border border-slate-100 py-3 px-3 flex flex-col items-center text-navy-dark relative transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]"
+          class="w-[165px] sm:w-[185px] h-[46dvh] sm:h-[50dvh] overflow-y-auto card-internal-scroll scroll-smooth bg-white rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border border-slate-100 py-3 px-3 flex flex-col items-center text-navy-dark relative transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]"
           title="Klik untuk preview 3D interaktif"
           role="button"
           aria-label="Preview frame – klik untuk melihat 3D"
@@ -749,13 +741,6 @@
               <span class="block mt-0.5">WIDESCREEN 35MM • UBI CINEMA</span>
             </div>
           </div>
-
-          <!-- Floating Scroll & 3D Hint Badge -->
-          <div id="scrollHintBadge" class="sticky bottom-1 z-20 pointer-events-none mt-auto pt-2 flex justify-center w-full transition-opacity duration-300">
-            <span class="inline-flex items-center gap-1 font-mono text-[7px] sm:text-[8px] tracking-wider text-slate-500 bg-white/90 backdrop-blur-xs border border-slate-200/90 py-0.5 px-2 rounded-full shadow-xs animate-bounce uppercase">
-              ↕ Scroll untuk lihat semua pose
-            </span>
-          </div>
         </div>
 
         <!-- Panah Kanan -->
@@ -984,7 +969,7 @@
 
       <!-- 2. Area Tinjau Foto Multi-Format (Wrapper flex-1 min-h-0) -->
       <div class="flex-1 min-h-0 flex items-center justify-center my-auto w-full">
-        <div id="receiptCard" class="w-[210px] sm:w-[245px] max-h-[46dvh] overflow-y-auto card-internal-scroll scroll-smooth my-auto bg-white rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border border-slate-100 py-3 px-3 flex flex-col items-center text-navy-dark transition-all duration-200 relative">
+        <div id="receiptCard" class="w-[165px] sm:w-[185px] max-h-[46dvh] overflow-y-auto card-internal-scroll scroll-smooth my-auto bg-white rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border border-slate-100 py-3 px-3 flex flex-col items-center text-navy-dark transition-all duration-200 relative">
         
         <!-- Result Format 1: 1x4 Strip (Default) -->
         <div id="resultStrip" class="w-full flex flex-col items-center relative">
@@ -1451,7 +1436,7 @@
         icon: '🎞️',
         canvasW: 600,
         canvasH: 1800,
-        cardWidthClass: 'w-[210px] sm:w-[245px]'
+        cardWidthClass: 'w-[165px] sm:w-[185px]'
       },
       polaroid: {
         id: 'polaroid',
@@ -1866,8 +1851,8 @@
 
       // 2. Update layout di previewReceiptCard (Screen 2)
       if (previewReceiptCard) {
-        const widthClass = FORMATS[formatKey].cardWidthClass || 'w-[210px] sm:w-[245px]';
-        const basePreviewClasses = `${widthClass} h-[48dvh] sm:h-[52dvh] overflow-y-auto card-internal-scroll scroll-smooth rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border py-3 px-3 flex flex-col items-center relative transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]`;
+        const widthClass = FORMATS[formatKey].cardWidthClass || 'w-[165px] sm:w-[185px]';
+        const basePreviewClasses = `${widthClass} h-[46dvh] sm:h-[50dvh] overflow-y-auto card-internal-scroll scroll-smooth rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border py-3 px-3 flex flex-col items-center relative transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]`;
         if (formatKey === 'film') {
           previewReceiptCard.className = `${basePreviewClasses} bg-[#121214] border-black/40 text-white`;
         } else {
@@ -1875,8 +1860,6 @@
         }
 
         previewReceiptCard.scrollTop = 0;
-        const scrollHint = document.getElementById('scrollHintBadge');
-        if (scrollHint) scrollHint.classList.remove('opacity-0');
 
         const pStrip = document.getElementById('previewStrip');
         const pPolaroid = document.getElementById('previewPolaroid');
@@ -3212,19 +3195,6 @@
       initAudioContext();
       downloadReceiptImage();
     });
-
-    // In-Card Scroll Hint Fade
-    if (previewReceiptCard) {
-      previewReceiptCard.addEventListener('scroll', () => {
-        const scrollHint = document.getElementById('scrollHintBadge');
-        if (!scrollHint) return;
-        if (previewReceiptCard.scrollTop > 30) {
-          scrollHint.classList.add('opacity-0');
-        } else {
-          scrollHint.classList.remove('opacity-0');
-        }
-      });
-    }
 
     // Inisialisasi Format Default ('strip'), Metadata Awal & Tema Carousel Awal
     setFormat('strip');
