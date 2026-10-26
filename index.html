@@ -156,16 +156,6 @@
       transform: scaleX(-1);
     }
 
-    /* Animasi Pop Stiker Taktil */
-    @keyframes sticker-pop {
-      0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
-      70% { transform: scale(1.2) rotate(6deg); opacity: 1; }
-      100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    }
-    .animate-sticker-pop {
-      animation: sticker-pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-
     /* Utility no-scrollbar untuk horizontal scrolling */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -985,7 +975,7 @@
               <span class="block text-[11px] sm:text-xs font-semibold">ubi 4-cut</span>
             </h2>
           </div>
-          <!-- Relative photo container with stickers -->
+          <!-- Relative photo container -->
           <div class="w-full relative">
             <div class="w-full flex flex-col gap-1.5 my-1">
               <div class="preview-photo-slot rounded-[4px] overflow-hidden relative shadow-xs bg-slate-100">
@@ -1004,15 +994,6 @@
                 <img id="resultImg3" src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
                 <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">4</span>
               </div>
-            </div>
-            <!-- Sticker Overlay Layer for Strip -->
-            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-              <span class="card-sticker sticker-ribbon absolute top-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
-              <span class="card-sticker sticker-sparkles absolute top-[27%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
-              <span class="card-sticker sticker-heart absolute top-[47%] right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
-              <span class="card-sticker sticker-cherries absolute top-[71%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
-              <span class="card-sticker sticker-paws absolute bottom-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
-              <span class="card-sticker sticker-besties absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
             </div>
           </div>
           <!-- Strip Footer -->
@@ -1040,7 +1021,7 @@
           <div class="text-center mb-1">
             <span class="font-mono text-[7px] tracking-[0.18em] text-slate-400 uppercase">UBI POLAROID 2x2</span>
           </div>
-          <!-- Relative photo container with stickers -->
+          <!-- Relative photo container -->
           <div class="w-full relative">
             <div class="w-full grid grid-cols-2 gap-1.5 my-1">
               <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
@@ -1060,20 +1041,11 @@
                 <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">4</span>
               </div>
             </div>
-            <!-- Sticker Overlay Layer for Polaroid -->
-            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-              <span class="card-sticker sticker-ribbon absolute top-1 right-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
-              <span class="card-sticker sticker-sparkles absolute top-1 left-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
-              <span class="card-sticker sticker-heart absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
-              <span class="card-sticker sticker-cherries absolute bottom-1 left-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
-              <span class="card-sticker sticker-paws absolute bottom-1 right-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
-            </div>
           </div>
           <!-- Polaroid Wide Bottom Chin -->
           <div class="w-full pt-2 pb-1 text-center border-t border-slate-100 mt-1 relative">
             <div class="receipt-live-signature font-serif italic text-xs sm:text-sm text-navy-dark text-center min-h-[18px]">our memories ♡</div>
             <div class="flex items-center justify-center gap-1.5 mt-0.5">
-              <span class="card-sticker sticker-besties inline-block bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
               <span class="receipt-date-time font-mono text-[6px] text-slate-400 uppercase tracking-widest">25/10/2026 • UBI STUDIO</span>
             </div>
           </div>
@@ -1098,7 +1070,7 @@
             <div class="flex justify-between"><span>AMERICANO</span><span>15.000</span></div>
           </div>
           <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
-          <!-- 2x2 Grid with stickers -->
+          <!-- 2x2 Grid -->
           <div class="w-full relative">
             <div class="w-full grid grid-cols-2 gap-1.5 my-1">
               <div class="aspect-[3/4] rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
@@ -1118,20 +1090,11 @@
                 <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[8px] font-bold flex items-center justify-center shadow-xs">4</span>
               </div>
             </div>
-            <!-- Sticker Overlay Layer for Receipt -->
-            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-              <span class="card-sticker sticker-ribbon absolute top-1 right-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
-              <span class="card-sticker sticker-sparkles absolute top-1 left-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
-              <span class="card-sticker sticker-heart absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
-              <span class="card-sticker sticker-cherries absolute bottom-1 left-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
-              <span class="card-sticker sticker-paws absolute bottom-1 right-1.5 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
-            </div>
           </div>
           <!-- Live signature line inside receipt -->
           <div class="receipt-live-signature font-serif italic text-xs text-navy-dark text-center my-1 min-h-[14px]"></div>
           <div class="w-full border-t border-dashed receipt-divider my-1 border-slate-200"></div>
           <div class="text-center font-mono text-[6px] sm:text-[7px] receipt-footer tracking-wider uppercase leading-tight pt-0.5">
-            <span class="card-sticker sticker-besties inline-block bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark mb-0.5 transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
             <p class="receipt-footer-sub text-slate-400">- WE'RE HOPING TO SEE YOU AGAIN -</p>
             <p class="font-bold tracking-widest mt-0.5 receipt-footer-main">~OUR RECEIPT~</p>
           </div>
@@ -1153,7 +1116,7 @@
               <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
               <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
             </div>
-            <!-- Center Photos with stickers -->
+            <!-- Center Photos -->
             <div class="flex-1 flex flex-col gap-1.5 my-0.5 relative">
               <div class="preview-photo-slot rounded-[3px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
                 <img src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
@@ -1170,15 +1133,6 @@
               <div class="preview-photo-slot rounded-[3px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
                 <img src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
                 <span class="absolute top-1 left-1 font-mono text-[6px] text-amber-400 font-bold bg-black/70 px-1 py-0.5 rounded-xs">04A ▶</span>
-              </div>
-              <!-- Sticker Overlay Layer for Film -->
-              <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-                <span class="card-sticker sticker-ribbon absolute top-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
-                <span class="card-sticker sticker-sparkles absolute top-[27%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
-                <span class="card-sticker sticker-heart absolute top-[47%] right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
-                <span class="card-sticker sticker-cherries absolute top-[71%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
-                <span class="card-sticker sticker-paws absolute bottom-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
-                <span class="card-sticker sticker-besties absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
               </div>
             </div>
             <!-- Right Sprocket Holes -->
@@ -1245,16 +1199,6 @@
               <span class="w-0 flex-1 border-l border-dashed border-slate-300 my-0.5"></span>
               <span class="text-[8px] text-slate-400 bg-white/95 px-0.5 rounded-full leading-none">✂</span>
             </div>
-
-            <!-- Sticker Overlay Layer for Twin -->
-            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-              <span class="card-sticker sticker-ribbon absolute top-1 right-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
-              <span class="card-sticker sticker-sparkles absolute top-1 left-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
-              <span class="card-sticker sticker-heart absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
-              <span class="card-sticker sticker-cherries absolute bottom-1 left-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
-              <span class="card-sticker sticker-paws absolute bottom-1 right-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
-              <span class="card-sticker sticker-besties absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
-            </div>
           </div>
           <!-- Twin Footer -->
           <div class="text-center font-mono text-[5px] text-slate-400 uppercase tracking-tight mt-0.5">
@@ -1267,7 +1211,7 @@
           <div class="text-center mb-1">
             <span class="font-mono text-[6px] tracking-widest text-slate-400 uppercase">CINEMATIC REEL • 24 FPS</span>
           </div>
-          <!-- 3 Cinema Frames with stickers -->
+          <!-- 3 Cinema Frames -->
           <div class="w-full relative">
             <div class="w-full flex flex-col gap-1.5 my-1">
               <div class="flex flex-col bg-slate-950 rounded-[3px] p-1 shadow-xs border border-slate-800">
@@ -1295,15 +1239,6 @@
                 <span class="font-mono text-[5px] text-amber-300 text-center mt-0.5 uppercase tracking-wider">[ SCENE 03: OUTRO ]</span>
               </div>
             </div>
-            <!-- Sticker Overlay Layer for Cinema -->
-            <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-              <span class="card-sticker sticker-ribbon absolute top-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
-              <span class="card-sticker sticker-sparkles absolute top-[30%] left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">✨</span>
-              <span class="card-sticker sticker-heart absolute top-[60%] right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">💖</span>
-              <span class="card-sticker sticker-cherries absolute bottom-1 left-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🍒</span>
-              <span class="card-sticker sticker-paws absolute bottom-1 right-1 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🐾</span>
-              <span class="card-sticker sticker-besties absolute bottom-0.5 left-1/2 -translate-x-1/2 bg-white/95 border border-slate-300 text-[7px] font-mono font-bold px-1 py-0.2 rounded shadow-xs text-navy-dark transition-all duration-200 transform scale-0 opacity-0 select-none">🏷️ BESTIES</span>
-            </div>
           </div>
           <!-- Cinema Footer -->
           <div class="receipt-live-signature font-serif italic text-xs text-navy-dark text-center my-0.5 min-h-[14px]">directed by besties</div>
@@ -1316,9 +1251,8 @@
         </div>
       </div>
 
-      <!-- FITUR 2: PANEL DEKORASI (Input Tanda Tangan & Sticker Tray) -->
-      <div class="shrink-0 my-1 sm:my-1.5 w-full max-w-[270px] flex flex-col items-center gap-1.5">
-        
+      <!-- FITUR 2: PANEL DEKORASI (Input Tanda Tangan) -->
+      <div class="shrink-0 my-1 sm:my-1.5 w-full max-w-[270px] flex flex-col items-center">
         <!-- Input Teks Caption / Tanda Tangan -->
         <div class="w-full">
           <input
@@ -1329,19 +1263,6 @@
             class="w-full text-center font-serif italic py-1 px-2.5 text-xs rounded-full border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-navy-dark placeholder:text-slate-400 transition-all duration-150 shadow-2xs"
           >
         </div>
-
-        <!-- Sticker Tray (6 Stiker Interaktif) -->
-        <div class="w-full flex flex-col items-center">
-          <div id="stickerTray" class="flex items-center justify-center gap-1 sm:gap-1.5 p-1 rounded-full bg-slate-100/90 border border-slate-200/80 shadow-inner">
-            <button type="button" data-sticker="ribbon" class="btn-sticker w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xs sm:text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Ribbon">🎀</button>
-            <button type="button" data-sticker="sparkles" class="btn-sticker w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xs sm:text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Sparkles">✨</button>
-            <button type="button" data-sticker="heart" class="btn-sticker w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xs sm:text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Sweet Heart">💖</button>
-            <button type="button" data-sticker="cherries" class="btn-sticker w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xs sm:text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Cherries">🍒</button>
-            <button type="button" data-sticker="paws" class="btn-sticker w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xs sm:text-sm hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="Paws">🐾</button>
-            <button type="button" data-sticker="besties" class="btn-sticker px-1.5 h-7 sm:h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-[9px] sm:text-[10px] font-mono font-bold tracking-tight hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs" title="BESTIES">🏷️</button>
-          </div>
-        </div>
-
       </div>
 
       <!-- 3. Area Aksi di Bagian Bawah -->
@@ -1500,90 +1421,6 @@
 
     let selectedFormat = 'strip'; // Default ke 1x4 Strip khas photobox Korea
     let customSignature = '';
-    let activeStickers = [];
-
-    // Konfigurasi 6 Stiker Interaktif & Koordinat Canvas untuk Setiap Format
-    const STICKER_CONFIG = {
-      ribbon: {
-        key: 'ribbon',
-        emoji: '🎀',
-        label: 'Ribbon',
-        coords: {
-          strip: { x: 475, y: 170 },
-          polaroid: { x: 1045, y: 140 },
-          receipt: { x: 1030, y: 535 },
-          film: { x: 550, y: 150 },
-          twin: { x: 500, y: 150 },
-          cinema: { x: 490, y: 140 }
-        }
-      },
-      sparkles: {
-        key: 'sparkles',
-        emoji: '✨',
-        label: 'Sparkles',
-        coords: {
-          strip: { x: 125, y: 540 },
-          polaroid: { x: 155, y: 140 },
-          receipt: { x: 170, y: 535 },
-          film: { x: 150, y: 580 },
-          twin: { x: 700, y: 150 },
-          cinema: { x: 110, y: 520 }
-        }
-      },
-      heart: {
-        key: 'heart',
-        emoji: '💖',
-        label: 'Sweet Heart',
-        coords: {
-          strip: { x: 475, y: 815 },
-          polaroid: { x: 600, y: 665 },
-          receipt: { x: 600, y: 1150 },
-          film: { x: 550, y: 990 },
-          twin: { x: 600, y: 700 },
-          cinema: { x: 490, y: 840 }
-        }
-      },
-      cherries: {
-        key: 'cherries',
-        emoji: '🍒',
-        label: 'Cherries',
-        coords: {
-          strip: { x: 125, y: 1185 },
-          polaroid: { x: 155, y: 1175 },
-          receipt: { x: 170, y: 1750 },
-          film: { x: 150, y: 1420 },
-          twin: { x: 130, y: 1240 },
-          cinema: { x: 110, y: 1140 }
-        }
-      },
-      paws: {
-        key: 'paws',
-        emoji: '🐾',
-        label: 'Paws',
-        coords: {
-          strip: { x: 475, y: 1545 },
-          polaroid: { x: 1045, y: 1175 },
-          receipt: { x: 1030, y: 1750 },
-          film: { x: 550, y: 1720 },
-          twin: { x: 1070, y: 1240 },
-          cinema: { x: 490, y: 1140 }
-        }
-      },
-      besties: {
-        key: 'besties',
-        emoji: '🏷️',
-        label: 'BESTIES',
-        isBadge: true,
-        coords: {
-          strip: { x: 300, y: 1595 },
-          polaroid: { x: 600, y: 1250 },
-          receipt: { x: 600, y: 1825 },
-          film: { x: 350, y: 1820 },
-          twin: { x: 600, y: 1350 },
-          cinema: { x: 300, y: 1250 }
-        }
-      }
-    };
 
     // State Aplikasi
     let mediaStream = null;
@@ -1913,13 +1750,12 @@
         if (rCinema) rCinema.classList.toggle('hidden', formatKey !== 'cinema');
       }
 
-      // 4. Re-apply tema & metadata & signature & stickers
+      // 4. Re-apply tema & metadata & signature
       const currentTheme = FRAME_THEMES[selectedThemeIndex] || FRAME_THEMES[0];
       applyThemeToReceipt(currentTheme, previewReceiptCard);
       applyThemeToReceipt(currentTheme, receiptCard);
       updateReceiptMetadataUI();
       updateSignatureUI();
-      updateStickersUI();
     }
 
     function updateSignatureUI() {
@@ -1942,46 +1778,6 @@
       document.querySelectorAll('.signature-preview-text').forEach(el => {
         el.textContent = customSignature || 'our memories ♡';
       });
-    }
-
-    function updateStickersUI() {
-      // Update tombol di tray
-      document.querySelectorAll('.btn-sticker').forEach(btn => {
-        const key = btn.getAttribute('data-sticker');
-        const isActive = activeStickers.includes(key);
-        const isBestie = key === 'besties';
-        const sizeClass = isBestie ? "px-1.5 h-7 sm:h-8 text-[9px] sm:text-[10px]" : "w-7 h-7 sm:w-8 sm:h-8 text-xs sm:text-sm";
-        if (isActive) {
-          btn.className = `btn-sticker ${sizeClass} rounded-full bg-rose-50 border border-rose-400 ring-2 ring-rose-400/50 scale-105 flex items-center justify-center shadow-xs transition-all cursor-pointer font-mono font-bold`;
-        } else {
-          btn.className = `btn-sticker ${sizeClass} rounded-full bg-white border border-slate-200 flex items-center justify-center hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs font-mono font-bold`;
-        }
-      });
-
-      // Update stiker di preview card
-      Object.keys(STICKER_CONFIG).forEach(key => {
-        const isActive = activeStickers.includes(key);
-        document.querySelectorAll(`.sticker-${key}`).forEach(el => {
-          if (isActive) {
-            el.classList.remove('scale-0', 'opacity-0');
-            el.classList.add('scale-100', 'opacity-100', 'animate-sticker-pop');
-          } else {
-            el.classList.remove('scale-100', 'opacity-100', 'animate-sticker-pop');
-            el.classList.add('scale-0', 'opacity-0');
-          }
-        });
-      });
-    }
-
-    function toggleSticker(stickerKey) {
-      if (!STICKER_CONFIG[stickerKey]) return;
-      const idx = activeStickers.indexOf(stickerKey);
-      if (idx > -1) {
-        activeStickers.splice(idx, 1);
-      } else {
-        activeStickers.push(stickerKey);
-      }
-      updateStickersUI();
     }
 
     // =========================================================
@@ -2306,9 +2102,8 @@
       applyThemeToReceipt(FRAME_THEMES[selectedThemeIndex], receiptCard);
       // Sinkronkan metadata di struk hasil
       updateReceiptMetadataUI();
-      // Sinkronkan tanda tangan & stiker
+      // Sinkronkan tanda tangan
       updateSignatureUI();
-      updateStickersUI();
     }
 
     // Helper untuk menjaga aspek rasio cover pada canvas
@@ -3020,43 +2815,6 @@
         ctx.fillText('★ 35MM PANAVISION FORMAT • UBI CINEMA STUDIO ★', w / 2, footerY + 110);
       }
 
-      // ==========================================
-      // RENDER ACTIVE STICKERS PADA KANVAS DOWNLOAD
-      // ==========================================
-      activeStickers.forEach(stickerKey => {
-        const cfg = STICKER_CONFIG[stickerKey];
-        if (!cfg) return;
-        const coord = cfg.coords[selectedFormat];
-        if (!coord) return;
-
-        ctx.save();
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        if (cfg.isBadge) {
-          const isCompact = (selectedFormat === 'strip' || selectedFormat === 'cinema' || selectedFormat === 'film');
-          const badgeW = isCompact ? 140 : 180;
-          const badgeH = isCompact ? 36 : 46;
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-          ctx.strokeStyle = '#94A3B8';
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.roundRect(coord.x - badgeW / 2, coord.y - badgeH / 2, badgeW, badgeH, 8);
-          ctx.fill();
-          ctx.stroke();
-
-          ctx.fillStyle = '#0F172A';
-          ctx.font = isCompact ? 'bold 15px "Space Mono", monospace' : 'bold 20px "Space Mono", monospace';
-          ctx.fillText('🏷️ BESTIES', coord.x, coord.y);
-        } else {
-          const isCompact = (selectedFormat === 'strip' || selectedFormat === 'cinema');
-          const fontSize = isCompact ? 44 : (selectedFormat === 'film' ? 48 : 64);
-          ctx.font = `${fontSize}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
-          ctx.fillText(cfg.emoji, coord.x, coord.y);
-        }
-        ctx.restore();
-      });
-
       // Unduh File Gambar PNG
       const imageURL = canvas.toDataURL('image/png');
       const downloadAnchor = document.createElement('a');
@@ -3092,15 +2850,6 @@
       });
     }
 
-    // Event Listener Sticker Tray (Toggle Stiker)
-    document.querySelectorAll('.btn-sticker').forEach(btn => {
-      btn.addEventListener('click', () => {
-        initAudioContext();
-        const stickerKey = btn.getAttribute('data-sticker');
-        toggleSticker(stickerKey);
-      });
-    });
-
     document.querySelectorAll('.btn-filter').forEach(btn => {
       btn.addEventListener('click', () => {
         initAudioContext();
@@ -3112,12 +2861,10 @@
     btnStart.addEventListener('click', () => {
       initAudioContext();
       generateReceiptMetadata();
-      // Reset signature dan stiker
+      // Reset signature
       customSignature = '';
-      activeStickers = [];
       if (inputSignature) inputSignature.value = '';
       updateSignatureUI();
-      updateStickersUI();
       showScreen('chooseFrame');
     });
 
@@ -3173,10 +2920,8 @@
       generateReceiptMetadata();
       capturedPhotos = [];
       customSignature = '';
-      activeStickers = [];
       if (inputSignature) inputSignature.value = '';
       updateSignatureUI();
-      updateStickersUI();
       showScreen('takePhoto');
       resetPhotoIndicators();
       await startCamera();
@@ -3195,10 +2940,8 @@
         stopCamera();
         capturedPhotos = [];
         customSignature = '';
-        activeStickers = [];
         if (inputSignature) inputSignature.value = '';
         updateSignatureUI();
-        updateStickersUI();
         resetPhotoIndicators();
         showScreen('welcome');
       });
