@@ -3284,12 +3284,17 @@
             slot.style.marginBottom = '5px';
           });
         } else if (selectedFormat === 'receipt') {
-          inner.style.cssText = `width: 220px; padding: 12px 12px 14px 12px; ${baseStyle}`;
+          inner.style.cssText = `width: 255px; padding: 14px 14px 16px 14px; ${baseStyle}`;
           const slots = inner.querySelectorAll('#previewReceipt .receipt-placeholder');
           slots.forEach(slot => {
-            slot.style.height = '85px';
+            slot.style.height = '105px';
             slot.style.aspectRatio = '3/4';
+            slot.style.borderRadius = '4px';
           });
+          const items = inner.querySelector('#previewReceipt .receipt-items');
+          if (items) items.style.marginBottom = '6px';
+          const footer = inner.querySelector('#previewReceipt .receipt-footer');
+          if (footer) footer.style.paddingTop = '6px';
         } else if (selectedFormat === 'cinema') {
           inner.style.cssText = `width: 215px; padding: 12px 10px 14px 10px; ${baseStyle}`;
           const frames = inner.querySelectorAll('#previewCinema .bg-slate-900');
@@ -3318,12 +3323,18 @@
             slot.style.marginBottom = '5px';
           });
         } else if (selectedFormat === 'polaroid') {
-          inner.style.cssText = `width: 220px; padding: 12px 10px 14px 10px; ${baseStyle}`;
+          inner.style.cssText = `width: 270px; padding: 14px 14px 16px 14px; ${baseStyle}`;
           const slots = inner.querySelectorAll('#previewPolaroid .receipt-placeholder');
           slots.forEach(slot => {
-            slot.style.height = '90px';
+            slot.style.height = '115px';
             slot.style.aspectRatio = '3/4';
+            slot.style.borderRadius = '4px';
           });
+          const chin = inner.querySelector('#previewPolaroid .border-t');
+          if (chin) {
+            chin.style.marginTop = '8px';
+            chin.style.paddingTop = '8px';
+          }
         } else {
           inner.style.cssText = `width: 220px; padding: 12px; ${baseStyle}`;
         }
