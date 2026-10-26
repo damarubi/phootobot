@@ -175,50 +175,33 @@
       scrollbar-width: none;
     }
 
-    /* Fluid Photo Scaling untuk Layout Cetak (No-Scroll Viewport Lock) */
-    .fluid-photo-strip {
-      height: 5.2dvh;
-      max-height: 54px;
-      aspect-ratio: 4/3;
-      width: auto;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    @media (min-width: 640px) {
-      .fluid-photo-strip {
-        height: 6.2dvh;
-        max-height: 68px;
-      }
-    }
-
-    .fluid-photo-grid {
-      height: 7.2dvh;
-      max-height: 72px;
+    /* Slot Foto Proporsional 3:4 Alami & Indah di Dalam Frame */
+    .preview-photo-slot {
+      width: 100%;
       aspect-ratio: 3/4;
-      width: auto;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    @media (min-width: 640px) {
-      .fluid-photo-grid {
-        height: 8.5dvh;
-        max-height: 88px;
-      }
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    .fluid-photo-cinema {
-      height: 6.2dvh;
-      max-height: 60px;
-      aspect-ratio: 16/10;
-      width: auto;
-      margin-left: auto;
-      margin-right: auto;
+    /* Scrollbar Internal yang Ramping dan Estetik untuk Kartu Frame */
+    .card-internal-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
     }
-    @media (min-width: 640px) {
-      .fluid-photo-cinema {
-        height: 7.2dvh;
-        max-height: 72px;
-      }
+    .card-internal-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .card-internal-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .card-internal-scroll::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.4);
+      border-radius: 4px;
+    }
+    .card-internal-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.7);
     }
 
     /* ============================================================
@@ -508,17 +491,15 @@
         </button>
 
         <!-- Preview Struk/Card Multi-Format -->
-        <!-- Preview Card: Enlarged + Scrollable + Click-to-3D -->
+        <!-- Preview Struk/Card Multi-Format: In-Card Scroll + 3D Tilt Modal -->
         <div
           id="previewReceiptCard"
-          class="relative w-[195px] sm:w-[225px] overflow-y-auto no-scrollbar bg-white rounded-xl shadow-[0_4px_18px_rgba(0,0,0,0.1)] border border-slate-100/80 py-2 px-2 flex flex-col items-center text-navy-dark transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]"
-          style="max-height:48dvh;"
+          class="w-[210px] sm:w-[245px] h-[48dvh] sm:h-[52dvh] overflow-y-auto card-internal-scroll scroll-smooth bg-white rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border border-slate-100 py-3 px-3 flex flex-col items-center text-navy-dark relative transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]"
           title="Klik untuk preview 3D interaktif"
           role="button"
           aria-label="Preview frame – klik untuk melihat 3D"
           tabindex="0"
         >
-        <span class="card-preview-tap-hint">👆 tap to 3D preview</span>
           
           <!-- Layout Format 1: 1x4 Strip (Default) -->
           <div id="previewStrip" class="w-full flex flex-col items-center">
@@ -529,22 +510,22 @@
               </h2>
             </div>
             <!-- Vertical 4-Cut Placeholders -->
-            <div class="w-full flex flex-col gap-1 my-1">
-              <div class="fluid-photo-strip receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-0.5 sm:p-1 shadow-xs">
-                <span class="w-2.5 h-2.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[6px] font-bold flex items-center justify-center">1</span>
-                <span class="mx-auto px-1 py-[0.5px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[5px] font-sans font-medium leading-none">frame</span>
+            <div class="w-full flex flex-col gap-1.5 my-1">
+              <div class="preview-photo-slot receipt-placeholder bg-frame-blue rounded-[4px] relative flex flex-col justify-between p-1.5 sm:p-2 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] sm:text-[8px] font-bold flex items-center justify-center">1</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none">frame</span>
               </div>
-              <div class="fluid-photo-strip receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-0.5 sm:p-1 shadow-xs">
-                <span class="w-2.5 h-2.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[6px] font-bold flex items-center justify-center">2</span>
-                <span class="mx-auto px-1 py-[0.5px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[5px] font-sans font-medium leading-none">frame</span>
+              <div class="preview-photo-slot receipt-placeholder bg-frame-blue rounded-[4px] relative flex flex-col justify-between p-1.5 sm:p-2 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] sm:text-[8px] font-bold flex items-center justify-center">2</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none">frame</span>
               </div>
-              <div class="fluid-photo-strip receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-0.5 sm:p-1 shadow-xs">
-                <span class="w-2.5 h-2.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[6px] font-bold flex items-center justify-center">3</span>
-                <span class="mx-auto px-1 py-[0.5px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[5px] font-sans font-medium leading-none">frame</span>
+              <div class="preview-photo-slot receipt-placeholder bg-frame-blue rounded-[4px] relative flex flex-col justify-between p-1.5 sm:p-2 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] sm:text-[8px] font-bold flex items-center justify-center">3</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none">frame</span>
               </div>
-              <div class="fluid-photo-strip receipt-placeholder bg-frame-blue rounded-[3px] relative flex flex-col justify-between p-0.5 sm:p-1 shadow-xs">
-                <span class="w-2.5 h-2.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[6px] font-bold flex items-center justify-center">4</span>
-                <span class="mx-auto px-1 py-[0.5px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[5px] font-sans font-medium leading-none">frame</span>
+              <div class="preview-photo-slot receipt-placeholder bg-frame-blue rounded-[4px] relative flex flex-col justify-between p-1.5 sm:p-2 shadow-xs">
+                <span class="w-3.5 h-3.5 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] sm:text-[8px] font-bold flex items-center justify-center">4</span>
+                <span class="mx-auto px-1.5 py-[1px] receipt-pill-badge bg-white text-frame-blue rounded-full text-[6px] font-sans font-medium leading-none">frame</span>
               </div>
             </div>
             <!-- Strip Footer -->
@@ -657,22 +638,22 @@
                 <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
               </div>
               <!-- Center Photos -->
-              <div class="flex-1 flex flex-col gap-1 my-0.5">
-                <div class="fluid-photo-strip bg-slate-800 rounded-[2px] relative flex items-center justify-between p-0.5 border border-white/10">
-                  <span class="font-mono text-[5px] text-amber-400 font-bold">01A ▶</span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-white/20 text-white text-[6px] flex items-center justify-center font-bold">1</span>
+              <div class="flex-1 flex flex-col gap-1.5 my-0.5">
+                <div class="preview-photo-slot bg-slate-800 rounded-[3px] relative flex items-center justify-between p-1.5 border border-white/10 shadow-xs">
+                  <span class="font-mono text-[6px] text-amber-400 font-bold">01A ▶</span>
+                  <span class="w-3 h-3 rounded-full bg-white/20 text-white text-[7px] flex items-center justify-center font-bold">1</span>
                 </div>
-                <div class="fluid-photo-strip bg-slate-800 rounded-[2px] relative flex items-center justify-between p-0.5 border border-white/10">
-                  <span class="font-mono text-[5px] text-amber-400 font-bold">02A ▶</span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-white/20 text-white text-[6px] flex items-center justify-center font-bold">2</span>
+                <div class="preview-photo-slot bg-slate-800 rounded-[3px] relative flex items-center justify-between p-1.5 border border-white/10 shadow-xs">
+                  <span class="font-mono text-[6px] text-amber-400 font-bold">02A ▶</span>
+                  <span class="w-3 h-3 rounded-full bg-white/20 text-white text-[7px] flex items-center justify-center font-bold">2</span>
                 </div>
-                <div class="fluid-photo-strip bg-slate-800 rounded-[2px] relative flex items-center justify-between p-0.5 border border-white/10">
-                  <span class="font-mono text-[5px] text-amber-400 font-bold">03A ▶</span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-white/20 text-white text-[6px] flex items-center justify-center font-bold">3</span>
+                <div class="preview-photo-slot bg-slate-800 rounded-[3px] relative flex items-center justify-between p-1.5 border border-white/10 shadow-xs">
+                  <span class="font-mono text-[6px] text-amber-400 font-bold">03A ▶</span>
+                  <span class="w-3 h-3 rounded-full bg-white/20 text-white text-[7px] flex items-center justify-center font-bold">3</span>
                 </div>
-                <div class="fluid-photo-strip bg-slate-800 rounded-[2px] relative flex items-center justify-between p-0.5 border border-white/10">
-                  <span class="font-mono text-[5px] text-amber-400 font-bold">04A ▶</span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-white/20 text-white text-[6px] flex items-center justify-center font-bold">4</span>
+                <div class="preview-photo-slot bg-slate-800 rounded-[3px] relative flex items-center justify-between p-1.5 border border-white/10 shadow-xs">
+                  <span class="font-mono text-[6px] text-amber-400 font-bold">04A ▶</span>
+                  <span class="w-3 h-3 rounded-full bg-white/20 text-white text-[7px] flex items-center justify-center font-bold">4</span>
                 </div>
               </div>
               <!-- Right Sprocket Holes -->
@@ -767,6 +748,13 @@
               <span class="block font-serif italic text-[8px] text-navy-dark">directed by besties</span>
               <span class="block mt-0.5">WIDESCREEN 35MM • UBI CINEMA</span>
             </div>
+          </div>
+
+          <!-- Floating Scroll & 3D Hint Badge -->
+          <div id="scrollHintBadge" class="sticky bottom-1 z-20 pointer-events-none mt-auto pt-2 flex justify-center w-full transition-opacity duration-300">
+            <span class="inline-flex items-center gap-1 font-mono text-[7px] sm:text-[8px] tracking-wider text-slate-500 bg-white/90 backdrop-blur-xs border border-slate-200/90 py-0.5 px-2 rounded-full shadow-xs animate-bounce uppercase">
+              ↕ Scroll untuk lihat semua pose
+            </span>
           </div>
         </div>
 
@@ -996,7 +984,7 @@
 
       <!-- 2. Area Tinjau Foto Multi-Format (Wrapper flex-1 min-h-0) -->
       <div class="flex-1 min-h-0 flex items-center justify-center my-auto w-full">
-        <div id="receiptCard" class="w-[140px] sm:w-[155px] max-h-[40dvh] sm:max-h-[45dvh] w-auto overflow-hidden my-auto bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-2 px-2 flex flex-col items-center justify-center text-navy-dark transition-all duration-200 relative">
+        <div id="receiptCard" class="w-[210px] sm:w-[245px] max-h-[46dvh] overflow-y-auto card-internal-scroll scroll-smooth my-auto bg-white rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border border-slate-100 py-3 px-3 flex flex-col items-center text-navy-dark transition-all duration-200 relative">
         
         <!-- Result Format 1: 1x4 Strip (Default) -->
         <div id="resultStrip" class="w-full flex flex-col items-center relative">
@@ -1009,22 +997,22 @@
           </div>
           <!-- Relative photo container with stickers -->
           <div class="w-full relative">
-            <div class="w-full flex flex-col gap-1 my-1">
-              <div class="fluid-photo-strip rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+            <div class="w-full flex flex-col gap-1.5 my-1">
+              <div class="preview-photo-slot rounded-[4px] overflow-hidden relative shadow-xs bg-slate-100">
                 <img id="resultImg0" src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 w-2.5 h-2.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[6px] font-bold flex items-center justify-center shadow-xs">1</span>
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">1</span>
               </div>
-              <div class="fluid-photo-strip rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+              <div class="preview-photo-slot rounded-[4px] overflow-hidden relative shadow-xs bg-slate-100">
                 <img id="resultImg1" src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 w-2.5 h-2.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[6px] font-bold flex items-center justify-center shadow-xs">2</span>
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">2</span>
               </div>
-              <div class="fluid-photo-strip rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+              <div class="preview-photo-slot rounded-[4px] overflow-hidden relative shadow-xs bg-slate-100">
                 <img id="resultImg2" src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 w-2.5 h-2.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[6px] font-bold flex items-center justify-center shadow-xs">3</span>
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">3</span>
               </div>
-              <div class="fluid-photo-strip rounded-[3px] overflow-hidden relative shadow-xs bg-slate-100">
+              <div class="preview-photo-slot rounded-[4px] overflow-hidden relative shadow-xs bg-slate-100">
                 <img id="resultImg3" src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 w-2.5 h-2.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[6px] font-bold flex items-center justify-center shadow-xs">4</span>
+                <span class="absolute top-1 left-1 w-3.5 h-3.5 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">4</span>
               </div>
             </div>
             <!-- Sticker Overlay Layer for Strip -->
@@ -1176,22 +1164,22 @@
               <span class="w-1.5 h-2 rounded-[1px] bg-white/40"></span>
             </div>
             <!-- Center Photos with stickers -->
-            <div class="flex-1 flex flex-col gap-1 my-0.5 relative">
-              <div class="fluid-photo-strip rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
+            <div class="flex-1 flex flex-col gap-1.5 my-0.5 relative">
+              <div class="preview-photo-slot rounded-[3px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
                 <img src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 font-mono text-[5px] text-amber-400 font-bold bg-black/60 px-1 rounded-xs">01A ▶</span>
+                <span class="absolute top-1 left-1 font-mono text-[6px] text-amber-400 font-bold bg-black/70 px-1 py-0.5 rounded-xs">01A ▶</span>
               </div>
-              <div class="fluid-photo-strip rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
+              <div class="preview-photo-slot rounded-[3px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
                 <img src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 font-mono text-[5px] text-amber-400 font-bold bg-black/60 px-1 rounded-xs">02A ▶</span>
+                <span class="absolute top-1 left-1 font-mono text-[6px] text-amber-400 font-bold bg-black/70 px-1 py-0.5 rounded-xs">02A ▶</span>
               </div>
-              <div class="fluid-photo-strip rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
+              <div class="preview-photo-slot rounded-[3px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
                 <img src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 font-mono text-[5px] text-amber-400 font-bold bg-black/60 px-1 rounded-xs">03A ▶</span>
+                <span class="absolute top-1 left-1 font-mono text-[6px] text-amber-400 font-bold bg-black/70 px-1 py-0.5 rounded-xs">03A ▶</span>
               </div>
-              <div class="fluid-photo-strip rounded-[2px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
+              <div class="preview-photo-slot rounded-[3px] overflow-hidden relative shadow-xs bg-slate-900 border border-white/10">
                 <img src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 font-mono text-[5px] text-amber-400 font-bold bg-black/60 px-1 rounded-xs">04A ▶</span>
+                <span class="absolute top-1 left-1 font-mono text-[6px] text-amber-400 font-bold bg-black/70 px-1 py-0.5 rounded-xs">04A ▶</span>
               </div>
               <!-- Sticker Overlay Layer for Film -->
               <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
@@ -1463,7 +1451,7 @@
         icon: '🎞️',
         canvasW: 600,
         canvasH: 1800,
-        cardWidthClass: 'w-[140px] sm:w-[155px]'
+        cardWidthClass: 'w-[210px] sm:w-[245px]'
       },
       polaroid: {
         id: 'polaroid',
@@ -1472,7 +1460,7 @@
         icon: '📷',
         canvasW: 1200,
         canvasH: 1500,
-        cardWidthClass: 'w-[185px] sm:w-[205px]'
+        cardWidthClass: 'w-[210px] sm:w-[245px]'
       },
       receipt: {
         id: 'receipt',
@@ -1481,7 +1469,7 @@
         icon: '🧾',
         canvasW: 1200,
         canvasH: 2000,
-        cardWidthClass: 'w-[185px] sm:w-[205px]'
+        cardWidthClass: 'w-[210px] sm:w-[245px]'
       },
       film: {
         id: 'film',
@@ -1490,7 +1478,7 @@
         icon: '🎬',
         canvasW: 700,
         canvasH: 2000,
-        cardWidthClass: 'w-[150px] sm:w-[165px]'
+        cardWidthClass: 'w-[210px] sm:w-[245px]'
       },
       twin: {
         id: 'twin',
@@ -1499,7 +1487,7 @@
         icon: '✂️',
         canvasW: 1200,
         canvasH: 1600,
-        cardWidthClass: 'w-[200px] sm:w-[220px]'
+        cardWidthClass: 'w-[210px] sm:w-[245px]'
       },
       cinema: {
         id: 'cinema',
@@ -1508,7 +1496,7 @@
         icon: '🎥',
         canvasW: 600,
         canvasH: 1500,
-        cardWidthClass: 'w-[145px] sm:w-[160px]'
+        cardWidthClass: 'w-[210px] sm:w-[245px]'
       }
     };
 
@@ -1878,12 +1866,17 @@
 
       // 2. Update layout di previewReceiptCard (Screen 2)
       if (previewReceiptCard) {
-        const widthClass = FORMATS[formatKey].cardWidthClass;
+        const widthClass = FORMATS[formatKey].cardWidthClass || 'w-[210px] sm:w-[245px]';
+        const basePreviewClasses = `${widthClass} h-[48dvh] sm:h-[52dvh] overflow-y-auto card-internal-scroll scroll-smooth rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border py-3 px-3 flex flex-col items-center relative transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]`;
         if (formatKey === 'film') {
-          previewReceiptCard.className = `${widthClass} max-h-[40dvh] sm:max-h-[46dvh] w-auto overflow-hidden bg-[#121214] rounded shadow-[0_4px_16px_rgba(0,0,0,0.4)] border border-black/40 py-2 px-2 flex flex-col items-center justify-center text-white transition-all duration-200`;
+          previewReceiptCard.className = `${basePreviewClasses} bg-[#121214] border-black/40 text-white`;
         } else {
-          previewReceiptCard.className = `${widthClass} max-h-[40dvh] sm:max-h-[46dvh] w-auto overflow-hidden bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-2 px-2 flex flex-col items-center justify-center text-navy-dark transition-all duration-200`;
+          previewReceiptCard.className = `${basePreviewClasses} bg-white border-slate-100 text-navy-dark`;
         }
+
+        previewReceiptCard.scrollTop = 0;
+        const scrollHint = document.getElementById('scrollHintBadge');
+        if (scrollHint) scrollHint.classList.remove('opacity-0');
 
         const pStrip = document.getElementById('previewStrip');
         const pPolaroid = document.getElementById('previewPolaroid');
@@ -1901,12 +1894,14 @@
 
       // 3. Update layout di receiptCard (Screen 4)
       if (receiptCard) {
-        const widthClass = FORMATS[formatKey].cardWidthClass;
+        const widthClass = FORMATS[formatKey].cardWidthClass || 'w-[210px] sm:w-[245px]';
+        const baseResultClasses = `${widthClass} max-h-[46dvh] overflow-y-auto card-internal-scroll scroll-smooth my-auto rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border py-3 px-3 flex flex-col items-center relative transition-all duration-200`;
         if (formatKey === 'film') {
-          receiptCard.className = `${widthClass} max-h-[40dvh] sm:max-h-[45dvh] w-auto overflow-hidden my-auto bg-[#121214] rounded shadow-[0_4px_16px_rgba(0,0,0,0.4)] border border-black/40 py-2 px-2 flex flex-col items-center justify-center text-white transition-all duration-200 relative`;
+          receiptCard.className = `${baseResultClasses} bg-[#121214] border-black/40 text-white`;
         } else {
-          receiptCard.className = `${widthClass} max-h-[40dvh] sm:max-h-[45dvh] w-auto overflow-hidden my-auto bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.08)] border border-slate-100 py-2 px-2 flex flex-col items-center justify-center text-navy-dark transition-all duration-200 relative`;
+          receiptCard.className = `${baseResultClasses} bg-white border-slate-100 text-navy-dark`;
         }
+        receiptCard.scrollTop = 0;
 
         const rStrip = document.getElementById('resultStrip');
         const rPolaroid = document.getElementById('resultPolaroid');
@@ -3218,6 +3213,19 @@
       downloadReceiptImage();
     });
 
+    // In-Card Scroll Hint Fade
+    if (previewReceiptCard) {
+      previewReceiptCard.addEventListener('scroll', () => {
+        const scrollHint = document.getElementById('scrollHintBadge');
+        if (!scrollHint) return;
+        if (previewReceiptCard.scrollTop > 30) {
+          scrollHint.classList.add('opacity-0');
+        } else {
+          scrollHint.classList.remove('opacity-0');
+        }
+      });
+    }
+
     // Inisialisasi Format Default ('strip'), Metadata Awal & Tema Carousel Awal
     setFormat('strip');
     generateReceiptMetadata();
@@ -3268,9 +3276,11 @@
         inner.removeAttribute('role');
         inner.removeAttribute('tabindex');
         inner.style.cssText = 'width:100%;max-height:none;overflow:visible;box-shadow:none;border:none;cursor:default;transform:none;border-radius:0;padding:0;';
-        // Remove hint span
+        // Remove hint span and scroll badge
         const hint = inner.querySelector('.card-preview-tap-hint');
         if (hint) hint.remove();
+        const scrollBadge = inner.querySelector('#scrollHintBadge');
+        if (scrollBadge) scrollBadge.remove();
         content3d.innerHTML = '';
         content3d.appendChild(inner);
         modal.classList.add('modal-visible');
