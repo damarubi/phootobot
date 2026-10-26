@@ -959,12 +959,15 @@
           <h1 class="font-serif italic font-normal text-2xl sm:text-3xl text-navy-dark tracking-wide">
             Hasil
           </h1>
+          <p class="font-mono text-[8px] text-slate-400 mt-0.5 tracking-wider uppercase select-none">
+            👆 Tap kartu untuk preview 3D
+          </p>
         </header>
       </div>
 
       <!-- 2. Area Tinjau Foto Multi-Format (Wrapper flex-1 min-h-0) -->
       <div class="flex-1 min-h-0 flex items-center justify-center my-auto w-full">
-        <div id="receiptCard" class="w-[165px] sm:w-[185px] max-h-[46dvh] overflow-y-auto card-internal-scroll scroll-smooth my-auto bg-white rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border border-slate-100 py-3 px-3 flex flex-col items-center text-navy-dark transition-all duration-200 relative">
+        <div id="receiptCard" class="w-[165px] sm:w-[185px] max-h-[46dvh] overflow-y-auto card-internal-scroll scroll-smooth my-auto bg-white rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border border-slate-100 py-3 px-3 flex flex-col items-center text-navy-dark transition-all duration-200 relative cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]" title="Klik untuk preview 3D interaktif" role="button" aria-label="Lihat Hasil dalam 3D" tabindex="0">
         
         <!-- Result Format 1: 1x4 Strip (Default) -->
         <div id="resultStrip" class="w-full flex flex-col items-center relative">
@@ -1728,7 +1731,7 @@
       // 3. Update layout di receiptCard (Screen 4)
       if (receiptCard) {
         const widthClass = FORMATS[formatKey].cardWidthClass || 'w-[210px] sm:w-[245px]';
-        const baseResultClasses = `${widthClass} max-h-[46dvh] overflow-y-auto card-internal-scroll scroll-smooth my-auto rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border py-3 px-3 flex flex-col items-center relative transition-all duration-200`;
+        const baseResultClasses = `${widthClass} max-h-[46dvh] overflow-y-auto card-internal-scroll scroll-smooth my-auto rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.09)] border py-3 px-3 flex flex-col items-center relative transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]`;
         if (formatKey === 'film') {
           receiptCard.className = `${baseResultClasses} bg-[#121214] border-black/40 text-white`;
         } else {
@@ -2990,18 +2993,32 @@
       const glare      = document.getElementById('card3dGlare');
       const closeBtn   = document.getElementById('modal3dCloseBtn');
       const previewCard = document.getElementById('previewReceiptCard');
+      const receiptCard = document.getElementById('receiptCard');
 
       const MAX_TILT = 18; // degrees
 
       /* --- Open Modal --- */
-      function openModal() {
+      function openModal(sourceCard) {
         const theme = FRAME_THEMES[selectedThemeIndex] || FRAME_THEMES[0];
-        const inner = previewCard.cloneNode(true);
+        
+        // Cek apakah dipanggil dari Layar Hasil atau Layar Frame
+        const isResultScreen = (typeof screens !== 'undefined' && screens.result)
+          ? !screens.result.classList.contains('hidden')
+          : (document.getElementById('result_screen') && !document.getElementById('result_screen').classList.contains('hidden'));
+        const targetCard = (sourceCard && sourceCard instanceof HTMLElement)
+          ? sourceCard
+          : (isResultScreen && receiptCard ? receiptCard : previewCard);
 
-        // Hapus atribut pembatas scroll agar kartu tampil utuh memanjang
+        if (!targetCard) return;
+
+        const inner = targetCard.cloneNode(true);
+
+        // Bersihkan ID dan atribut pembatas interaksi
         inner.removeAttribute('id');
         inner.removeAttribute('role');
         inner.removeAttribute('tabindex');
+        inner.removeAttribute('title');
+        inner.removeAttribute('aria-label');
 
         // Tentukan warna tema atau film
         const isFilm = selectedFormat === 'film';
@@ -3019,19 +3036,18 @@
             slot.style.marginBottom = '5px';
           });
         } else if (selectedFormat === 'cinema') {
-          // Format cinema 3 scene agar scene 3 tidak keluar kartu
+          // Format cinema 3 scene (mendukung elemen preview maupun hasil asli)
           inner.style.cssText = `width: 215px; max-height: 80dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px 10px 14px 10px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
-          const frames = inner.querySelectorAll('#previewCinema .bg-slate-900');
+          const frames = inner.querySelectorAll('#previewCinema .bg-slate-900, #resultCinema .bg-slate-950');
           frames.forEach(frame => { frame.style.marginBottom = '6px'; });
-          const slots = inner.querySelectorAll('#previewCinema .receipt-placeholder');
+          const slots = inner.querySelectorAll('#previewCinema .receipt-placeholder, #resultCinema .bg-slate-900');
           slots.forEach(slot => {
             slot.style.height = '78px';
             slot.style.aspectRatio = '16/10';
             slot.style.marginBottom = '6px';
           });
         } else {
-          // POLAROID, RECEIPT, DAN TWIN KEMBALI SEPERTI COMMIT 7bd44b2!
-          // Menggunakan styling alami tanpa manipulasi slot foto
+          // POLAROID, RECEIPT, DAN TWIN (Styling natural proporsional 240px)
           inner.style.cssText = `width: 240px; max-height: 80dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
         }
 
@@ -3124,10 +3140,21 @@
       });
 
       /* --- Event Listeners --- */
-      previewCard.addEventListener('click', openModal);
-      previewCard.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
-      });
+      if (previewCard) {
+        previewCard.addEventListener('click', () => openModal(previewCard));
+        previewCard.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(previewCard); }
+        });
+      }
+      if (receiptCard) {
+        receiptCard.addEventListener('click', () => openModal(receiptCard));
+        receiptCard.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(receiptCard);
+          }
+        });
+      }
       closeBtn.addEventListener('click', closeModal);
       // Click backdrop to close
       modal.addEventListener('click', (e) => {
