@@ -218,51 +218,49 @@
       pointer-events: all;
     }
     #card3dScene {
-      perspective: 900px;
+      perspective: 1100px;
       perspective-origin: 50% 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
     }
     #card3dElement {
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 0.15s ease-out;
-      border-radius: 20px;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+      border-radius: 16px;
       cursor: grab;
       user-select: none;
+      will-change: transform;
     }
     #card3dElement:active {
       cursor: grabbing;
     }
     #card3dContent {
-      width: 220px;
-      max-height: 75dvh;
-      overflow-y: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      border-radius: 20px;
-      box-shadow:
-        0 40px 80px -20px rgba(15, 23, 42, 0.55),
-        0 16px 32px -8px rgba(15, 23, 42, 0.3),
-        0 0 0 1px rgba(255,255,255,0.12);
-      background: white;
-      padding: 10px;
-    }
-    #card3dContent::-webkit-scrollbar { display: none; }
-    @media (min-width: 640px) {
-      #card3dContent {
-        width: 260px;
-      }
+      max-height: 80dvh;
+      width: auto;
+      overflow: visible;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+      border: none;
     }
     #card3dGlare {
       position: absolute;
       inset: 0;
-      border-radius: 20px;
+      border-radius: 16px;
       pointer-events: none;
+      mix-blend-mode: overlay;
       opacity: 0;
-      transition: opacity 0.2s ease;
-      background: radial-gradient(ellipse 60% 40% at 30% 25%, rgba(255,255,255,0.45) 0%, transparent 70%);
-    }
-    #card3dElement:hover #card3dGlare {
-      opacity: 1;
+      transition: opacity 0.25s ease;
+      z-index: 20;
     }
     #modal3dCloseBtn {
       position: absolute;
@@ -3220,7 +3218,7 @@
       </div>
     </div>
 
-    <p id="modal3dHint">DRAG · TILT · EXPLORE</p>
+    <p id="modal3dHint" class="font-mono text-[9px] tracking-[0.2em] text-white/70 uppercase">✦ USAP ATAU GERAKKAN KURSOR UNTUK EFEK 3D ✦</p>
   </div>
 
   <script>
@@ -3239,20 +3237,52 @@
 
       /* --- Open Modal --- */
       function openModal() {
-        // Clone current visible content from the preview card into 3D content
+        const theme = FRAME_THEMES[selectedThemeIndex] || FRAME_THEMES[0];
         const inner = previewCard.cloneNode(true);
-        // Remove the tap-hint span, role, id from clone to keep it clean
+
+        // Hapus atribut pembatas scroll agar kartu tampil utuh memanjang
         inner.removeAttribute('id');
         inner.removeAttribute('role');
         inner.removeAttribute('tabindex');
-        inner.style.cssText = 'width:100%;max-height:none;overflow:visible;box-shadow:none;border:none;cursor:default;transform:none;border-radius:0;padding:0;';
-        // Remove hint span and scroll badge
+
+        // Tentukan warna tema atau film
+        const isFilm = selectedFormat === 'film';
+        const cardBg = isFilm ? '#121214' : theme.bg;
+        const cardBorder = isFilm ? 'rgba(255,255,255,0.18)' : theme.border;
+        const cardText = isFilm ? '#FFFFFF' : theme.textPrimary;
+
+        // Atur ukuran kartu 3D utuh tanpa potongan
+        if (selectedFormat === 'strip' || selectedFormat === 'film') {
+          inner.style.cssText = `width: 175px; max-height: 78dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px 10px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
+          // Pastikan semua slot foto di dalam klon memiliki tinggi proporsional sehingga ke-4 foto muat rapi
+          const slots = inner.querySelectorAll('.preview-photo-slot');
+          slots.forEach(slot => {
+            slot.style.height = '88px';
+            slot.style.aspectRatio = '3/4';
+            slot.style.marginBottom = '6px';
+          });
+        } else {
+          inner.style.cssText = `width: 240px; max-height: 76dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
+        }
+
+        // Bersihkan teks petunjuk dari kloning
         const hint = inner.querySelector('.card-preview-tap-hint');
         if (hint) hint.remove();
         const scrollBadge = inner.querySelector('#scrollHintBadge');
         if (scrollBadge) scrollBadge.remove();
+
+        content3d.style.backgroundColor = 'transparent';
+        content3d.style.boxShadow = 'none';
+        content3d.style.border = 'none';
+        content3d.style.padding = '0';
         content3d.innerHTML = '';
         content3d.appendChild(inner);
+
+        // Set bayangan awal kartu saat melayang
+        card3d.style.boxShadow = '0 24px 48px -12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.12)';
+        card3d.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        glare.style.opacity = '0';
+
         modal.classList.add('modal-visible');
         document.body.style.overflow = 'hidden';
       }
@@ -3261,17 +3291,26 @@
       function closeModal() {
         modal.classList.remove('modal-visible');
         card3d.style.transform = '';
+        card3d.style.boxShadow = '';
         glare.style.background = '';
+        glare.style.opacity = '0';
         document.body.style.overflow = '';
       }
 
       /* --- 3D Tilt from pointer position --- */
       function applyTilt(rx, ry) {
-        card3d.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-        // Glare: position based on tilt direction
-        const glareX = 50 + ry * 1.8;
-        const glareY = 50 - rx * 1.8;
-        glare.style.background = `radial-gradient(ellipse 55% 38% at ${glareX}% ${glareY}%, rgba(255,255,255,0.42) 0%, transparent 68%)`;
+        card3d.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.03, 1.03, 1.03)`;
+
+        // Dynamic Levitation Shadow (bergerak berlawanan dengan kemiringan kartu)
+        const shadowX = -ry * 2.8;
+        const shadowY = rx * 2.8 + 32;
+        const shadowBlur = 48 + Math.abs(rx) * 0.8 + Math.abs(ry) * 0.8;
+        card3d.style.boxShadow = `${shadowX}px ${shadowY}px ${shadowBlur}px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.12)`;
+
+        // Diagonal Holographic Sheen
+        const angle = 115 + ry * 2.5;
+        const pos = 50 + ry * 1.6 - rx * 1.2;
+        glare.style.background = `linear-gradient(${angle}deg, transparent ${Math.max(0, pos - 35)}%, rgba(255,255,255,0.08) ${pos - 15}%, rgba(255,255,255,0.55) ${pos}%, rgba(255,255,255,0.08) ${pos + 15}%, transparent ${Math.min(100, pos + 35)}%)`;
         glare.style.opacity = '1';
       }
 
@@ -3286,7 +3325,8 @@
       });
 
       card3d.addEventListener('mouseleave', () => {
-        card3d.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        card3d.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        card3d.style.boxShadow = '0 24px 48px -12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.12)';
         glare.style.opacity = '0';
       });
 
@@ -3308,7 +3348,8 @@
       }, { passive: false });
 
       card3d.addEventListener('touchend', () => {
-        card3d.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        card3d.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        card3d.style.boxShadow = '0 24px 48px -12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.12)';
         glare.style.opacity = '0';
       });
 
