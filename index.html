@@ -239,8 +239,7 @@
       cursor: grabbing;
     }
     #card3dContent {
-      max-height: none;
-      height: auto;
+      max-height: 80dvh;
       width: auto;
       overflow: visible;
       border-radius: 16px;
@@ -3261,88 +3260,37 @@
         inner.removeAttribute('role');
         inner.removeAttribute('tabindex');
 
-        // Pastikan inner tidak dibatasi oleh max-height yang memotong background kartu
-        inner.style.height = 'auto';
-        inner.style.maxHeight = 'none';
-        inner.style.overflow = 'visible';
-
         // Tentukan warna tema atau film
         const isFilm = selectedFormat === 'film';
         const cardBg = isFilm ? '#121214' : theme.bg;
         const cardBorder = isFilm ? 'rgba(255,255,255,0.18)' : theme.border;
         const cardText = isFilm ? '#FFFFFF' : theme.textPrimary;
 
-        const baseStyle = `height: auto; max-height: none; overflow: visible; border-radius: 16px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
-
-        // Atur proporsi masing-masing format secara spesifik agar kartu tampak utuh dan elegan
-        if (selectedFormat === 'strip') {
-          inner.style.cssText = `width: 175px; padding: 12px 10px; ${baseStyle}`;
-          const slots = inner.querySelectorAll('#previewStrip .preview-photo-slot, .preview-photo-slot');
+        // Format strip dan film vertikal panjang
+        if (selectedFormat === 'strip' || selectedFormat === 'film') {
+          inner.style.cssText = `width: 175px; max-height: 80dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px 10px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
+          const slots = inner.querySelectorAll('.preview-photo-slot');
           slots.forEach(slot => {
             slot.style.height = '76px';
             slot.style.aspectRatio = '3/4';
             slot.style.marginBottom = '5px';
           });
-        } else if (selectedFormat === 'receipt') {
-          inner.style.cssText = `width: 255px; padding: 14px 14px 16px 14px; ${baseStyle}`;
-          const slots = inner.querySelectorAll('#previewReceipt .receipt-placeholder');
-          slots.forEach(slot => {
-            slot.style.height = '105px';
-            slot.style.aspectRatio = '3/4';
-            slot.style.borderRadius = '4px';
-          });
-          const items = inner.querySelector('#previewReceipt .receipt-items');
-          if (items) items.style.marginBottom = '6px';
-          const footer = inner.querySelector('#previewReceipt .receipt-footer');
-          if (footer) footer.style.paddingTop = '6px';
         } else if (selectedFormat === 'cinema') {
-          inner.style.cssText = `width: 215px; padding: 12px 10px 14px 10px; ${baseStyle}`;
+          // Format cinema 3 scene agar scene 3 tidak keluar kartu
+          inner.style.cssText = `width: 215px; max-height: 80dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px 10px 14px 10px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
           const frames = inner.querySelectorAll('#previewCinema .bg-slate-900');
-          frames.forEach(frame => {
-            frame.style.marginBottom = '6px';
-          });
+          frames.forEach(frame => { frame.style.marginBottom = '6px'; });
           const slots = inner.querySelectorAll('#previewCinema .receipt-placeholder');
           slots.forEach(slot => {
             slot.style.height = '78px';
             slot.style.aspectRatio = '16/10';
             slot.style.marginBottom = '6px';
           });
-        } else if (selectedFormat === 'twin') {
-          inner.style.cssText = `width: 240px; padding: 12px 10px; ${baseStyle}`;
-          const slots = inner.querySelectorAll('#previewTwin .receipt-placeholder');
-          slots.forEach(slot => {
-            slot.style.height = '80px';
-            slot.style.aspectRatio = '3/4';
-          });
-        } else if (selectedFormat === 'film') {
-          inner.style.cssText = `width: 175px; padding: 12px 8px; ${baseStyle}`;
-          const slots = inner.querySelectorAll('#previewFilm .preview-photo-slot');
-          slots.forEach(slot => {
-            slot.style.height = '76px';
-            slot.style.aspectRatio = '4/3';
-            slot.style.marginBottom = '5px';
-          });
-        } else if (selectedFormat === 'polaroid') {
-          inner.style.cssText = `width: 270px; padding: 14px 14px 16px 14px; ${baseStyle}`;
-          const slots = inner.querySelectorAll('#previewPolaroid .receipt-placeholder');
-          slots.forEach(slot => {
-            slot.style.height = '115px';
-            slot.style.aspectRatio = '3/4';
-            slot.style.borderRadius = '4px';
-          });
-          const chin = inner.querySelector('#previewPolaroid .border-t');
-          if (chin) {
-            chin.style.marginTop = '8px';
-            chin.style.paddingTop = '8px';
-          }
         } else {
-          inner.style.cssText = `width: 220px; padding: 12px; ${baseStyle}`;
+          // POLAROID, RECEIPT, DAN TWIN KEMBALI SEPERTI COMMIT 7bd44b2!
+          // Menggunakan styling alami tanpa manipulasi slot foto
+          inner.style.cssText = `width: 240px; max-height: 80dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
         }
-
-        // Pastikan kembali pembatas tidak aktif setelah cssText
-        inner.style.height = 'auto';
-        inner.style.maxHeight = 'none';
-        inner.style.overflow = 'visible';
 
         // Bersihkan teks petunjuk dari kloning
         const hint = inner.querySelector('.card-preview-tap-hint');
@@ -3354,9 +3302,6 @@
         content3d.style.boxShadow = 'none';
         content3d.style.border = 'none';
         content3d.style.padding = '0';
-        content3d.style.maxHeight = 'none';
-        content3d.style.height = 'auto';
-        content3d.style.overflow = 'visible';
         content3d.innerHTML = '';
         content3d.appendChild(inner);
 
