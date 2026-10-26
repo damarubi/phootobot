@@ -239,7 +239,8 @@
       cursor: grabbing;
     }
     #card3dContent {
-      max-height: 80dvh;
+      max-height: none;
+      height: auto;
       width: auto;
       overflow: visible;
       border-radius: 16px;
@@ -668,34 +669,41 @@
               <span class="font-mono text-[6px] tracking-widest text-slate-400 uppercase font-semibold">UBI BESTIE TWIN CUT</span>
             </div>
             <!-- Dual Parallel Strips with Center Cut Line -->
-            <div class="w-full flex items-stretch gap-1.5 my-1">
-              <!-- Left Strip: Bestie 1 -->
-              <div class="flex-1 flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80">
-                <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 1</div>
-                <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
-                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">1</span>
+            <div class="w-full relative my-1">
+              <!-- Grid Simetris 2 Kolom -->
+              <div class="w-full grid grid-cols-2 gap-3">
+                <!-- Bestie 1 (Kiri) -->
+                <div class="flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80">
+                  <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 1</div>
+                  <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
+                    <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">1</span>
+                  </div>
+                  <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
+                    <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">2</span>
+                  </div>
+                  <div class="text-center font-serif italic text-[7px] text-navy-dark mt-0.5">memories ♡</div>
                 </div>
-                <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
-                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">2</span>
+
+                <!-- Bestie 2 (Kanan) -->
+                <div class="flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80">
+                  <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 2</div>
+                  <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
+                    <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">3</span>
+                  </div>
+                  <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
+                    <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">4</span>
+                  </div>
+                  <div class="text-center font-serif italic text-[7px] text-navy-dark mt-0.5">memories ♡</div>
                 </div>
-                <div class="text-center font-serif italic text-[7px] text-navy-dark mt-0.5">memories ♡</div>
               </div>
-              <!-- Center Cut Line with Scissors -->
-              <div class="flex flex-col items-center justify-between py-1 border-r border-dashed border-slate-300 relative px-0.5">
-                <span class="text-[8px] text-slate-400">✂</span>
-                <span class="font-mono text-[5px] text-slate-400 uppercase [writing-mode:vertical-lr] tracking-widest my-1 select-none">CUT HERE</span>
-                <span class="text-[8px] text-slate-400">✂</span>
-              </div>
-              <!-- Right Strip: Bestie 2 -->
-              <div class="flex-1 flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80">
-                <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 2</div>
-                <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
-                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">3</span>
-                </div>
-                <div class="aspect-[3/4] receipt-placeholder bg-frame-blue rounded-[2px] relative flex flex-col justify-between p-0.5 shadow-xs">
-                  <span class="w-3 h-3 rounded-full receipt-num-badge bg-white text-navy-dark text-[7px] font-bold flex items-center justify-center">4</span>
-                </div>
-                <div class="text-center font-serif italic text-[7px] text-navy-dark mt-0.5">memories ♡</div>
+
+              <!-- Garis Potong Gunting Presisi Dead-Center (Absolute 50%) -->
+              <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-between pointer-events-none py-1 z-10">
+                <span class="text-[8px] text-slate-400 bg-white/95 px-0.5 rounded-full leading-none">✂</span>
+                <span class="w-0 flex-1 border-l border-dashed border-slate-300 my-0.5"></span>
+                <span class="font-mono text-[5px] text-slate-400 uppercase [writing-mode:vertical-lr] tracking-widest bg-white/95 px-0.5 py-1 select-none">CUT HERE</span>
+                <span class="w-0 flex-1 border-l border-dashed border-slate-300 my-0.5"></span>
+                <span class="text-[8px] text-slate-400 bg-white/95 px-0.5 rounded-full leading-none">✂</span>
               </div>
             </div>
             <!-- Twin Footer -->
@@ -1198,39 +1206,47 @@
             <span class="font-mono text-[6px] tracking-widest text-slate-400 uppercase font-semibold">UBI BESTIE TWIN CUT</span>
           </div>
           <!-- Dual Parallel Strips with Center Cut Line -->
-          <div class="w-full flex items-stretch gap-1.5 my-1 relative">
-            <!-- Left Strip: Bestie 1 -->
-            <div class="flex-1 flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80 relative">
-              <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 1</div>
-              <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
-                <img src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">1</span>
+          <div class="w-full relative my-1">
+            <!-- Grid Simetris 2 Kolom -->
+            <div class="w-full grid grid-cols-2 gap-3">
+              <!-- Left Strip: Bestie 1 -->
+              <div class="flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80 relative">
+                <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 1</div>
+                <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
+                  <img src="" alt="Pose 1" class="result-img-0 w-full h-full object-cover">
+                  <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">1</span>
+                </div>
+                <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
+                  <img src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
+                  <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">2</span>
+                </div>
+                <div class="receipt-live-signature font-serif italic text-[7px] text-navy-dark text-center mt-0.5 min-h-[10px]">memories ♡</div>
               </div>
-              <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
-                <img src="" alt="Pose 2" class="result-img-1 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">2</span>
+
+              <!-- Right Strip: Bestie 2 -->
+              <div class="flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80 relative">
+                <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 2</div>
+                <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
+                  <img src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
+                  <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">3</span>
+                </div>
+                <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
+                  <img src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
+                  <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">4</span>
+                </div>
+                <div class="receipt-live-signature font-serif italic text-[7px] text-navy-dark text-center mt-0.5 min-h-[10px]">memories ♡</div>
               </div>
-              <div class="receipt-live-signature font-serif italic text-[7px] text-navy-dark text-center mt-0.5 min-h-[10px]">memories ♡</div>
             </div>
-            <!-- Center Cut Line with Scissors -->
-            <div class="flex flex-col items-center justify-between py-1 border-r border-dashed border-slate-300 relative px-0.5">
-              <span class="text-[8px] text-slate-400">✂</span>
-              <span class="font-mono text-[5px] text-slate-400 uppercase [writing-mode:vertical-lr] tracking-widest my-1 select-none">CUT HERE</span>
-              <span class="text-[8px] text-slate-400">✂</span>
+
+            <!-- Garis Potong Gunting Presisi Dead-Center (Absolute 50%) -->
+            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-between pointer-events-none py-1 z-10">
+              <span class="text-[8px] text-slate-400 bg-white/95 px-0.5 rounded-full leading-none">✂</span>
+              <span class="w-0 flex-1 border-l border-dashed border-slate-300 my-0.5"></span>
+              <span class="font-mono text-[5px] text-slate-400 uppercase [writing-mode:vertical-lr] tracking-widest bg-white/95 px-0.5 py-1 select-none">CUT HERE</span>
+              <span class="w-0 flex-1 border-l border-dashed border-slate-300 my-0.5"></span>
+              <span class="text-[8px] text-slate-400 bg-white/95 px-0.5 rounded-full leading-none">✂</span>
             </div>
-            <!-- Right Strip: Bestie 2 -->
-            <div class="flex-1 flex flex-col gap-1 p-1 rounded bg-slate-50/80 border border-slate-200/80 relative">
-              <div class="text-center font-mono text-[5px] text-slate-400 uppercase font-semibold">BESTIE 2</div>
-              <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
-                <img src="" alt="Pose 3" class="result-img-2 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">3</span>
-              </div>
-              <div class="aspect-[3/4] rounded-[2px] overflow-hidden relative shadow-xs bg-slate-100">
-                <img src="" alt="Pose 4" class="result-img-3 w-full h-full object-cover">
-                <span class="absolute top-0.5 left-0.5 w-3 h-3 rounded-full receipt-num-badge bg-white/90 text-navy-dark text-[7px] font-bold flex items-center justify-center shadow-xs">4</span>
-              </div>
-              <div class="receipt-live-signature font-serif italic text-[7px] text-navy-dark text-center mt-0.5 min-h-[10px]">memories ♡</div>
-            </div>
+
             <!-- Sticker Overlay Layer for Twin -->
             <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
               <span class="card-sticker sticker-ribbon absolute top-1 right-2 text-base sm:text-lg drop-shadow-md transition-all duration-200 transform scale-0 opacity-0 select-none">🎀</span>
@@ -3245,25 +3261,77 @@
         inner.removeAttribute('role');
         inner.removeAttribute('tabindex');
 
+        // Pastikan inner tidak dibatasi oleh max-height yang memotong background kartu
+        inner.style.height = 'auto';
+        inner.style.maxHeight = 'none';
+        inner.style.overflow = 'visible';
+
         // Tentukan warna tema atau film
         const isFilm = selectedFormat === 'film';
         const cardBg = isFilm ? '#121214' : theme.bg;
         const cardBorder = isFilm ? 'rgba(255,255,255,0.18)' : theme.border;
         const cardText = isFilm ? '#FFFFFF' : theme.textPrimary;
 
-        // Atur ukuran kartu 3D utuh tanpa potongan
-        if (selectedFormat === 'strip' || selectedFormat === 'film') {
-          inner.style.cssText = `width: 175px; max-height: 78dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px 10px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
-          // Pastikan semua slot foto di dalam klon memiliki tinggi proporsional sehingga ke-4 foto muat rapi
-          const slots = inner.querySelectorAll('.preview-photo-slot');
+        const baseStyle = `height: auto; max-height: none; overflow: visible; border-radius: 16px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
+
+        // Atur proporsi masing-masing format secara spesifik agar kartu tampak utuh dan elegan
+        if (selectedFormat === 'strip') {
+          inner.style.cssText = `width: 175px; padding: 12px 10px; ${baseStyle}`;
+          const slots = inner.querySelectorAll('#previewStrip .preview-photo-slot, .preview-photo-slot');
           slots.forEach(slot => {
-            slot.style.height = '88px';
+            slot.style.height = '76px';
             slot.style.aspectRatio = '3/4';
+            slot.style.marginBottom = '5px';
+          });
+        } else if (selectedFormat === 'receipt') {
+          inner.style.cssText = `width: 220px; padding: 12px 12px 14px 12px; ${baseStyle}`;
+          const slots = inner.querySelectorAll('#previewReceipt .receipt-placeholder');
+          slots.forEach(slot => {
+            slot.style.height = '85px';
+            slot.style.aspectRatio = '3/4';
+          });
+        } else if (selectedFormat === 'cinema') {
+          inner.style.cssText = `width: 215px; padding: 12px 10px 14px 10px; ${baseStyle}`;
+          const frames = inner.querySelectorAll('#previewCinema .bg-slate-900');
+          frames.forEach(frame => {
+            frame.style.marginBottom = '6px';
+          });
+          const slots = inner.querySelectorAll('#previewCinema .receipt-placeholder');
+          slots.forEach(slot => {
+            slot.style.height = '78px';
+            slot.style.aspectRatio = '16/10';
             slot.style.marginBottom = '6px';
           });
+        } else if (selectedFormat === 'twin') {
+          inner.style.cssText = `width: 240px; padding: 12px 10px; ${baseStyle}`;
+          const slots = inner.querySelectorAll('#previewTwin .receipt-placeholder');
+          slots.forEach(slot => {
+            slot.style.height = '80px';
+            slot.style.aspectRatio = '3/4';
+          });
+        } else if (selectedFormat === 'film') {
+          inner.style.cssText = `width: 175px; padding: 12px 8px; ${baseStyle}`;
+          const slots = inner.querySelectorAll('#previewFilm .preview-photo-slot');
+          slots.forEach(slot => {
+            slot.style.height = '76px';
+            slot.style.aspectRatio = '4/3';
+            slot.style.marginBottom = '5px';
+          });
+        } else if (selectedFormat === 'polaroid') {
+          inner.style.cssText = `width: 220px; padding: 12px 10px 14px 10px; ${baseStyle}`;
+          const slots = inner.querySelectorAll('#previewPolaroid .receipt-placeholder');
+          slots.forEach(slot => {
+            slot.style.height = '90px';
+            slot.style.aspectRatio = '3/4';
+          });
         } else {
-          inner.style.cssText = `width: 240px; max-height: 76dvh; height: auto; overflow: visible; border-radius: 16px; padding: 12px; box-shadow: none; cursor: default; transform: none; background-color: ${cardBg}; border: 1px solid ${cardBorder}; color: ${cardText};`;
+          inner.style.cssText = `width: 220px; padding: 12px; ${baseStyle}`;
         }
+
+        // Pastikan kembali pembatas tidak aktif setelah cssText
+        inner.style.height = 'auto';
+        inner.style.maxHeight = 'none';
+        inner.style.overflow = 'visible';
 
         // Bersihkan teks petunjuk dari kloning
         const hint = inner.querySelector('.card-preview-tap-hint');
@@ -3275,6 +3343,9 @@
         content3d.style.boxShadow = 'none';
         content3d.style.border = 'none';
         content3d.style.padding = '0';
+        content3d.style.maxHeight = 'none';
+        content3d.style.height = 'auto';
+        content3d.style.overflow = 'visible';
         content3d.innerHTML = '';
         content3d.appendChild(inner);
 
