@@ -220,6 +220,120 @@
         max-height: 72px;
       }
     }
+
+    /* ============================================================
+       3D MODAL PREVIEW
+    ============================================================ */
+    #modal3dPreview {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.62);
+      backdrop-filter: blur(10px) saturate(1.6);
+      -webkit-backdrop-filter: blur(10px) saturate(1.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    #modal3dPreview.modal-visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #card3dScene {
+      perspective: 900px;
+      perspective-origin: 50% 50%;
+    }
+    #card3dElement {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out;
+      border-radius: 20px;
+      cursor: grab;
+      user-select: none;
+    }
+    #card3dElement:active {
+      cursor: grabbing;
+    }
+    #card3dContent {
+      width: 220px;
+      max-height: 75dvh;
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      border-radius: 20px;
+      box-shadow:
+        0 40px 80px -20px rgba(15, 23, 42, 0.55),
+        0 16px 32px -8px rgba(15, 23, 42, 0.3),
+        0 0 0 1px rgba(255,255,255,0.12);
+      background: white;
+      padding: 10px;
+    }
+    #card3dContent::-webkit-scrollbar { display: none; }
+    @media (min-width: 640px) {
+      #card3dContent {
+        width: 260px;
+      }
+    }
+    #card3dGlare {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      background: radial-gradient(ellipse 60% 40% at 30% 25%, rgba(255,255,255,0.45) 0%, transparent 70%);
+    }
+    #card3dElement:hover #card3dGlare {
+      opacity: 1;
+    }
+    #modal3dCloseBtn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+      z-index: 10;
+    }
+    #modal3dCloseBtn:hover {
+      background: rgba(255,255,255,0.28);
+    }
+    #modal3dHint {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.55);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    /* Tap-to-preview hint label on the card */
+    .card-preview-tap-hint {
+      position: absolute;
+      bottom: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-family: 'Space Mono', monospace;
+      color: rgba(15,23,42,0.38);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body class="studio-bg h-[100dvh] max-h-[100dvh] w-full overflow-hidden flex items-center justify-center p-2 sm:p-4 font-sans text-navy-dark select-none antialiased">
@@ -394,7 +508,17 @@
         </button>
 
         <!-- Preview Struk/Card Multi-Format -->
-        <div id="previewReceiptCard" class="w-[140px] sm:w-[155px] max-h-[40dvh] sm:max-h-[46dvh] w-auto overflow-hidden bg-white rounded shadow-[0_3px_12px_rgba(0,0,0,0.07)] border border-slate-100/80 py-2 px-2 flex flex-col items-center justify-center text-navy-dark transition-all duration-200">
+        <!-- Preview Card: Enlarged + Scrollable + Click-to-3D -->
+        <div
+          id="previewReceiptCard"
+          class="relative w-[195px] sm:w-[225px] overflow-y-auto no-scrollbar bg-white rounded-xl shadow-[0_4px_18px_rgba(0,0,0,0.1)] border border-slate-100/80 py-2 px-2 flex flex-col items-center text-navy-dark transition-all duration-200 cursor-pointer hover:shadow-[0_8px_28px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 active:scale-[0.98]"
+          style="max-height:48dvh;"
+          title="Klik untuk preview 3D interaktif"
+          role="button"
+          aria-label="Preview frame – klik untuk melihat 3D"
+          tabindex="0"
+        >
+        <span class="card-preview-tap-hint">👆 tap to 3D preview</span>
           
           <!-- Layout Format 1: 1x4 Strip (Default) -->
           <div id="previewStrip" class="w-full flex flex-col items-center">
@@ -3098,6 +3222,131 @@
     setFormat('strip');
     generateReceiptMetadata();
     updateThemeCarousel();
+  </script>
+
+  <!-- ============================================================
+       3D INTERACTIVE FRAME PREVIEW MODAL
+  ============================================================ -->
+  <div id="modal3dPreview" role="dialog" aria-modal="true" aria-label="3D Frame Preview">
+    <!-- Close Button -->
+    <button id="modal3dCloseBtn" aria-label="Tutup Preview">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+
+    <!-- 3D Card Scene -->
+    <div id="card3dScene">
+      <div id="card3dElement">
+        <!-- Dynamic clone of previewReceiptCard content will be injected here -->
+        <div id="card3dContent"></div>
+        <div id="card3dGlare"></div>
+      </div>
+    </div>
+
+    <p id="modal3dHint">DRAG · TILT · EXPLORE</p>
+  </div>
+
+  <script>
+    /* ============================================================
+       3D MODAL LOGIC
+    ============================================================ */
+    (function () {
+      const modal      = document.getElementById('modal3dPreview');
+      const card3d     = document.getElementById('card3dElement');
+      const content3d  = document.getElementById('card3dContent');
+      const glare      = document.getElementById('card3dGlare');
+      const closeBtn   = document.getElementById('modal3dCloseBtn');
+      const previewCard = document.getElementById('previewReceiptCard');
+
+      const MAX_TILT = 18; // degrees
+
+      /* --- Open Modal --- */
+      function openModal() {
+        // Clone current visible content from the preview card into 3D content
+        const inner = previewCard.cloneNode(true);
+        // Remove the tap-hint span, role, id from clone to keep it clean
+        inner.removeAttribute('id');
+        inner.removeAttribute('role');
+        inner.removeAttribute('tabindex');
+        inner.style.cssText = 'width:100%;max-height:none;overflow:visible;box-shadow:none;border:none;cursor:default;transform:none;border-radius:0;padding:0;';
+        // Remove hint span
+        const hint = inner.querySelector('.card-preview-tap-hint');
+        if (hint) hint.remove();
+        content3d.innerHTML = '';
+        content3d.appendChild(inner);
+        modal.classList.add('modal-visible');
+        document.body.style.overflow = 'hidden';
+      }
+
+      /* --- Close Modal --- */
+      function closeModal() {
+        modal.classList.remove('modal-visible');
+        card3d.style.transform = '';
+        glare.style.background = '';
+        document.body.style.overflow = '';
+      }
+
+      /* --- 3D Tilt from pointer position --- */
+      function applyTilt(rx, ry) {
+        card3d.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+        // Glare: position based on tilt direction
+        const glareX = 50 + ry * 1.8;
+        const glareY = 50 - rx * 1.8;
+        glare.style.background = `radial-gradient(ellipse 55% 38% at ${glareX}% ${glareY}%, rgba(255,255,255,0.42) 0%, transparent 68%)`;
+        glare.style.opacity = '1';
+      }
+
+      /* --- Mouse tilt --- */
+      card3d.addEventListener('mousemove', (e) => {
+        const rect = card3d.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);  // -1 to 1
+        const dy = (e.clientY - cy) / (rect.height / 2); // -1 to 1
+        applyTilt(-dy * MAX_TILT, dx * MAX_TILT);
+      });
+
+      card3d.addEventListener('mouseleave', () => {
+        card3d.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        glare.style.opacity = '0';
+      });
+
+      /* --- Touch tilt --- */
+      let touchStartX = 0, touchStartY = 0;
+      card3d.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      card3d.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const rect = card3d.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.touches[0].clientX - cx) / (rect.width / 2);
+        const dy = (e.touches[0].clientY - cy) / (rect.height / 2);
+        applyTilt(-dy * MAX_TILT, dx * MAX_TILT);
+      }, { passive: false });
+
+      card3d.addEventListener('touchend', () => {
+        card3d.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        glare.style.opacity = '0';
+      });
+
+      /* --- Event Listeners --- */
+      previewCard.addEventListener('click', openModal);
+      previewCard.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
+      });
+      closeBtn.addEventListener('click', closeModal);
+      // Click backdrop to close
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      // Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('modal-visible')) closeModal();
+      });
+    })();
   </script>
 
 </body>
